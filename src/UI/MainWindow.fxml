@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--<?import com.gluonhq.charm.glisten.control.SettingsPane?>-->
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -11,7 +10,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
 
 <AnchorPane prefHeight="707.0" prefWidth="1091.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.MainWindow">
    <children>
@@ -42,7 +40,11 @@
       <VBox layoutY="27.0" prefHeight="684.0" prefWidth="285.0">
          <children>
             <ListView prefHeight="381.0" prefWidth="285.0" />
-<!--            <SettingsPane prefHeight="391.0" prefWidth="285.0" />-->
+            <ScrollPane prefHeight="307.0" prefWidth="285.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="302.0" prefWidth="283.0" />
+              </content>
+            </ScrollPane>
          </children>
       </VBox>
       <VBox layoutX="285.0" layoutY="27.0" prefHeight="684.0" prefWidth="809.0">
@@ -56,7 +58,11 @@
                <children>
                   <VBox prefHeight="262.0" prefWidth="609.0">
                      <children>
-                        <ScrollPane prefHeight="236.0" prefWidth="609.0" />
+                        <ScrollPane prefHeight="224.0" prefWidth="609.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="216.0" prefWidth="594.0" />
+                          </content>
+                        </ScrollPane>
                         <TextField />
                      </children>
                   </VBox>

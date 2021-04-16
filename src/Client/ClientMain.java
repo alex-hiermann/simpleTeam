@@ -1,7 +1,5 @@
 package Client;
 
-import Client.Client;
-import Client.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,10 +28,17 @@ public class ClientMain extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("UI/LoginWindow.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../UI/LoginWindow.fxml"));
+        Parent root2 = FXMLLoader.load(getClass().getResource("../UI/MainWindow.fxml"));
+
         Scene scene = new Scene(root);
         stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
+
+        Stage stage2 = new Stage();
+        stage2.setTitle("SimpleTeam");
+        stage2.setScene(new Scene(root2));
+        stage2.show();
     }
 }
