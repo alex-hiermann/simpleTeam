@@ -10,7 +10,7 @@ public class Server implements Runnable{
 
     public static int port = 7274;
 
-    public static LinkedList<Socket> clients;
+    public static LinkedList<Socket> clients = new LinkedList<>();
 
 
 

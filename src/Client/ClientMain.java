@@ -21,7 +21,7 @@ public class ClientMain extends Application {
             Socket s = new Socket(ip.split(":")[0], Integer.parseInt(ip.split(":")[1]));
             System.out.println("Connection successful: " + s.toString());
             return s;
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         return null;
     }
