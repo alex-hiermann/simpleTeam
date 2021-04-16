@@ -21,7 +21,6 @@ public class ClientMain extends Application {
             System.out.println("Connection successful: " + s.toString());
             return s;
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return null;
     }
