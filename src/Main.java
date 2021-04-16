@@ -1,11 +1,17 @@
 import Client.Client;
 import Client.User;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Main {
+public class Main extends Application {
     public static void main(String[] args) {
+        launch(args);
         System.out.println("Initializing Simple Team");
         System.out.print("LogIn: ");
         Scanner sc = new Scanner(System.in);
@@ -26,5 +32,15 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("UI/LoginWindow.fxml"));
+
+        Scene scene = new Scene(root);
+        stage.setTitle("Login");
+        stage.setScene(scene);
+        stage.show();
     }
 }
