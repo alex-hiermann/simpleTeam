@@ -22,9 +22,9 @@ public class LoginWindow {
         if (username.getText().equals("Alegs") && password.getText().equals("Mags")) {
             Socket temp = ClientMain.connectToServer(server.getText());
             Client client = new Client(temp, new User(username.getText()));
-            Thread thread = new Thread(client);
-            thread.start();
+            new Thread(client).start();
             try {
+                ClientMain.currentStage.close();
                 new ClientMain().showMainWindow();
             } catch (IOException e) {
                 e.printStackTrace();

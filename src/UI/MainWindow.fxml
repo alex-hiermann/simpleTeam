@@ -38,7 +38,10 @@
             <ListView prefHeight="381.0" prefWidth="285.0" />
             <ScrollPane prefHeight="307.0" prefWidth="285.0">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="302.0" prefWidth="283.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="302.0" prefWidth="283.0">
+                     <children>
+                        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Add Team" />
+                     </children></AnchorPane>
               </content>
             </ScrollPane>
          </children>
