@@ -38,6 +38,6 @@
             </Button>
          </children>
       </VBox>
-      <ProgressBar fx:id="progress" layoutX="200.0" layoutY="368.0" prefWidth="200.0"/>
+      <ProgressBar fx:id="progress" layoutX="200.0" layoutY="368.0" prefWidth="200.0" progress="0" />
    </children>
 </AnchorPane>

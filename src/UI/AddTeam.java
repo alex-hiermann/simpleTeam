@@ -11,7 +11,7 @@ public class AddTeam {
     public TextArea teamdesc;
 
     public void createTeam(ActionEvent actionEvent) {
-        if ((!teamname.getText().isEmpty() && !teamname.getText().isEmpty()) || !teamname.getText().contains("'")) {
+        if ((!teamname.getText().isEmpty() && !teamname.getText().isBlank()) || !teamname.getText().contains("'")) {
             Client.sendSTRequest("createTeam:name='" + teamname.getText() + "',desc='" + teamdesc.getText() + "'");
         }
     }
