@@ -31,13 +31,13 @@
                   <Insets bottom="5.0" />
                </VBox.margin></PasswordField>
             <TextField fx:id="server" promptText="Server IP and PORT" text="localhost:7274" />
-            <Button mnemonicParsing="false" onAction="#loginAction" text="Login">
+            <Button fx:id="button" mnemonicParsing="false" onAction="#loginAction" text="Login">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </Button>
          </children>
       </VBox>
-      <ProgressBar layoutX="200.0" layoutY="368.0" prefWidth="200.0" progress="0.0" />
+      <ProgressBar fx:id="progress" layoutX="200.0" layoutY="368.0" prefWidth="200.0"/>
    </children>
 </AnchorPane>
