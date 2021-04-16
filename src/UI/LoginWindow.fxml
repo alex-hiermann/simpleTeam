@@ -15,15 +15,21 @@
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SimpleTeam">
                <VBox.margin>
-                  <Insets bottom="80.0" />
+                  <Insets bottom="25.0" />
                </VBox.margin>
                <font>
                   <Font name="Arial" size="28.0" />
                </font>
             </Text>
-            <TextField promptText="Username" fx:id="username" />
-            <PasswordField promptText="Password" fx:id="password" />
-            <TextField promptText="Server IP and PORT" text="localhost:7274" fx:id="server" />
+            <TextField fx:id="username" promptText="Username">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin></TextField>
+            <PasswordField fx:id="password" promptText="Password">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin></PasswordField>
+            <TextField fx:id="server" promptText="Server IP and PORT" text="localhost:7274" />
             <Button mnemonicParsing="false" onAction="#loginAction" text="Login">
                <VBox.margin>
                   <Insets top="10.0" />
