@@ -29,6 +29,8 @@ public class Server implements Runnable{
         } catch (Exception ignored) {
         }
 
+        new Thread(new Listener()).start();
+
         Thread thread = new Thread(new Server());
         thread.start();
 

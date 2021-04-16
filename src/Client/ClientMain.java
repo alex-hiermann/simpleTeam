@@ -14,6 +14,8 @@ public class ClientMain extends Application {
 
     public static Stage currentStage = new Stage();
 
+    public static Client client;
+
     public static void main(String[] args) {
         System.out.println("Initializing Simple Team");
         launch(args);
@@ -45,14 +47,24 @@ public class ClientMain extends Application {
     }
 
     public void showMainWindow() throws IOException {
-        Parent root2 = FXMLLoader.load(getClass().getResource("../UI/MainWindow.fxml"));
-        Stage stage2 = new Stage();
-        stage2.getIcons().add(new Image(this.getClass().getResourceAsStream("/icon-1.png")));
-        stage2.setTitle("SimpleTeam");
-        stage2.setScene(new Scene(root2));
-        stage2.show();
+        Parent root = FXMLLoader.load(getClass().getResource("../UI/MainWindow.fxml"));
+        Stage stage = new Stage();
+        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/icon-1.png")));
+        stage.setTitle("SimpleTeam");
+        stage.setScene(new Scene(root));
+        stage.show();
 
-        currentStage = stage2;
+        currentStage = stage;
+    }
+
+    public void showAddTeamWindow() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../UI/AddTeam.fxml"));
+        Stage stage = new Stage();
+        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/icon-1.png")));
+        stage.setTitle("Add Team");
+        stage.setScene(new Scene(root));
+        stage.show();
+        currentStage = stage;
     }
 
 }

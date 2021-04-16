@@ -30,6 +30,7 @@ public class LoginWindow {
             button.setDisable(true);
             Socket temp = ClientMain.connectToServer(server.getText());
             Client client = new Client(temp, new User(username.getText()));
+            ClientMain.client = client;
             new Thread(client).start();
 
             for (int i = 0; i < 100; i += 20) {

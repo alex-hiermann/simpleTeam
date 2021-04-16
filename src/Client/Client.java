@@ -3,18 +3,37 @@ package Client;
 import javafx.stage.Stage;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
 public class Client implements Runnable {
 
-    Socket socket;
-    User user;
+    static Socket socket;
+    static User user;
 
     public Client(Socket socket, User user) {
-        this.socket = socket;
-        this.user = user;
+        Client.socket = socket;
+        Client.user = user;
 
+    }
+
+
+    /**
+     * @param request Request in the following pattern: 'requestType'
+     * @return Successful
+     */
+    public static boolean sendSTRequest(String request) {
+        try {
+            DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+            dos.writeUTF(request);
+            dos.flush();
+            dos.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
