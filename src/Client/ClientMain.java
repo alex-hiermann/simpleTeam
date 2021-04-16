@@ -12,7 +12,7 @@ import java.net.Socket;
 
 public class ClientMain extends Application {
 
-    Stage currentStage = new Stage();
+    static Stage currentStage = new Stage();
 
     public static void main(String[] args) {
         System.out.println("Initializing Simple Team");

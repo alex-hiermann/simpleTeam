@@ -7,6 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
+import java.io.IOException;
 import java.net.Socket;
 
 
@@ -22,6 +24,11 @@ public class LoginWindow {
             Client client = new Client(temp, new User(username.getText()));
             Thread thread = new Thread(client);
             thread.start();
+            try {
+                new ClientMain().showMainWindow();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
