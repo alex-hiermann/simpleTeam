@@ -3,11 +3,14 @@ package Server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Server implements Runnable{
 
     public static int port = 7274;
+
+    public static LinkedList<Socket> clients;
 
 
 
@@ -33,6 +36,7 @@ public class Server implements Runnable{
             ServerSocket serverSocket = new ServerSocket(port);
             while (true) {
                 Socket s = serverSocket.accept();
+                clients.add(s);
                 System.out.println("New client connected: " + s.toString());
             }
         } catch (IOException e) {
