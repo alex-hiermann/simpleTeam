@@ -30,10 +30,9 @@ public class LoginWindow {
             button.setDisable(true);
             Socket temp = ClientMain.connectToServer(server.getText());
             Client client = new Client(temp, new User(username.getText()));
-            ClientMain.client = client;
             new Thread(client).start();
 
-            for (int i = 0; i < 100; i += 20) {
+            for (int i = 0; i <= 100; i += 20) {
                 try {
                     Thread.sleep(ThreadLocalRandom.current().nextInt(500, 1250));
                 } catch (InterruptedException e) {
@@ -52,6 +51,7 @@ public class LoginWindow {
     }
 
     protected void updateProgress(int val) {
-        Platform.runLater(() -> progress.setProgress(val));
+//        Platform.runLater(() -> progress.setProgress(val));
+//        Platform.runLater(() -> username.setText("REFRESH AT VALUE " + val));
     }
 }
