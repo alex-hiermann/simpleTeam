@@ -13,7 +13,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="javafx16--lib" level="project" />
-    <orderEntry type="library" name="javafx16--lib" level="project" />
+    <orderEntry type="library" exported="" name="javafx16--lib" level="project" />
+    <orderEntry type="library" exported="" scope="RUNTIME" name="javafx16-runtime" level="project" />
   </component>
 </module>

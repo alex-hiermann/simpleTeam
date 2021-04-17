@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Objects;
 
 public class ClientMain extends Application {
 
@@ -34,10 +35,9 @@ public class ClientMain extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("../UI/LoginWindow.fxml"));
-
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/UI/LoginWindow.fxml")));
         Scene scene = new Scene(root);
-        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/icon-1.png")));
+        stage.getIcons().add(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/icon-1.png"))));
         stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
@@ -47,9 +47,9 @@ public class ClientMain extends Application {
     }
 
     public void showMainWindow() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../UI/MainWindow.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/UI/MainWindow.fxml")));
         Stage stage = new Stage();
-        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/icon-1.png")));
+        stage.getIcons().add(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/icon-1.png"))));
         stage.setTitle("SimpleTeam");
         stage.setScene(new Scene(root));
         stage.show();
@@ -58,9 +58,9 @@ public class ClientMain extends Application {
     }
 
     public void showAddTeamWindow() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../UI/AddTeam.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/UI/AddTeam.fxml")));
         Stage stage = new Stage();
-        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/icon-1.png")));
+        stage.getIcons().add(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/icon-1.png"))));
         stage.setTitle("Add Team");
         stage.setScene(new Scene(root));
         stage.show();

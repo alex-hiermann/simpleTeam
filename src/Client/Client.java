@@ -20,7 +20,7 @@ public class Client implements Runnable {
 
 
     /**
-     * @param request Request in the following pattern: 'requestType'
+     * @param request Request in the following pattern: 'requestType':'option1'='value1','option2'='value2'
      * @return Successful
      */
     public static boolean sendSTRequest(String request) {
@@ -48,7 +48,5 @@ public class Client implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
 }

@@ -29,7 +29,6 @@ public class Server implements Runnable{
         } catch (Exception ignored) {
         }
 
-        new Thread(new Listener()).start();
 
         Thread thread = new Thread(new Server());
         thread.start();
@@ -38,6 +37,7 @@ public class Server implements Runnable{
             ServerSocket serverSocket = new ServerSocket(port);
             while (true) {
                 Socket s = serverSocket.accept();
+                new Thread(new Listener(s)).start();
                 clients.add(s);
                 System.out.println("New client connected: " + s.toString());
             }
@@ -54,7 +54,13 @@ public class Server implements Runnable{
             String command = sc.nextLine();
             switch (command) {
                 case "shutdown":
-                    System.exit(2);
+                    System.err.println("Server shutdowning in 5 seconds!");
+                    try {
+                        Thread.sleep(5000);
+                        System.exit(2);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case "refresh":
                     break;
