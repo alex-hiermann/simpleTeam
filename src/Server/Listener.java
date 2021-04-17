@@ -1,28 +1,57 @@
 package Server;
 
+import Client.Client;
+import Client.Team;
+import Utils.BasicFunctionLibrary;
+
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class Listener implements Runnable{
+public class Listener implements Runnable {
 
-    Socket s;
+    static Socket socket;
 
     @Override
     public void run() {
         try {
-            DataInputStream dataInputStream = new DataInputStream(s.getInputStream());
-            while (true) {
-                dataInputStream.readUTF();
-                // TODO accept STRequests
+            DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
+            String data = "";
+
+            //STRequest handling
+            synchronized (this) {
+                while (!(data = dataInputStream.readUTF()).isEmpty()) {
+                    String command = data.split(":")[0];
+                    String args[] = data.split(":")[1].split(",");
+                    switch (command) {
+                        case "createTeam" -> {
+                            Team team = new Team(BasicFunctionLibrary.findValueFromArgs("name", args), BasicFunctionLibrary.findValueFromArgs("desc", args));
+                            Server.teams.add(team);
+                            sendSTRequestToClient("createTeam:" + team);
+                        }
+                    }
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public Listener(Socket s) {
-        this.s = s;
+        socket = s;
     }
+
+    public static boolean sendSTRequestToClient(String message) {
+        try {
+            DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+            dataOutputStream.writeUTF(message);
+            dataOutputStream.flush();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

@@ -4,6 +4,7 @@ import Client.Client;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import Client.Team;
 
 public class AddTeam {
 
@@ -12,7 +13,7 @@ public class AddTeam {
 
     public void createTeam(ActionEvent actionEvent) {
         if ((!teamname.getText().isEmpty() && !teamname.getText().isBlank()) || !teamname.getText().contains("'")) {
-            Client.sendSTRequest("createTeam:name='" + teamname.getText() + "',desc='" + teamdesc.getText() + "'");
+            Client.sendSTRequest("createTeam:" + new Team(teamname.getText(), teamdesc.getText()));
         }
     }
 }

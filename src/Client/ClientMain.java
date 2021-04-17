@@ -26,7 +26,7 @@ public class ClientMain extends Application {
     public static Socket connectToServer(String ip) {
         try {
             Socket s = new Socket(ip.split(":")[0], Integer.parseInt(ip.split(":")[1]));
-            System.out.println("Connection successful: " + s.toString());
+            System.out.println("Connection successful: " + s);
             return s;
         } catch (Exception ignored) {
         }
@@ -41,9 +41,7 @@ public class ClientMain extends Application {
         stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
-
         currentStage = stage;
-
     }
 
     public void showMainWindow() throws IOException {
@@ -53,7 +51,6 @@ public class ClientMain extends Application {
         stage.setTitle("SimpleTeam");
         stage.setScene(new Scene(root));
         stage.show();
-
         currentStage = stage;
     }
 

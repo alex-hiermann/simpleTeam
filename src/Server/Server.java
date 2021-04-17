@@ -1,5 +1,7 @@
 package Server;
 
+import Client.Team;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,7 +14,7 @@ public class Server implements Runnable{
 
     public static LinkedList<Socket> clients = new LinkedList<>();
 
-
+    public static LinkedList<Team> teams = new LinkedList<>();
 
     public static void main(String[] args) {
         try {
@@ -28,6 +30,8 @@ public class Server implements Runnable{
             }
         } catch (Exception ignored) {
         }
+
+        System.err.println("Starting Server");
 
 
         Thread thread = new Thread(new Server());
@@ -63,6 +67,12 @@ public class Server implements Runnable{
                     }
                     break;
                 case "refresh":
+                    break;
+
+                case "getTeams":
+                    for (Team team : teams) {
+                        System.out.println(team);
+                    }
                     break;
             }
         }
