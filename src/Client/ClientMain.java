@@ -26,7 +26,6 @@ public class ClientMain extends Application {
     public static void main(String[] args) {
         System.out.println("Initializing Simple Team");
         launch(args);
-
     }
 
     public static Socket connectToServer(String ip) {
@@ -45,6 +44,7 @@ public class ClientMain extends Application {
         Scene scene = new Scene(root);
         stage.getIcons().add(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/icon-1.png"))));
         stage.setTitle("Login");
+        scene.getStylesheets().add(String.valueOf(getClass().getResource("/UI/style/LoginWindow.css")));
         stage.setScene(scene);
         stage.show();
         currentStage = stage;

@@ -26,11 +26,13 @@ public class MainWindow {
 
     @FXML
     public static Button addTeamButton;
+
     @FXML
     public VBox teams = new VBox();
     public Button sendButton;
     public TextField messageField;
-    public FlowPane chat;
+    public TitledPane chatParentContainer;
+    public VBox chat;
     private Team selectedTeam;
 
     public void initialize() {
@@ -62,10 +64,11 @@ public class MainWindow {
             teamPane.setText(team.getName());
 
             GridPane grid = new GridPane();
-            Button chatRoom = new Button("Select Team");
-            chatRoom.setOnAction(actionEvent -> {
+            Button chatRoomButton = new Button("Select Team");
+            chatRoomButton.setOnAction(actionEvent -> {
                 selectedTeam = team;
                 System.err.println("SELECTED TEAM: " + selectedTeam);
+                chatParentContainer.setText(selectedTeam.getName());
                 printMessages(selectedTeam.getChatroom());
             });
 
@@ -75,7 +78,7 @@ public class MainWindow {
             grid.add(new Text(team.getDescription()), 1, 0);
 //            grid.add(new Label("empty space"), 0, 1);
 //            grid.add(new Label("empty space"), 1, 1);
-            grid.add(chatRoom, 1, 2);
+            grid.add(chatRoomButton, 1, 2);
 
             teamPane.setContent(grid);
             teams.getChildren().add(teamPane);
@@ -84,7 +87,9 @@ public class MainWindow {
 
     @FXML
     public void sendMessage(ActionEvent actionEvent) {
+        if (selectedTeam == null) return;
         Message message = new Message(ClientMain.client, messageField.getText());
+        messageField.clear();
         System.err.println("MESSAGE SEND: " + message.getText());
         selectedTeam.getChatroom().addMessage(message);
         printMessages(selectedTeam.getChatroom());
@@ -92,7 +97,7 @@ public class MainWindow {
 
     @FXML
     public void printMessages(Chatroom chatroom) {
-        Platform.runLater(() -> chat.getChildren().removeAll());
+        chat.getChildren().clear();
         Platform.runLater(() -> {
             System.err.println("CHAT CLEARED AND READY TO PRINT MESSAGES");
             for (Message message : chatroom.getMessages()) {

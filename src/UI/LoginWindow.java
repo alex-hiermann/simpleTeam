@@ -11,6 +11,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.Socket;
@@ -25,6 +26,7 @@ public class LoginWindow {
     public Button button;
     public VBox vbox;
     public ProgressBar progressBar;
+    public AnchorPane pane;
 
     @FXML
     protected void loginAction(ActionEvent actionEvent) {

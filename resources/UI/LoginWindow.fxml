@@ -1,35 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.LoginWindow">
+<AnchorPane fx:id="pane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" stylesheets="@style/LoginWindow.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.LoginWindow">
    <children>
-      <VBox fx:id="vbox" alignment="CENTER" layoutX="179.0" prefHeight="400.0" prefWidth="242.0">
+      <VBox fx:id="vbox" alignment="CENTER" layoutX="75.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SimpleTeam">
+            <ImageView fitHeight="173.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+               <image>
+                  <Image url="@../logo-1_cropped.png" />
+               </image>
                <VBox.margin>
-                  <Insets bottom="25.0" />
+                  <Insets bottom="15.0" />
+               </VBox.margin>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+            <TextField fx:id="username" maxHeight="-Infinity" maxWidth="500.0" promptText="Username">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
                </VBox.margin>
                <font>
-                  <Font name="Arial" size="28.0" />
-               </font>
-            </Text>
-            <TextField fx:id="username" promptText="Username">
+                  <Font name="Trebuchet MS" size="12.0" />
+               </font></TextField>
+            <PasswordField fx:id="password" maxWidth="500.0" promptText="Password">
                <VBox.margin>
                   <Insets bottom="5.0" />
-               </VBox.margin></TextField>
-            <PasswordField fx:id="password" promptText="Password">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin></PasswordField>
-            <TextField fx:id="server" promptText="Server IP and PORT" text="localhost:7274" />
+               </VBox.margin>
+               <font>
+                  <Font name="Trebuchet MS" size="12.0" />
+               </font></PasswordField>
+            <TextField fx:id="server" maxWidth="500.0" promptText="Server IP and PORT" text="localhost:7274" />
             <Button fx:id="button" mnemonicParsing="false" onAction="#loginAction" text="Login">
                <VBox.margin>
                   <Insets top="10.0" />
