@@ -1,5 +1,6 @@
 package UI;
 
+import Client.Chat.Message;
 import Client.Client;
 import Client.ClientMain;
 import Client.Team;
@@ -20,6 +21,8 @@ public class MainWindow {
     public static Button addTeamButton;
     @FXML
     public VBox teams = new VBox();
+    public Button sendButton;
+    public TextField messageField;
 
     public void initialize() {
         Platform.runLater(() -> teams.getChildren().removeAll(teams.getChildren()));
@@ -59,6 +62,12 @@ public class MainWindow {
             teamPane.setContent(grid);
             teams.getChildren().add(teamPane);
         });
+    }
+
+    @FXML
+    public void sendMessage(ActionEvent actionEvent) {
+        Message message = new Message(ClientMain.client, messageField.getText());
+
     }
 
     public void setAddTeamButtonActive(boolean isActive) {

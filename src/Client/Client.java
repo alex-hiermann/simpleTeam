@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class Client implements Runnable {
 
     static Socket socket;
-    static User user;
+    public static User user;
 
     public static LinkedList<Team> myTeams = new LinkedList<>();
 
