@@ -1,6 +1,6 @@
 package Server;
 
-import Client.Client;
+import Client.User;
 import Client.Team;
 import Utils.BasicFunctionLibrary;
 
@@ -36,6 +36,31 @@ public class Listener implements Runnable {
                                 String request = "";
                                 for (Team team : Server.teams) {
                                     //TODO
+                                }
+                            }
+                            case "registerUser" -> {    // registerUser:email='email',username='username',password='password',name='name',lastname='lastname',age='age'
+                                User user = new User(
+                                        BasicFunctionLibrary.findValueFromArgs("username", args),
+                                        BasicFunctionLibrary.findValueFromArgs("name", args),
+                                        BasicFunctionLibrary.findValueFromArgs("lastname", args),
+                                        BasicFunctionLibrary.findValueFromArgs("email", args),
+                                        BasicFunctionLibrary.findValueFromArgs("age", args),
+                                        BasicFunctionLibrary.findValueFromArgs("password", args));
+                                Server.users.add(user);
+                                sendSTRequestToClient("userRegistered");
+                            }
+                            case "logIn" -> {
+                                User user = new User(
+                                        BasicFunctionLibrary.findValueFromArgs("username", args),
+                                        BasicFunctionLibrary.findValueFromArgs("name", args),
+                                        BasicFunctionLibrary.findValueFromArgs("lastname", args),
+                                        BasicFunctionLibrary.findValueFromArgs("email", args),
+                                        BasicFunctionLibrary.findValueFromArgs("age", args),
+                                        BasicFunctionLibrary.findValueFromArgs("password", args));
+                                if (Server.users.contains(user)) {
+                                    sendSTRequestToClient("canLogIn");
+                                } else {
+                                    sendSTRequestToClient("rejectedLogIn");
                                 }
                             }
                         }
