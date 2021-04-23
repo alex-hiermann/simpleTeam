@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.FlowPane?>
 <AnchorPane prefHeight="707.0" prefWidth="1091.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.MainWindow">
    <children>
       <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="1091.0">
@@ -71,7 +72,11 @@
                      <children>
                         <ScrollPane prefHeight="296.0" prefWidth="609.0">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="216.0" prefWidth="594.0" />
+                            <FlowPane fx:id="chat" minHeight="0.0" minWidth="0.0" prefHeight="216.0" prefWidth="594.0" >
+                                  <children>
+
+                                  </children>
+                              </FlowPane>
                           </content>
                         </ScrollPane>
                         <HBox prefHeight="100.0" prefWidth="200.0">

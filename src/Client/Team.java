@@ -1,11 +1,13 @@
 package Client;
 
+import Client.Chat.Chatroom;
+
 public class Team {
 
     String name;
     String description;
     private User admin;
-
+    private Chatroom chatroom = new Chatroom(this);
 
     public Team(String name, String description) {
         this.name = name;
@@ -27,5 +29,25 @@ public class Team {
 
     public String getDescription() {
         return description;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public User getAdmin() {
+        return admin;
+    }
+
+    public Chatroom getChatroom() {
+        return chatroom;
+    }
+
+    public void setChatroom(Chatroom chatroom) {
+        this.chatroom = chatroom;
     }
 }

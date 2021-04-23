@@ -1,17 +1,12 @@
 package Client;
 
-import Server.Server;
-import UI.MainWindow;
 import Utils.BasicFunctionLibrary;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.stream.Collectors;
 
 public class Client implements Runnable {
 
@@ -44,7 +39,7 @@ public class Client implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Hello I'm " + user.getUsername());
+        System.out.println("####WELLCOME USER: " + user.getUsername() + "####");
         try {
             DataInputStream dis = new DataInputStream(socket.getInputStream());
             String data;

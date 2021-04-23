@@ -1,14 +1,21 @@
 package UI;
 
+import Client.Chat.Chatroom;
 import Client.Chat.Message;
 import Client.Client;
 import Client.ClientMain;
 import Client.Team;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -23,12 +30,18 @@ public class MainWindow {
     public VBox teams = new VBox();
     public Button sendButton;
     public TextField messageField;
+    public FlowPane chat;
+    private Team selectedTeam;
 
     public void initialize() {
         Platform.runLater(() -> teams.getChildren().removeAll(teams.getChildren()));
         if (Client.myTeams.size() > 0) {
+            selectedTeam = Client.myTeams.getFirst();
             for (Team team : Client.myTeams) {
                 addTeam(team);
+            }
+            if (selectedTeam.getChatroom().getMessages().size() > 0) {
+                printMessages(selectedTeam.getChatroom());
             }
         }
     }
@@ -50,6 +63,11 @@ public class MainWindow {
 
             GridPane grid = new GridPane();
             Button chatRoom = new Button("Select Team");
+            chatRoom.setOnAction(actionEvent -> {
+                selectedTeam = team;
+                System.err.println("SELECTED TEAM: " + selectedTeam);
+                printMessages(selectedTeam.getChatroom());
+            });
 
             grid.setVgap(4);
             grid.setPadding(new Insets(5, 5, 5, 5));
@@ -67,7 +85,21 @@ public class MainWindow {
     @FXML
     public void sendMessage(ActionEvent actionEvent) {
         Message message = new Message(ClientMain.client, messageField.getText());
+        System.err.println("MESSAGE SEND: " + message.getText());
+        selectedTeam.getChatroom().addMessage(message);
+        printMessages(selectedTeam.getChatroom());
+    }
 
+    @FXML
+    public void printMessages(Chatroom chatroom) {
+        Platform.runLater(() -> chat.getChildren().removeAll());
+        Platform.runLater(() -> {
+            System.err.println("CHAT CLEARED AND READY TO PRINT MESSAGES");
+            for (Message message : chatroom.getMessages()) {
+                System.out.println("message = " + message);
+                chat.getChildren().add(new Text(message.getText()));
+            }
+        });
     }
 
     public void setAddTeamButtonActive(boolean isActive) {
