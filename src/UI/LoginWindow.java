@@ -12,7 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-
 import java.io.IOException;
 import java.net.Socket;
 import java.util.concurrent.CountDownLatch;

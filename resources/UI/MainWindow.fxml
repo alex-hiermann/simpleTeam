@@ -34,20 +34,28 @@
       </MenuBar>
       <VBox layoutY="27.0" prefHeight="684.0" prefWidth="285.0">
          <children>
-            <ScrollPane prefHeight="378.0" prefWidth="285.0">
+            <TitledPane animated="false" text="Teams">
                <content>
-                  <VBox prefHeight="376.0" prefWidth="283.0" fx:id="teams" />
+                  <ScrollPane prefHeight="369.0" prefWidth="263.0">
+                     <content>
+                        <VBox fx:id="teams" prefHeight="359.0" prefWidth="283.0" />
+                     </content>
+                  </ScrollPane>
                </content>
-            </ScrollPane>
-            <ScrollPane prefHeight="307.0" prefWidth="285.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="302.0" prefWidth="283.0">
-                     <children>
-                        <Button fx:id="addTeamButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#createTeamDialog" text="Add Team" />
-                     </children>
-                  </AnchorPane>
-              </content>
-            </ScrollPane>
+            </TitledPane>
+            <TitledPane animated="false" text="Settings">
+               <content>
+                  <ScrollPane prefHeight="307.0" prefWidth="285.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="302.0" prefWidth="283.0">
+                           <children>
+                              <Button fx:id="addTeamButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#createTeamDialog" text="Add Team" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+               </content>
+            </TitledPane>
          </children>
       </VBox>
       <VBox layoutX="285.0" layoutY="27.0" prefHeight="684.0" prefWidth="809.0">
@@ -68,7 +76,7 @@
                         </ScrollPane>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="chatMessage" prefHeight="25.0" prefWidth="567.0" />
+                              <TextField prefHeight="25.0" prefWidth="567.0" />
                               <Button mnemonicParsing="false" text="Send" />
                            </children>
                         </HBox>

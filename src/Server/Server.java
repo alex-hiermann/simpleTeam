@@ -1,6 +1,7 @@
 package Server;
 
 import Client.Team;
+import Client.User;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -13,6 +14,8 @@ public class Server implements Runnable{
     public static int port = 7274;
 
     public static LinkedList<Socket> clients = new LinkedList<>();
+
+    public static LinkedList<User> users = new LinkedList<>();
 
     public static LinkedList<Team> teams = new LinkedList<>();
 
@@ -74,6 +77,11 @@ public class Server implements Runnable{
                         System.out.println(team);
                     }
                     break;
+                case "clearTeams":
+                    teams = null;
+                    break;
+                default:
+                    System.err.println(("Unexpected value: " + command));
             }
         }
     }

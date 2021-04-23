@@ -3,11 +3,12 @@ package UI;
 import Client.Client;
 import Client.ClientMain;
 import Client.Team;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -17,12 +18,11 @@ public class MainWindow {
 
     @FXML
     public static Button addTeamButton;
-
+    @FXML
     public VBox teams = new VBox();
-    public TextField chatMessage;
 
     public void initialize() {
-        System.out.println(Client.myTeams.size());
+        Platform.runLater(() -> teams.getChildren().removeAll(teams.getChildren()));
         if (Client.myTeams.size() > 0) {
             for (Team team : Client.myTeams) {
                 addTeam(team);
@@ -41,11 +41,24 @@ public class MainWindow {
 
     @FXML
     public void addTeam(Team team) {
-        System.err.println(team);
-        Text text = new Text(team.getName());
-//        HBox entry = new HBox();
-//        entry.getChildren().add(text);
-        teams.getChildren().add(text);
+        Platform.runLater(() -> {
+            TitledPane teamPane = new TitledPane();
+            teamPane.setText(team.getName());
+
+            GridPane grid = new GridPane();
+            Button chatRoom = new Button("Select Team");
+
+            grid.setVgap(4);
+            grid.setPadding(new Insets(5, 5, 5, 5));
+            grid.add(new Label("Description: "), 0, 0);
+            grid.add(new Text(team.getDescription()), 1, 0);
+//            grid.add(new Label("empty space"), 0, 1);
+//            grid.add(new Label("empty space"), 1, 1);
+            grid.add(chatRoom, 1, 2);
+
+            teamPane.setContent(grid);
+            teams.getChildren().add(teamPane);
+        });
     }
 
     public void setAddTeamButtonActive(boolean isActive) {

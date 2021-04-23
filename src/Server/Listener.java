@@ -32,10 +32,10 @@ public class Listener implements Runnable {
                                 Server.teams.add(team);
                                 sendSTRequestToClient("createTeam:" + team);
                             }
-                            case "getTeam" -> {
+                            case "getTeams" -> {
                                 String request = "";
                                 for (Team team : Server.teams) {
-
+                                    //TODO
                                 }
                             }
                         }
