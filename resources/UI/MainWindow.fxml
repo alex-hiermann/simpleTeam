@@ -68,7 +68,7 @@
                         </ScrollPane>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <TextField prefHeight="25.0" prefWidth="567.0" />
+                              <TextField fx:id="chatMessage" prefHeight="25.0" prefWidth="567.0" />
                               <Button mnemonicParsing="false" text="Send" />
                            </children>
                         </HBox>

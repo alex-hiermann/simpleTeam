@@ -8,19 +8,21 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 public class Client implements Runnable {
 
     static Socket socket;
     static User user;
 
-    static LinkedList<Team> myTeams = new LinkedList<>();
+    public static LinkedList<Team> myTeams = new LinkedList<>();
 
     public Client(Socket socket, User user) {
         Client.socket = socket;
         Client.user = user;
-
     }
 
 
@@ -54,12 +56,10 @@ public class Client implements Runnable {
                         Team team = new Team(BasicFunctionLibrary.findValueFromArgs("name", args), BasicFunctionLibrary.findValueFromArgs("desc", args));
                         team.setAdmin(user);
                         myTeams.add(team);
-                        new MainWindow().addTeam(team);
+                        ClientMain.mainWindow.initialize();
                     }
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException e) {}
     }
 }

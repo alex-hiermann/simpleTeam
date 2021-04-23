@@ -1,5 +1,6 @@
 package Client;
 
+import UI.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +17,10 @@ public class ClientMain extends Application {
     public static Stage currentStage = new Stage();
 
     public static Client client;
+
+    private static FXMLLoader main;
+
+    public static MainWindow mainWindow;
 
     public static void main(String[] args) {
         System.out.println("Initializing Simple Team");
@@ -45,7 +50,9 @@ public class ClientMain extends Application {
     }
 
     public void showMainWindow() throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/UI/MainWindow.fxml")));
+        main = new FXMLLoader(getClass().getResource("/UI/MainWindow.fxml"));
+        Parent root = main.load();
+        mainWindow = main.getController();
         Stage stage = new Stage();
         stage.getIcons().add(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/icon-1.png"))));
         stage.setTitle("SimpleTeam");
@@ -63,5 +70,4 @@ public class ClientMain extends Application {
         stage.show();
         currentStage = stage;
     }
-
 }

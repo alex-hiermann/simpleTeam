@@ -8,6 +8,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class Listener implements Runnable {
 
@@ -21,16 +22,26 @@ public class Listener implements Runnable {
 
             //STRequest handling
             synchronized (this) {
-                while (!(data = dataInputStream.readUTF()).isEmpty()) {
-                    String command = data.split(":")[0];
-                    String args[] = data.split(":")[1].split(",");
-                    switch (command) {
-                        case "createTeam" -> {
-                            Team team = new Team(BasicFunctionLibrary.findValueFromArgs("name", args), BasicFunctionLibrary.findValueFromArgs("desc", args));
-                            Server.teams.add(team);
-                            sendSTRequestToClient("createTeam:" + team);
+                try {
+                    while (!(data = dataInputStream.readUTF()).isEmpty()) {
+                        String command = data.split(":")[0];
+                        String args[] = data.split(":")[1].split(",");
+                        switch (command) {
+                            case "createTeam" -> {
+                                Team team = new Team(BasicFunctionLibrary.findValueFromArgs("name", args), BasicFunctionLibrary.findValueFromArgs("desc", args));
+                                Server.teams.add(team);
+                                sendSTRequestToClient("createTeam:" + team);
+                            }
+                            case "getTeam" -> {
+                                String request = "";
+                                for (Team team : Server.teams) {
+
+                                }
+                            }
                         }
                     }
+                } catch (SocketException sE) {
+
                 }
             }
         } catch (IOException e) {
