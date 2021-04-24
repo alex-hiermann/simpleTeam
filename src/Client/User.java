@@ -14,10 +14,19 @@ public class User {
     private Date birth;
     private String password;
 
+    public String getPassword() {
+        return password;
+    }
+
     private LinkedList<Task> tasks = new LinkedList<>();
 
     public User(String username) {
         this.username = username;
+    }
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
     /**
@@ -41,7 +50,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(password, user.password);
+        return Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 
     // registerUser:email='email',username='username',password='password',name='name',lastname='lastname',birth='birth'

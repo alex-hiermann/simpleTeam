@@ -3,6 +3,7 @@ package UI;
 import Client.ClientMain;
 import Client.Client;
 import Client.User;
+import Utils.BasicFunctionLibrary;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,8 +14,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Base64;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -31,22 +34,12 @@ public class LoginWindow {
 
     @FXML
     protected void loginAction(ActionEvent actionEvent) {
-        if (username.getText().equals("Alegs") && password.getText().equals("Mags")) {
-            button.setDisable(true);
-            Socket temp = ClientMain.connectToServer(server.getText());
-            Client client = new Client(temp, new User(username.getText()));
-            new Thread(client).start();
-
+//        button.setDisable(true);
+        Socket temp = ClientMain.connectToServer(server.getText());
+        Client client = new Client(temp, new User("tempUser05070201"));
+        new Thread(client).start();
+        Client.sendSTRequest("login:email='" + username.getText() + "',password='" + BasicFunctionLibrary.hashPassword(password.getText()) + "'");
 //            service.start();
-
-            try {
-                ClientMain.currentStage.close();
-                new ClientMain().showMainWindow();
-                ClientMain.mainWindow.initialize();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     public void registerAction(ActionEvent actionEvent) {

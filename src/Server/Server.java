@@ -6,6 +6,7 @@ import Client.User;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -33,13 +34,9 @@ public class Server implements Runnable{
             }
         } catch (Exception ignored) {
         }
-
         System.err.println("Starting Server");
-
-
         Thread thread = new Thread(new Server());
         thread.start();
-
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             while (true) {
@@ -51,7 +48,6 @@ public class Server implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -71,7 +67,6 @@ public class Server implements Runnable{
                     break;
                 case "refresh":
                     break;
-
                 case "getTeams":
                     for (Team team : teams) {
                         System.out.println(team);
@@ -80,13 +75,14 @@ public class Server implements Runnable{
                 case "getUsers":
                     for (User user : users) {
                         System.err.println(user);
-                        break;
                     }
+                    break;
                 case "clearTeams":
                     teams = null;
                     break;
                 default:
                     System.err.println(("Unexpected value: " + command));
+                    break;
             }
         }
     }

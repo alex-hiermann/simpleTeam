@@ -36,7 +36,6 @@ public class Listener implements Runnable {
                             case "getTeams" -> {
                                 String request = "";
                                 for (Team team : Server.teams) {
-                                    //TODO
                                 }
                             }
                             case "registerUser" -> {    // registerUser:email='email',username='username',password='password',name='name',lastname='lastname',birth='age'
@@ -47,21 +46,27 @@ public class Listener implements Runnable {
                                         BasicFunctionLibrary.findValueFromArgs("email", args),
                                         new Date(BasicFunctionLibrary.findValueFromArgs("birth", args)),
                                         BasicFunctionLibrary.findValueFromArgs("password", args));
-                                Server.users.add(user);
-                                sendSTRequestToClient("userRegistered");
-                            }
-                            case "logIn" -> {
-                                User user = new User(
-                                        BasicFunctionLibrary.findValueFromArgs("username", args),
-                                        BasicFunctionLibrary.findValueFromArgs("name", args),
-                                        BasicFunctionLibrary.findValueFromArgs("lastname", args),
-                                        BasicFunctionLibrary.findValueFromArgs("email", args),
-                                        new Date(BasicFunctionLibrary.findValueFromArgs("birth", args)),
-                                        BasicFunctionLibrary.findValueFromArgs("password", args));
                                 if (Server.users.contains(user)) {
-                                    sendSTRequestToClient("canLogIn");
+                                    sendSTRequestToClient("userExists");
                                 } else {
-                                    sendSTRequestToClient("rejectedLogIn");
+                                    Server.users.add(user);
+                                    sendSTRequestToClient("userRegistered");
+                                }
+                            }
+                            case "login" -> {
+                                User user = new User(
+                                        BasicFunctionLibrary.findValueFromArgs("email", args),
+                                        BasicFunctionLibrary.findValueFromArgs("password", args));
+                                try {
+                                    User foundUser = Server.users.get(Server.users.indexOf(user));
+                                    if (foundUser.getEmail().equalsIgnoreCase(user.getEmail()) && foundUser.getPassword().equals(user.getPassword())) {
+                                        System.err.println(foundUser);
+                                        sendSTRequestToClient("canLogin:" + foundUser);
+                                    } else {
+                                        sendSTRequestToClient("rejectedLogin");
+                                    }
+                                } catch (Exception ignored) {
+                                    sendSTRequestToClient("rejectedLogin");
                                 }
                             }
                         }

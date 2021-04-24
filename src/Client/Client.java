@@ -3,12 +3,16 @@ package Client;
 import Utils.BasicFunctionLibrary;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Date;
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class Client implements Runnable {
 
@@ -76,6 +80,46 @@ public class Client implements Runnable {
                             }
                         });
                     }
+                    case "userExists" -> {
+                        Platform.runLater(() -> {
+                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                                    alert.setTitle("Error");
+                                    alert.setHeaderText("User already exists!");
+                                    alert.showAndWait();
+                                }
+                        );
+                    }
+
+                    case "canLogin" -> {
+
+                        user = new User(
+                                BasicFunctionLibrary.findValueFromArgs("username", args),
+                                BasicFunctionLibrary.findValueFromArgs("name", args),
+                                BasicFunctionLibrary.findValueFromArgs("lastname", args),
+                                BasicFunctionLibrary.findValueFromArgs("email", args),
+                                new Date(BasicFunctionLibrary.findValueFromArgs("birth", args)),
+                                BasicFunctionLibrary.findValueFromArgs("password", args));
+                        Platform.runLater(() -> {
+                            ClientMain.currentStage.close();
+                            try {
+                                new ClientMain().showMainWindow();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    }
+
+                    case "rejectedLogin" -> {
+                        Platform.runLater(() -> {
+                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                                    alert.setTitle("Error");
+                                    alert.setHeaderText("User credentials are invalid!");
+                                    alert.setContentText("Try again!");
+                                    alert.showAndWait();
+                                }
+                        );
+                    }
+
                 }
             }
         } catch (IOException ignored) {
