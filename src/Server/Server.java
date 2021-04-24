@@ -77,6 +77,11 @@ public class Server implements Runnable{
                         System.out.println(team);
                     }
                     break;
+                case "getUsers":
+                    for (User user : users) {
+                        System.err.println(user);
+                        break;
+                    }
                 case "clearTeams":
                     teams = null;
                     break;

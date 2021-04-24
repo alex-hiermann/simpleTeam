@@ -1,5 +1,7 @@
 package Client;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Objects;
 
@@ -9,7 +11,7 @@ public class User {
     private String name;
     private String lastName;
     private String email;
-    private String age;
+    private Date birth;
     private String password;
 
     private LinkedList<Task> tasks = new LinkedList<>();
@@ -23,19 +25,16 @@ public class User {
      * @param name Name
      * @param lastName LastName
      * @param email Email
-     * @param age Age
+     * @param date Age
      */
-    public User(String username, String name, String lastName, String email, String age, String password) {
+    public User(String username, String name, String lastName, String email, Date date, String password) {
         this.username = username;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
-        this.age = age;
+        this.birth = date;
         this.password = password;
     }
-
-    // registerUser:email='email',username='username',password='password',name='name',lastname='lastname',age='age'
-
 
     @Override
     public boolean equals(Object o) {
@@ -45,9 +44,10 @@ public class User {
         return Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(password, user.password);
     }
 
+    // registerUser:email='email',username='username',password='password',name='name',lastname='lastname',birth='birth'
     @Override
     public String toString() {
-        return "email='" + getEmail() + "',username='" + getUsername() + "',password='" + password + "',name='" + getName() + "',lastname='" + getLastName() + "',age='" + getAge() + "'";
+        return "email='" + getEmail() + "',username='" + getUsername() + "',password='" + password + "',name='" + getName() + "',lastname='" + getLastName() + "',birth='" + getBirth() + "'";
     }
 
     public void addTask(Task task) {
@@ -86,11 +86,11 @@ public class User {
         this.email = email;
     }
 
-    public String getAge() {
-        return age;
+    public Date getBirth() {
+        return birth;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public void setBirth(Date birth) {
+        this.birth = birth;
     }
 }

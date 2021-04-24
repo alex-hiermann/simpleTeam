@@ -9,6 +9,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Date;
 
 public class Listener implements Runnable {
 
@@ -38,13 +39,13 @@ public class Listener implements Runnable {
                                     //TODO
                                 }
                             }
-                            case "registerUser" -> {    // registerUser:email='email',username='username',password='password',name='name',lastname='lastname',age='age'
+                            case "registerUser" -> {    // registerUser:email='email',username='username',password='password',name='name',lastname='lastname',birth='age'
                                 User user = new User(
                                         BasicFunctionLibrary.findValueFromArgs("username", args),
                                         BasicFunctionLibrary.findValueFromArgs("name", args),
                                         BasicFunctionLibrary.findValueFromArgs("lastname", args),
                                         BasicFunctionLibrary.findValueFromArgs("email", args),
-                                        BasicFunctionLibrary.findValueFromArgs("age", args),
+                                        new Date(BasicFunctionLibrary.findValueFromArgs("birth", args)),
                                         BasicFunctionLibrary.findValueFromArgs("password", args));
                                 Server.users.add(user);
                                 sendSTRequestToClient("userRegistered");
@@ -55,7 +56,7 @@ public class Listener implements Runnable {
                                         BasicFunctionLibrary.findValueFromArgs("name", args),
                                         BasicFunctionLibrary.findValueFromArgs("lastname", args),
                                         BasicFunctionLibrary.findValueFromArgs("email", args),
-                                        BasicFunctionLibrary.findValueFromArgs("age", args),
+                                        new Date(BasicFunctionLibrary.findValueFromArgs("birth", args)),
                                         BasicFunctionLibrary.findValueFromArgs("password", args));
                                 if (Server.users.contains(user)) {
                                     sendSTRequestToClient("canLogIn");
@@ -65,8 +66,7 @@ public class Listener implements Runnable {
                             }
                         }
                     }
-                } catch (SocketException sE) {
-
+                } catch (SocketException ignored) {
                 }
             }
         } catch (IOException e) {

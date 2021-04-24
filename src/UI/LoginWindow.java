@@ -27,6 +27,7 @@ public class LoginWindow {
     public VBox vbox;
     public ProgressBar progressBar;
     public AnchorPane pane;
+    public Button register;
 
     @FXML
     protected void loginAction(ActionEvent actionEvent) {
@@ -45,6 +46,15 @@ public class LoginWindow {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void registerAction(ActionEvent actionEvent) {
+        ClientMain.currentStage.close();
+        try {
+            new ClientMain().showRegisterWindow();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

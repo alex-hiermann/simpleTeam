@@ -1,6 +1,8 @@
 package Client;
 
 import Utils.BasicFunctionLibrary;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -39,13 +41,17 @@ public class Client implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("####WELLCOME USER: " + user.getUsername() + "####");
+        System.out.println("####WELCOME USER: " + user.getUsername() + "####");
         try {
             DataInputStream dis = new DataInputStream(socket.getInputStream());
             String data;
             while (!(data = dis.readUTF()).isEmpty()) {    //Until data is not empty
                 String command = data.split(":")[0];
-                String args[] = data.split(":")[1].split(",");
+                String args[] = new String[0];
+                try {
+                    args = data.split(":")[1].split(",");
+                } catch (Exception ignored) {
+                }
                 switch (command) {
                     case "createTeam" -> {
                         Team team = new Team(BasicFunctionLibrary.findValueFromArgs("name", args), BasicFunctionLibrary.findValueFromArgs("desc", args));
@@ -53,8 +59,28 @@ public class Client implements Runnable {
                         myTeams.add(team);
                         ClientMain.mainWindow.initialize();
                     }
+                    case "userRegistered" -> {
+                        Platform.runLater(() -> {
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setTitle("Success");
+                                    alert.setHeaderText("New User generated!");
+                                    alert.showAndWait();
+                                }
+                        );
+                        Platform.runLater(() -> {
+                            ClientMain.currentStage.close();
+                            try {
+                                new ClientMain().showLoginWindow();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    }
                 }
             }
-        } catch (IOException e) {}
+        } catch (IOException ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

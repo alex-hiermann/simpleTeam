@@ -50,6 +50,28 @@ public class ClientMain extends Application {
         currentStage = stage;
     }
 
+    public void showLoginWindow() throws Exception {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/UI/LoginWindow.fxml")));
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.getIcons().add(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/icon-1.png"))));
+        stage.setTitle("Login");
+        scene.getStylesheets().add(String.valueOf(getClass().getResource("/UI/style/LoginWindow.css")));
+        stage.setScene(scene);
+        stage.show();
+        currentStage = stage;
+    }
+
+    public void showRegisterWindow() throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/UI/RegisterWindow.fxml")));
+        Stage stage = new Stage();
+        stage.getIcons().add(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/icon-1.png"))));
+        stage.setTitle("Register");
+        stage.setScene(new Scene(root));
+        stage.show();
+        currentStage = stage;
+    }
+
     public void showMainWindow() throws IOException {
         main = new FXMLLoader(getClass().getResource("/UI/MainWindow.fxml"));
         Parent root = main.load();
@@ -71,4 +93,5 @@ public class ClientMain extends Application {
         stage.show();
         currentStage = stage;
     }
+
 }
