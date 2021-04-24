@@ -19,7 +19,6 @@ public class Client implements Runnable {
     static Socket socket;
     public static User user;
 
-    public static LinkedList<Team> myTeams = new LinkedList<>();
 
     public Client(Socket socket, User user) {
         Client.socket = socket;
@@ -60,7 +59,8 @@ public class Client implements Runnable {
                     case "createTeam" -> {
                         Team team = new Team(BasicFunctionLibrary.findValueFromArgs("name", args), BasicFunctionLibrary.findValueFromArgs("desc", args));
                         team.setAdmin(user);
-                        myTeams.add(team);
+                        team.members.add(user);
+                        user.myTeams.add(team);
                         ClientMain.mainWindow.initialize();
                     }
                     case "userRegistered" -> {
@@ -89,9 +89,7 @@ public class Client implements Runnable {
                                 }
                         );
                     }
-
                     case "canLogin" -> {
-
                         user = new User(
                                 BasicFunctionLibrary.findValueFromArgs("username", args),
                                 BasicFunctionLibrary.findValueFromArgs("name", args),
@@ -99,6 +97,7 @@ public class Client implements Runnable {
                                 BasicFunctionLibrary.findValueFromArgs("email", args),
                                 new Date(BasicFunctionLibrary.findValueFromArgs("birth", args)),
                                 BasicFunctionLibrary.findValueFromArgs("password", args));
+                        Client.sendSTRequest("getTeams");
                         Platform.runLater(() -> {
                             ClientMain.currentStage.close();
                             try {
@@ -119,7 +118,17 @@ public class Client implements Runnable {
                                 }
                         );
                     }
-
+                    case "userTeams" -> {
+                        String[] teamRequests = data.split(":")[1].split(";");
+                        for (String team : teamRequests) {
+                            String[] tempArgs = team.split(",");
+                            user.myTeams.removeAll(user.myTeams);
+                            Team team1 = new Team(BasicFunctionLibrary.findValueFromArgs("name", tempArgs), BasicFunctionLibrary.findValueFromArgs("desc", tempArgs));
+                            user.myTeams.add(team1);
+                            ClientMain.mainWindow.addTeam(team1);
+                            System.err.println(team);
+                        }
+                    }
                 }
             }
         } catch (IOException ignored) {

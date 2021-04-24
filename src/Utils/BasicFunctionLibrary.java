@@ -1,8 +1,11 @@
 package Utils;
 
+import Client.User;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 public class BasicFunctionLibrary {
 
@@ -30,6 +33,16 @@ public class BasicFunctionLibrary {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static User extractUserFromArgs(String[] args) {
+        return new User(
+                BasicFunctionLibrary.findValueFromArgs("username", args),
+                BasicFunctionLibrary.findValueFromArgs("name", args),
+                BasicFunctionLibrary.findValueFromArgs("lastname", args),
+                BasicFunctionLibrary.findValueFromArgs("email", args),
+                new Date(BasicFunctionLibrary.findValueFromArgs("birth", args)),
+                BasicFunctionLibrary.findValueFromArgs("password", args));
     }
 
 }

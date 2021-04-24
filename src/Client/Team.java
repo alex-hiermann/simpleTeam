@@ -2,17 +2,21 @@ package Client;
 
 import Client.Chat.Chatroom;
 
+import java.util.LinkedList;
+
 public class Team {
 
     String name;
     String description;
     private User admin;
     private Chatroom chatroom = new Chatroom(this);
+    public LinkedList<User> members = new LinkedList<>();
 
     public Team(String name, String description) {
         this.name = name;
         this.description = description;
     }
+
 
     @Override
     public String toString() {

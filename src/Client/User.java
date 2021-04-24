@@ -13,6 +13,8 @@ public class User {
     private String email;
     private Date birth;
     private String password;
+    public LinkedList<Team> myTeams = new LinkedList<>();
+
 
     public String getPassword() {
         return password;

@@ -37,9 +37,9 @@ public class MainWindow {
 
     public void initialize() {
         Platform.runLater(() -> teams.getChildren().removeAll(teams.getChildren()));
-        if (Client.myTeams.size() > 0) {
-            selectedTeam = Client.myTeams.getFirst();
-            for (Team team : Client.myTeams) {
+        if (Client.user.myTeams.size() > 0) {
+            selectedTeam = Client.user.myTeams.getFirst();
+            for (Team team : Client.user.myTeams) {
                 addTeam(team);
             }
             if (selectedTeam.getChatroom().getMessages().size() > 0) {

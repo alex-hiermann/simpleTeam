@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.Date;
+import java.util.LinkedList;
+
+import static Utils.BasicFunctionLibrary.extractUserFromArgs;
 
 public class Listener implements Runnable {
 
@@ -26,26 +29,33 @@ public class Listener implements Runnable {
                 try {
                     while (!(data = dataInputStream.readUTF()).isEmpty()) {
                         String command = data.split(":")[0];
-                        String args[] = data.split(":")[1].split(",");
+                        String args[] = new String[0];
+                        try {
+                            args = data.split(":")[1].split(",");
+                        } catch (Exception ignored) {
+                        }
                         switch (command) {
                             case "createTeam" -> {
                                 Team team = new Team(BasicFunctionLibrary.findValueFromArgs("name", args), BasicFunctionLibrary.findValueFromArgs("desc", args));
-                                Server.teams.add(team);
+                                User serverUser = Server.users.get(Server.users.indexOf(extractUserFromArgs(args)));
+                                team.members.add(serverUser);   //Add user to team
+                                serverUser.myTeams.add(team);   //Add the team to user
+                                team.setAdmin(serverUser);      //Make him an admin, because he created the team
+                                Server.teams.add(team);         //Finally add the team to the server
                                 sendSTRequestToClient("createTeam:" + team);
                             }
                             case "getTeams" -> {
-                                String request = "";
+                                User serverUser = Server.users.get(Server.users.indexOf(extractUserFromArgs(args)));
+                                StringBuilder request = new StringBuilder();
                                 for (Team team : Server.teams) {
+                                    if (team.members.contains(serverUser)) {
+                                        request.append(team).append(";");
+                                    }
                                 }
+                                sendSTRequestToClient("userTeams:" + request.substring(0, request.toString().length() - 1));
                             }
                             case "registerUser" -> {    // registerUser:email='email',username='username',password='password',name='name',lastname='lastname',birth='age'
-                                User user = new User(
-                                        BasicFunctionLibrary.findValueFromArgs("username", args),
-                                        BasicFunctionLibrary.findValueFromArgs("name", args),
-                                        BasicFunctionLibrary.findValueFromArgs("lastname", args),
-                                        BasicFunctionLibrary.findValueFromArgs("email", args),
-                                        new Date(BasicFunctionLibrary.findValueFromArgs("birth", args)),
-                                        BasicFunctionLibrary.findValueFromArgs("password", args));
+                                User user = extractUserFromArgs(args);
                                 if (Server.users.contains(user)) {
                                     sendSTRequestToClient("userExists");
                                 } else {
@@ -78,6 +88,8 @@ public class Listener implements Runnable {
             e.printStackTrace();
         }
     }
+
+
 
     public Listener(Socket s) {
         socket = s;
