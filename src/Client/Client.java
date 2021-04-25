@@ -8,6 +8,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Date;
 
 public class Client implements Runnable {
@@ -93,11 +94,11 @@ public class Client implements Runnable {
                                 BasicFunctionLibrary.findValueFromArgs("email", args),
                                 new Date(BasicFunctionLibrary.findValueFromArgs("birth", args)),
                                 BasicFunctionLibrary.findValueFromArgs("password", args));
-                        Client.sendSTRequest("getTeams:" + user);
                         Platform.runLater(() -> {
                             ClientMain.currentStage.close();
                             try {
                                 new ClientMain().showMainWindow();
+                                Client.sendSTRequest("getTeams:" + user);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -116,14 +117,13 @@ public class Client implements Runnable {
                     }
                     case "userTeams" -> {
                         String[] teamRequests = data.split(":")[1].split(";");
+                        user.myTeams.clear();
                         for (String team : teamRequests) {
                             String[] tempArgs = team.split(",");
-                            user.myTeams.clear();
                             Team team1 = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", tempArgs), BasicFunctionLibrary.findValueFromArgs("teamdesc", tempArgs));
                             user.myTeams.add(team1);
-                            ClientMain.mainWindow.addTeam(team1);
-                            System.err.println(team);
                         }
+                        ClientMain.mainWindow.initialize();
                     }
                 }
             }

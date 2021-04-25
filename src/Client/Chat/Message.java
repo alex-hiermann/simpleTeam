@@ -23,7 +23,7 @@ public class Message {
 
     @Override
     public String toString() {
-        return "\"" + text + "\", written by " + client + " on " + getFormattedDate();
+        return "\"" + text + "\", written by " + Client.user.getUsername() + " on " + getFormattedDate();
     }
 
     public Client getClient() {

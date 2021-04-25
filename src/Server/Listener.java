@@ -45,16 +45,13 @@ public class Listener implements Runnable {
                             sendSTRequestToClient("createTeam:" + team);
                         }
                         case "getTeams" -> {
-                            System.out.println("Args" + Arrays.toString(args));
                             User serverUser = Server.users.get(Server.users.indexOf(extractUserFromArgs(args)));
-                            System.out.println("User:" + serverUser);
                             StringBuilder request = new StringBuilder();
                             for (Team team : Server.teams) {
                                 if (team.members.contains(serverUser)) {
                                     request.append(team).append(";");
                                 }
                             }
-                            System.out.println("request = " + request);
                             String clientRequest = request.toString();
                             try {
                                 sendSTRequestToClient("userTeams:" + clientRequest.substring(0, clientRequest.length() - 1));
@@ -77,7 +74,6 @@ public class Listener implements Runnable {
                             try {
                                 User foundUser = Server.users.get(Server.users.indexOf(user));
                                 if (foundUser.getEmail().equalsIgnoreCase(user.getEmail()) && foundUser.getPassword().equals(user.getPassword())) {
-                                    System.err.println(foundUser);
                                     sendSTRequestToClient("canLogin:" + foundUser);
                                 } else {
                                     sendSTRequestToClient("rejectedLogin");
