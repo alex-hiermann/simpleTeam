@@ -3,16 +3,12 @@ package Client;
 import Utils.BasicFunctionLibrary;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.Objects;
 
 public class Client implements Runnable {
 
@@ -57,7 +53,7 @@ public class Client implements Runnable {
                 }
                 switch (command) {
                     case "createTeam" -> {
-                        Team team = new Team(BasicFunctionLibrary.findValueFromArgs("name", args), BasicFunctionLibrary.findValueFromArgs("desc", args));
+                        Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args), BasicFunctionLibrary.findValueFromArgs("teamdesc", args));
                         team.setAdmin(user);
                         team.members.add(user);
                         user.myTeams.add(team);
@@ -97,7 +93,7 @@ public class Client implements Runnable {
                                 BasicFunctionLibrary.findValueFromArgs("email", args),
                                 new Date(BasicFunctionLibrary.findValueFromArgs("birth", args)),
                                 BasicFunctionLibrary.findValueFromArgs("password", args));
-                        Client.sendSTRequest("getTeams");
+                        Client.sendSTRequest("getTeams:" + user);
                         Platform.runLater(() -> {
                             ClientMain.currentStage.close();
                             try {
@@ -122,8 +118,8 @@ public class Client implements Runnable {
                         String[] teamRequests = data.split(":")[1].split(";");
                         for (String team : teamRequests) {
                             String[] tempArgs = team.split(",");
-                            user.myTeams.removeAll(user.myTeams);
-                            Team team1 = new Team(BasicFunctionLibrary.findValueFromArgs("name", tempArgs), BasicFunctionLibrary.findValueFromArgs("desc", tempArgs));
+                            user.myTeams.clear();
+                            Team team1 = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", tempArgs), BasicFunctionLibrary.findValueFromArgs("teamdesc", tempArgs));
                             user.myTeams.add(team1);
                             ClientMain.mainWindow.addTeam(team1);
                             System.err.println(team);

@@ -20,7 +20,7 @@ public class Team {
 
     @Override
     public String toString() {
-        return "name='" + name + "',desc='" + description + "'";
+        return "teamname='" + name + "',teamdesc='" + description + "'";
     }
 
     public void setAdmin(User newAdmin) {

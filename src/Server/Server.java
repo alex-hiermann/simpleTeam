@@ -6,6 +6,7 @@ import Client.User;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -34,6 +35,7 @@ public class Server implements Runnable{
             }
         } catch (Exception ignored) {
         }
+        users.add(new User("a", "a", "a", "a", new Date(), "0CC175B9C0F1B6A831C399E269772661"));
         System.err.println("Starting Server");
         Thread thread = new Thread(new Server());
         thread.start();
@@ -66,19 +68,26 @@ public class Server implements Runnable{
                     }
                     break;
                 case "refresh":
+                    System.out.println("Refreshed");
                     break;
                 case "getTeams":
+                    System.out.print("Teams:{");
                     for (Team team : teams) {
-                        System.out.println(team);
+                        System.out.print(team);
+                        System.out.print(", ");
                     }
+                    System.out.println("};");
                     break;
                 case "getUsers":
+                    System.out.println("Users:{");
                     for (User user : users) {
-                        System.err.println(user);
+                        System.out.println(user);
                     }
+                    System.out.println("};");
                     break;
                 case "clearTeams":
-                    teams = null;
+                    System.out.println("Cleared all teams");
+                    teams.clear();
                     break;
                 default:
                     System.err.println(("Unexpected value: " + command));
