@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -18,6 +18,8 @@ public class Server implements Runnable{
     public static LinkedList<Socket> clients = new LinkedList<>();
 
     public static LinkedList<User> users = new LinkedList<>();
+
+    public static HashMap<User, Listener> listeners = new HashMap<User, Listener>();
 
     public static LinkedList<Team> teams = new LinkedList<>();
 
@@ -36,6 +38,7 @@ public class Server implements Runnable{
         } catch (Exception ignored) {
         }
         users.add(new User("a", "a", "a", "a", new Date(), "0CC175B9C0F1B6A831C399E269772661"));
+        users.add(new User("b", "b", "b", "b", new Date(), "92EB5FFEE6AE2FEC3AD71C777531578F"));
         System.err.println("Starting Server");
         Thread thread = new Thread(new Server());
         thread.start();

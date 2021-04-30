@@ -1,5 +1,7 @@
 package Server;
 
+import Client.Chat.Chatroom;
+import Client.Chat.Message;
 import Client.User;
 import Client.Team;
 import Utils.BasicFunctionLibrary;
@@ -9,11 +11,13 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 
 import static Utils.BasicFunctionLibrary.extractUserFromArgs;
+import static Utils.BasicFunctionLibrary.findValueFromArgs;
 
 public class Listener implements Runnable {
 
@@ -45,16 +49,13 @@ public class Listener implements Runnable {
                             sendSTRequestToClient("createTeam:" + team);
                         }
                         case "getTeams" -> {
-                            System.out.println("Args" + Arrays.toString(args));
                             User serverUser = Server.users.get(Server.users.indexOf(extractUserFromArgs(args)));
-                            System.out.println("User:" + serverUser);
                             StringBuilder request = new StringBuilder();
                             for (Team team : Server.teams) {
                                 if (team.members.contains(serverUser)) {
                                     request.append(team).append(";");
                                 }
                             }
-                            System.out.println("request = " + request);
                             String clientRequest = request.toString();
                             try {
                                 sendSTRequestToClient("userTeams:" + clientRequest.substring(0, clientRequest.length() - 1));
@@ -79,6 +80,7 @@ public class Listener implements Runnable {
                                 if (foundUser.getEmail().equalsIgnoreCase(user.getEmail()) && foundUser.getPassword().equals(user.getPassword())) {
                                     System.err.println(foundUser);
                                     sendSTRequestToClient("canLogin:" + foundUser);
+                                    Server.listeners.put(foundUser, this);
                                 } else {
                                     sendSTRequestToClient("rejectedLogin");
                                 }
@@ -86,10 +88,22 @@ public class Listener implements Runnable {
                                 sendSTRequestToClient("rejectedLogin");
                             }
                         }
+                        case "sendMessage" -> {
+                            User user = BasicFunctionLibrary.extractUserFromArgs(args);
+                            Message message = new Message(user, BasicFunctionLibrary.findValueFromArgs("messageText", args), Message.dateFormat.parse(BasicFunctionLibrary.findValueFromArgs("date", args)));
+                            Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args), BasicFunctionLibrary.findValueFromArgs("teamdesc", args));
+                            Server.teams.get(Server.teams.indexOf(team)).getChatroom().addMessage(message);
+                        }
+                        case "addUserToTeam" -> {
+                            User invitedUser = BasicFunctionLibrary.extractUserFromArgs(args);
+                            Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args), BasicFunctionLibrary.findValueFromArgs("teamdesc", args));
+                            Server.teams.get(Server.teams.indexOf(team)).members.add(Server.users.get(Server.users.indexOf(invitedUser)));
+                            Server.listeners.get(invitedUser).sendSTRequestToClient("requestTeams");
+                        }
                     }
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
     }
@@ -99,7 +113,7 @@ public class Listener implements Runnable {
         socket = s;
     }
 
-    public static boolean sendSTRequestToClient(String message) {
+    public boolean sendSTRequestToClient(String message) {
         try {
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
             dataOutputStream.writeUTF(message);

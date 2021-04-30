@@ -103,7 +103,6 @@ public class Client implements Runnable {
                             }
                         });
                     }
-
                     case "rejectedLogin" -> {
                         Platform.runLater(() -> {
                                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -124,6 +123,10 @@ public class Client implements Runnable {
                             ClientMain.mainWindow.addTeam(team1);
                             System.err.println(team);
                         }
+                    }
+                    case "requestTeams" -> sendSTRequest("getTeams");
+                    case "" -> {
+
                     }
                 }
             }

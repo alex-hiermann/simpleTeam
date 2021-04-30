@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.util.Date;
 
 public class MainWindow {
 
@@ -64,7 +65,6 @@ public class MainWindow {
             Button chatRoomButton = new Button("Select Team");
             chatRoomButton.setOnAction(actionEvent -> {
                 selectedTeam = team;
-                System.err.println("SELECTED TEAM: " + selectedTeam);
                 chatParentContainer.setText(selectedTeam.getName());
                 printMessages(selectedTeam.getChatroom());
             });
@@ -85,18 +85,17 @@ public class MainWindow {
     @FXML
     public void sendMessage(ActionEvent actionEvent) {
         if (selectedTeam == null) return;
-        Message message = new Message(ClientMain.client, messageField.getText());
+        Message message = new Message(messageField.getText(), new Date());
         messageField.clear();
-        System.err.println("MESSAGE SEND: " + message.getText());
         selectedTeam.getChatroom().addMessage(message);
         printMessages(selectedTeam.getChatroom());
+        Client.sendSTRequest("sendMessage:" + message + "," + Client.user + "," + selectedTeam);
     }
 
     @FXML
     public void printMessages(Chatroom chatroom) {
         chat.getChildren().clear();
         Platform.runLater(() -> {
-            System.err.println("CHAT CLEARED AND READY TO PRINT MESSAGES");
             for (Message message : chatroom.getMessages()) {
                 System.out.println("message = " + message);
                 chat.getChildren().add(new Text(message.getText()));

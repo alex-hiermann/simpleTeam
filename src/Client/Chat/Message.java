@@ -1,37 +1,50 @@
 package Client.Chat;
 
-import Client.Client;
+import Client.User;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Message {
 
-    private Client client;
+    private User user;
     private String text;
-    private String clientName = Client.user.getUsername();
+    private String username = user.getUsername();
     private static int messageID;
     private Date date;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-    public Message(Client client, String text) {
-        this.client = client;
+    public Message(String text, Date date) {
         this.text = text;
         messageID = getMessageID();
-        date = new Date();
+        this.date = date;
+    }
+
+    public Message(User user, String text, Date date) {
+        this.user = user;
+        this.text = text;
+        this.date = date;
     }
 
     @Override
     public String toString() {
-        return "\"" + text + "\", written by " + client + " on " + getFormattedDate();
+        return "messageText='" + getText() + "',date='" + getFormattedDate() + "'";
     }
 
-    public Client getClient() {
-        return client;
+    public User getUser() {
+        return user;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getText() {
@@ -40,14 +53,6 @@ public class Message {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public String getClientName() {
-        return clientName;
-    }
-
-    public void setClientName(String clientName) {
-        this.clientName = clientName;
     }
 
     public static int getMessageID() {

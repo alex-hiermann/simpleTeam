@@ -13,6 +13,11 @@ public class Chatroom {
         this.team = team;
     }
 
+    @Override
+    public String toString() {
+        return "team='" + team + "'";
+    }
+
     public void deleteLastMessage() {
         this.messages.removeLast();
     }
