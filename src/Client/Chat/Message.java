@@ -28,11 +28,7 @@ public class Message {
 
     @Override
     public String toString() {
-<<<<<<< HEAD
         return "messageText='" + getText() + "',date='" + getFormattedDate() + "'";
-=======
-        return "\"" + text + "\", written by " + Client.user.getUsername() + " on " + getFormattedDate();
->>>>>>> ca755969f72ecc78708a597a39b27de83ae1caa3
     }
 
     public User getUser() {
