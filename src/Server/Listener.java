@@ -78,7 +78,6 @@ public class Listener implements Runnable {
                             try {
                                 User foundUser = Server.users.get(Server.users.indexOf(user));
                                 if (foundUser.getEmail().equalsIgnoreCase(user.getEmail()) && foundUser.getPassword().equals(user.getPassword())) {
-                                    System.err.println(foundUser);
                                     sendSTRequestToClient("canLogin:" + foundUser);
                                     Server.listeners.put(foundUser, this);
                                 } else {
