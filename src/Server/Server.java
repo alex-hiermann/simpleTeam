@@ -6,6 +6,8 @@ import Client.User;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -13,15 +15,17 @@ import java.util.Scanner;
 
 public class Server implements Runnable{
 
-    public static int port = 7274;
+    public static int port = 7274; //default server port
 
-    public static LinkedList<Socket> clients = new LinkedList<>();
+    public static Path path = Paths.get("./simpleTeam/data.db"); //default database path
 
-    public static LinkedList<User> users = new LinkedList<>();
+    public static LinkedList<Socket> clients = new LinkedList<>(); //list with the clients
 
-    public static HashMap<User, Listener> listeners = new HashMap<User, Listener>();
+    public static LinkedList<User> users = new LinkedList<>(); //list with the users
 
-    public static LinkedList<Team> teams = new LinkedList<>();
+    public static HashMap<User, Listener> listeners = new HashMap<User, Listener>(); //map with each user with its listener
+
+    public static LinkedList<Team> teams = new LinkedList<>(); //list with the teams
 
     public static void main(String[] args) {
         try {
@@ -35,8 +39,21 @@ public class Server implements Runnable{
                     System.exit(1);
                 }
             }
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
+
+        try {
+            if (args[0].equalsIgnoreCase("-path")) {
+                try {
+                    path = Paths.get(args[1]);
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                    System.err.println("Invalid path input!");
+                    System.err.println("Shutting down");
+                    System.exit(1);
+                }
+            }
+        } catch (Exception ignored) {}
+        //TODO delete users 'a' and 'b'! :(
         users.add(new User("a", "a", "a", "a", new Date(), "0CC175B9C0F1B6A831C399E269772661"));
         users.add(new User("b", "b", "b", "b", new Date(), "92EB5FFEE6AE2FEC3AD71C777531578F"));
         System.err.println("Starting Server");
@@ -91,6 +108,9 @@ public class Server implements Runnable{
                 case "clearTeams":
                     System.out.println("Cleared all teams");
                     teams.clear();
+                    break;
+                case "setPath":
+                    //TODO insert path-mechanics
                     break;
                 default:
                     System.err.println(("Unexpected value: " + command));
