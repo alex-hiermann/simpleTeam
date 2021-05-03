@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
@@ -33,9 +34,18 @@ public class Listener implements Runnable {
             synchronized (this) {
                 while (!(data = dataInputStream.readUTF()).isEmpty()) {
                     String command = data.split(":")[0];
-                    String args[] = new String[0];
+                    String[] args = new String[0];
                     try {
-                        args = data.split(":")[1].split(",");
+                        String[] temp = data.split(":");
+                        StringBuilder arguments = new StringBuilder();
+                        for (int i = 1; i < temp.length; i++) {
+                            if (i == 1) {
+                                arguments.append(temp[i]);
+                            } else {
+                                arguments.append(":").append(temp[i]);
+                            }
+                        }
+                        args = arguments.toString().split(",");
                     } catch (Exception ignored) {
                     }
                     switch (command) {
@@ -49,6 +59,7 @@ public class Listener implements Runnable {
                             sendSTRequestToClient("createTeam:" + team);
                         }
                         case "getTeams" -> {
+                            System.out.println("args = " + Arrays.toString(args));
                             User serverUser = Server.users.get(Server.users.indexOf(extractUserFromArgs(args)));
                             StringBuilder request = new StringBuilder();
                             for (Team team : Server.teams) {
@@ -63,6 +74,7 @@ public class Listener implements Runnable {
                             }
                         }
                         case "registerUser" -> {    // registerUser:email='email',username='username',password='password',name='name',lastname='lastname',birth='age'
+                            System.out.println("args = " + Arrays.toString(args));
                             User user = extractUserFromArgs(args);
                             if (Server.users.contains(user)) {
                                 sendSTRequestToClient("userExists");
@@ -72,6 +84,7 @@ public class Listener implements Runnable {
                             }
                         }
                         case "login" -> {
+                            System.out.println("args = " + Arrays.toString(args));
                             User user = new User(
                                     BasicFunctionLibrary.findValueFromArgs("email", args),
                                     BasicFunctionLibrary.findValueFromArgs("password", args));
@@ -88,6 +101,7 @@ public class Listener implements Runnable {
                             }
                         }
                         case "sendMessage" -> {
+                            System.out.println("args = " + Arrays.toString(args));
                             User user = BasicFunctionLibrary.extractUserFromArgs(args);
                             Message message = new Message(user, BasicFunctionLibrary.findValueFromArgs("messageText", args), Message.dateFormat.parse(BasicFunctionLibrary.findValueFromArgs("date", args)));
                             Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args), BasicFunctionLibrary.findValueFromArgs("teamdesc", args));

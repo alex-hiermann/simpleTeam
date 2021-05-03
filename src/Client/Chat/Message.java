@@ -9,7 +9,6 @@ public class Message {
 
     private User user;
     private String text;
-    private String username = user.getUsername();
     private static int messageID;
     private Date date;
     public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -37,14 +36,6 @@ public class Message {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getText() {

@@ -89,7 +89,9 @@ public class MainWindow {
         messageField.clear();
         selectedTeam.getChatroom().addMessage(message);
         printMessages(selectedTeam.getChatroom());
-        Client.sendSTRequest("sendMessage:" + message + "," + Client.user + "," + selectedTeam);
+        String request = "sendMessage:" + message + "," + Client.user.toString() + "," + selectedTeam.toString();
+        System.out.println("Request = " + request);
+        Client.sendSTRequest(request);
     }
 
     @FXML

@@ -1,5 +1,6 @@
 package Client;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Objects;
@@ -10,7 +11,7 @@ public class User {
     private String name;
     private String lastName;
     private String email;
-    private Date birth;
+    private LocalDate birth;
     private String password;
     public LinkedList<Team> myTeams = new LinkedList<>();
 
@@ -37,7 +38,7 @@ public class User {
      * @param email Email
      * @param date Age
      */
-    public User(String username, String name, String lastName, String email, Date date, String password) {
+    public User(String username, String name, String lastName, String email, LocalDate date, String password) {
         this.username = username;
         this.name = name;
         this.lastName = lastName;
@@ -101,11 +102,11 @@ public class User {
         this.email = email;
     }
 
-    public Date getBirth() {
+    public LocalDate getBirth() {
         return birth;
     }
 
-    public void setBirth(Date birth) {
+    public void setBirth(LocalDate birth) {
         this.birth = birth;
     }
 }

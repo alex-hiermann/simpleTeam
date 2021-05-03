@@ -24,7 +24,7 @@ public class RegisterWindow {
     public TextField server;
 
     public void register(ActionEvent actionEvent) {
-        User tempUser = new User(username.getText(), name.getText(), lastname.getText(), email.getText(), Date.from(date.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()), BasicFunctionLibrary.hashPassword(password.getText()));
+        User tempUser = new User(username.getText(), name.getText(), lastname.getText(), email.getText(), date.getValue(), BasicFunctionLibrary.hashPassword(password.getText()));
         Socket temp = ClientMain.connectToServer(server.getText());
         Client client = new Client(temp, new User("tempUser05070201"));
         new Thread(client).start();

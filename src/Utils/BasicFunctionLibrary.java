@@ -5,6 +5,7 @@ import Client.User;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class BasicFunctionLibrary {
@@ -41,7 +42,7 @@ public class BasicFunctionLibrary {
                 BasicFunctionLibrary.findValueFromArgs("name", args),
                 BasicFunctionLibrary.findValueFromArgs("lastname", args),
                 BasicFunctionLibrary.findValueFromArgs("email", args),
-                new Date(BasicFunctionLibrary.findValueFromArgs("birth", args)),
+                LocalDate.parse(BasicFunctionLibrary.findValueFromArgs("birth", args)),
                 BasicFunctionLibrary.findValueFromArgs("password", args));
     }
 

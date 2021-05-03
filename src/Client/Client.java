@@ -8,6 +8,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -92,7 +93,7 @@ public class Client implements Runnable {
                                 BasicFunctionLibrary.findValueFromArgs("name", args),
                                 BasicFunctionLibrary.findValueFromArgs("lastname", args),
                                 BasicFunctionLibrary.findValueFromArgs("email", args),
-                                new Date(BasicFunctionLibrary.findValueFromArgs("birth", args)),
+                                LocalDate.parse(BasicFunctionLibrary.findValueFromArgs("birth", args)),
                                 BasicFunctionLibrary.findValueFromArgs("password", args));
                         Platform.runLater(() -> {
                             ClientMain.currentStage.close();
