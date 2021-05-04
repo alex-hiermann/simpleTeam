@@ -47,15 +47,24 @@ public class Client implements Runnable {
             DataInputStream dis = new DataInputStream(socket.getInputStream());
             String data;
             while (!(data = dis.readUTF()).isEmpty()) {    //Until data is not empty
-                String command = data.split(":")[0];
-                String args[] = new String[0];
+                String command = data.split(":")[0];    //WER HAT GEFRAGT???????????
+                String[] args = new String[0];
                 try {
-                    args = data.split(":")[1].split(",");
+                    String[] temp = data.split(":");
+                    StringBuilder arguments = new StringBuilder();
+                    for (int i = 1; i < temp.length; i++) {
+                        if (i == 1) {
+                            arguments.append(temp[i]);
+                        } else {
+                            arguments.append(":").append(temp[i]);
+                        }
+                    }
+                    args = arguments.toString().split(",");
                 } catch (Exception ignored) {
                 }
                 switch (command) {
                     case "createTeam" -> {
-                        Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args), BasicFunctionLibrary.findValueFromArgs("teamdesc", args));
+                        Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args), BasicFunctionLibrary.findValueFromArgs("teamdesc", args), Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamid", args)));
                         team.setAdmin(user);
                         team.members.add(user);
                         user.myTeams.add(team);
@@ -126,6 +135,11 @@ public class Client implements Runnable {
                         ClientMain.mainWindow.initialize();
                     }
                     case "requestTeams" -> sendSTRequest("getTeams");
+                    case "fetchMessages" -> {
+                        String messageRequest[] = data.split(":")[1].split(";");
+                        user.myTeams.forEach(l -> l.getChatroom().getMessages().clear());
+                        //TODO messages per team
+                    }
                     case "" -> {
 
                     }

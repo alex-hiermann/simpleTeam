@@ -1,5 +1,6 @@
 package Server;
 
+import Client.Chat.Message;
 import Client.Team;
 import Client.User;
 
@@ -14,7 +15,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class Server implements Runnable{
+public class Server implements Runnable {
 
     public static int port = 7274;
 
@@ -43,8 +44,6 @@ public class Server implements Runnable{
             }
         } catch (Exception ignored) {
         }
-        users.add(new User("a", "a", "a", "a", LocalDate.MIN, "0CC175B9C0F1B6A831C399E269772661"));
-        users.add(new User("b", "b", "b", "b", LocalDate.MAX, "92EB5FFEE6AE2FEC3AD71C777531578F"));
         try {
             if (args[0].equalsIgnoreCase("-path")) {
                 try {
@@ -56,7 +55,8 @@ public class Server implements Runnable{
                     System.exit(1);
                 }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
         //TODO delete users 'a' and 'b'! :(
         users.add(new User("a", "a", "a", "a", LocalDate.MIN, "0CC175B9C0F1B6A831C399E269772661"));
         users.add(new User("b", "b", "b", "b", LocalDate.MAX, "92EB5FFEE6AE2FEC3AD71C777531578F"));
@@ -98,7 +98,7 @@ public class Server implements Runnable{
                     System.out.print("Teams:{");
                     for (Team team : teams) {
                         System.out.print(team);
-                        System.out.print(", ");
+                        System.out.println(", ");
                     }
                     System.out.println("};");
                     break;
@@ -112,6 +112,16 @@ public class Server implements Runnable{
                 case "clearTeams":
                     System.out.println("Cleared all teams");
                     teams.clear();
+                    break;
+                case "getAllMessages":
+                    System.out.println("####Messages####");
+                    for (Team team : teams) {
+                        System.out.println("##Messages from Team: " + team.getName() + " : " + team.getId());
+                        for (Message message : team.getChatroom().getMessages()) {
+                            System.out.println(message);
+                        }
+                        System.out.println();
+                    }
                     break;
                 default:
                     System.err.println(("Unexpected value: " + command));

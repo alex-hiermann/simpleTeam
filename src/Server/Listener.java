@@ -56,25 +56,30 @@ public class Listener implements Runnable {
                             serverUser.myTeams.add(team);   //Add the team to user
                             team.setAdmin(serverUser);      //Make him an admin, because he created the team
                             Server.teams.add(team);         //Finally add the team to the server
-                            sendSTRequestToClient("createTeam:" + team);
+                            sendSTRequestToClient("createTeam:" + team + ",teamid='" + team.getId() + "'");
                         }
                         case "getTeams" -> {
-                            System.out.println("args = " + Arrays.toString(args));
                             User serverUser = Server.users.get(Server.users.indexOf(extractUserFromArgs(args)));
                             StringBuilder request = new StringBuilder();
+                            StringBuilder messageRequest = new StringBuilder();
                             for (Team team : Server.teams) {
                                 if (team.members.contains(serverUser)) {
                                     request.append(team).append(";");
+                                    for (Message message : team.getChatroom().getMessages()) {
+                                        messageRequest.append(message).append(";");
+                                        //TODO Messages per team
+                                    }
                                 }
                             }
                             String clientRequest = request.toString();
                             try {
                                 sendSTRequestToClient("userTeams:" + clientRequest.substring(0, clientRequest.length() - 1));
+                                sendSTRequestToClient("fetchMessages:" + messageRequest);
                             } catch (StringIndexOutOfBoundsException ignored) {
                             }
+
                         }
                         case "registerUser" -> {    // registerUser:email='email',username='username',password='password',name='name',lastname='lastname',birth='age'
-                            System.out.println("args = " + Arrays.toString(args));
                             User user = extractUserFromArgs(args);
                             if (Server.users.contains(user)) {
                                 sendSTRequestToClient("userExists");
@@ -84,7 +89,6 @@ public class Listener implements Runnable {
                             }
                         }
                         case "login" -> {
-                            System.out.println("args = " + Arrays.toString(args));
                             User user = new User(
                                     BasicFunctionLibrary.findValueFromArgs("email", args),
                                     BasicFunctionLibrary.findValueFromArgs("password", args));
@@ -104,7 +108,7 @@ public class Listener implements Runnable {
                             System.out.println("args = " + Arrays.toString(args));
                             User user = BasicFunctionLibrary.extractUserFromArgs(args);
                             Message message = new Message(user, BasicFunctionLibrary.findValueFromArgs("messageText", args), Message.dateFormat.parse(BasicFunctionLibrary.findValueFromArgs("date", args)));
-                            Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args), BasicFunctionLibrary.findValueFromArgs("teamdesc", args));
+                            Team team = new Team(Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamid", args)));
                             Server.teams.get(Server.teams.indexOf(team)).getChatroom().addMessage(message);
                         }
                         case "addUserToTeam" -> {

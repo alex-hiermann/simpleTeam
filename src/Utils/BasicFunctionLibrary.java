@@ -13,7 +13,7 @@ public class BasicFunctionLibrary {
     public static String findValueFromArgs(String forKey, String[] args) {
         for (String entry : args) {
             if (entry.split("=")[0].equals(forKey)) {
-                return entry.split("=")[1].replaceAll("'", "");
+                return entry.split("=")[1].replaceAll("'", "").trim();
             }
         }
         return "";
@@ -28,8 +28,7 @@ public class BasicFunctionLibrary {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(password.getBytes());
             byte[] digest = md.digest();
-            String hash = String.format("%032x", new BigInteger(1, digest)).toUpperCase();
-            return hash;
+            return String.format("%032x", new BigInteger(1, digest)).toUpperCase();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
