@@ -8,13 +8,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="707.0" prefWidth="1091.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.MainWindow">
+<AnchorPane fx:id="pane" prefHeight="707.0" prefWidth="1091.0" stylesheets="@style/MainWindow.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.MainWindow">
    <children>
-      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="1091.0">
+      <MenuBar fx:id="menubar" layoutY="2.0" prefHeight="25.0" prefWidth="1091.0" AnchorPane.bottomAnchor="684.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>

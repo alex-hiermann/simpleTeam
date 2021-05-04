@@ -9,10 +9,8 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -31,6 +29,8 @@ public class MainWindow {
     public TextField messageField;
     public TitledPane chatParentContainer;
     public VBox chat;
+    public AnchorPane pane;
+    public MenuBar menubar;
     private Team selectedTeam;
 
     public void initialize() {
