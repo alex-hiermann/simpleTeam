@@ -104,6 +104,7 @@ public class Client implements Runnable {
                                 BasicFunctionLibrary.findValueFromArgs("email", args),
                                 LocalDate.parse(BasicFunctionLibrary.findValueFromArgs("birth", args)),
                                 BasicFunctionLibrary.findValueFromArgs("password", args));
+                        user.setId(Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("userId", args)));
                         Platform.runLater(() -> {
                             ClientMain.currentStage.close();
                             try {

@@ -1,7 +1,6 @@
 package Client;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.Objects;
 
@@ -14,6 +13,8 @@ public class User {
     private LocalDate birth;
     private String password;
     public LinkedList<Team> myTeams = new LinkedList<>();
+    private int id;
+    public static int userId = 0;
 
 
     public String getPassword() {
@@ -29,6 +30,14 @@ public class User {
     public User(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
@@ -63,7 +72,7 @@ public class User {
     // registerUser:email='email',username='username',password='password',name='name',lastname='lastname',birth='birth'
     @Override
     public String toString() {
-        return "email='" + getEmail() + "',username='" + getUsername() + "',password='" + password + "',name='" + getName() + "',lastname='" + getLastName() + "',birth='" + getBirth() + "'";
+        return "email='" + getEmail() + "',username='" + getUsername() + "',password='" + password + "',name='" + getName() + "',lastname='" + getLastName() + "',birth='" + getBirth() + "',userId='" + getId() + "'";
     }
 
     public void addTask(Task task) {

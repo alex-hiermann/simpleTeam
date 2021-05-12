@@ -84,6 +84,7 @@ public class Listener implements Runnable {
                             if (Server.users.contains(user)) {
                                 sendSTRequestToClient("userExists");
                             } else {
+                                user.setId(++User.userId);
                                 Server.users.add(user);
                                 sendSTRequestToClient("userRegistered");
                             }
