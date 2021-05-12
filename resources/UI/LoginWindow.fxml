@@ -11,47 +11,52 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" stylesheets="@style/LoginWindow.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.LoginWindow">
-   <children>
-      <VBox fx:id="vbox" alignment="CENTER" layoutX="75.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <ImageView fitHeight="173.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
-               <image>
-                  <Image url="@../logo-1_cropped.png" />
-               </image>
-               <VBox.margin>
-                  <Insets bottom="15.0" />
-               </VBox.margin>
-               <viewport>
-                  <Rectangle2D />
-               </viewport>
-            </ImageView>
-            <TextField fx:id="username" maxHeight="-Infinity" maxWidth="500.0" promptText="Username">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Trebuchet MS" size="12.0" />
-               </font></TextField>
-            <PasswordField fx:id="password" maxWidth="500.0" promptText="Password">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Trebuchet MS" size="12.0" />
-               </font></PasswordField>
-            <TextField fx:id="server" maxWidth="500.0" promptText="Server IP and PORT" text="localhost:7274" />
-            <Button fx:id="button" mnemonicParsing="false" onAction="#loginAction" prefHeight="25.0" prefWidth="85.0" text="Login">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="register" mnemonicParsing="false" onAction="#registerAction" prefHeight="25.0" prefWidth="85.0" text="Register">
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </Button>
-         </children>
-      </VBox>
-   </children>
+<AnchorPane fx:id="pane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" stylesheets="@style/LoginWindow.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.LoginWindow">
+   <VBox fx:id="vbox" alignment="CENTER" layoutX="133.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="556.0" prefWidth="634.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="279.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+         <Image url="@../logo-1_cropped.png" />
+      </ImageView>
+      <TextField fx:id="username" maxHeight="-Infinity" maxWidth="500.0" prefHeight="33.0" prefWidth="500.0" promptText="Username">
+         <VBox.margin>
+            <Insets top="25.0" />
+         </VBox.margin>
+         <font>
+            <Font name="Trebuchet MS" size="18.0" />
+         </font>
+      </TextField>
+      <PasswordField fx:id="password" maxWidth="500.0" prefWidth="500.0" promptText="Password">
+         <VBox.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </VBox.margin>
+         <font>
+            <Font name="Trebuchet MS" size="18.0" />
+         </font>
+      </PasswordField>
+      <TextField fx:id="server" maxWidth="500.0" prefWidth="500.0" promptText="Server IP and PORT" text="localhost:7274">
+         <font>
+            <Font name="Trebuchet MS" size="18.0" />
+         </font></TextField>
+      <Button fx:id="button" mnemonicParsing="false" onAction="#loginAction" prefHeight="25.0" prefWidth="85.0" text="Login">
+         <VBox.margin>
+            <Insets bottom="10.0" top="25.0" />
+         </VBox.margin>
+         <font>
+            <Font name="Trebuchet MS" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="register" mnemonicParsing="false" onAction="#registerAction" prefHeight="25.0" prefWidth="85.0" text="Register">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <font>
+            <Font name="Trebuchet MS" size="14.0" />
+         </font>
+      </Button>
+   </VBox>
 </AnchorPane>

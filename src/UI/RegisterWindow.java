@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.Socket;
 import java.sql.Date;
@@ -22,6 +23,7 @@ public class RegisterWindow {
     public TextField email;
     public TextField username;
     public TextField server;
+    public AnchorPane pane;
 
     public void register(ActionEvent actionEvent) {
         User tempUser = new User(username.getText(), name.getText(), lastname.getText(), email.getText(), date.getValue(), BasicFunctionLibrary.hashPassword(password.getText()));

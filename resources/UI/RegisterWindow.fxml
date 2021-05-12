@@ -1,29 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.RegisterWindow">
-   <children>
-      <Text layoutX="173.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register a new simpleTeam" textAlignment="CENTER" wrappingWidth="254.13671875">
+<AnchorPane fx:id="pane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.RegisterWindow">
+   <VBox alignment="CENTER" layoutX="75.0" prefHeight="400.0" prefWidth="450.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="0.0">
+      <Text fill="#29abe2" strokeType="OUTSIDE" strokeWidth="0.0" text="Register a new team" textAlignment="CENTER" wrappingWidth="360.13671875">
          <font>
-            <Font name="Arial" size="20.0" />
+            <Font name="Trebuchet MS" size="32.0" />
          </font>
+         <VBox.margin>
+            <Insets bottom="25.0" />
+         </VBox.margin>
       </Text>
-      <TextField fx:id="username" layoutX="24.0" layoutY="81.0" promptText="Username" />
-      <TextField fx:id="email" layoutX="24.0" layoutY="143.0" promptText="Email" />
-      <PasswordField fx:id="password" layoutX="24.0" layoutY="200.0" promptText="Password" />
-      <TextField fx:id="name" layoutX="415.0" layoutY="143.0" promptText="Name" />
-      <TextField fx:id="lastname" layoutX="415.0" layoutY="200.0" promptText="Lastname" />
-      <Button layoutX="226.0" layoutY="343.0" mnemonicParsing="false" onAction="#register" prefHeight="43.0" prefWidth="149.0" text="Register a new User" />
-      <DatePicker fx:id="date" layoutX="415.0" layoutY="81.0" />
-      <TextField fx:id="server" layoutX="437.0" layoutY="352.0" promptText="Server IP:PORT" text="localhost:7274" />
-      <Label layoutX="437.0" layoutY="335.0" text="Server:" />
-   </children>
+      <HBox alignment="TOP_CENTER" fillHeight="false" prefHeight="25.0" prefWidth="405.0">
+         <TextField fx:id="username" prefHeight="25.0" prefWidth="200.0" promptText="Username">
+            <HBox.margin>
+               <Insets right="5.0" />
+            </HBox.margin>
+            <font>
+               <Font name="Trebuchet MS" size="18.0" />
+            </font>
+         </TextField>
+         <PasswordField fx:id="password" prefHeight="25.0" prefWidth="200.0" promptText="Password">
+            <HBox.margin>
+               <Insets />
+            </HBox.margin>
+            <font>
+               <Font name="Trebuchet MS" size="18.0" />
+            </font>
+         </PasswordField>
+      </HBox>
+      <HBox alignment="TOP_CENTER" fillHeight="false" prefHeight="25.0" prefWidth="405.0">
+         <VBox.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </VBox.margin>
+         <TextField fx:id="email" prefHeight="25.0" prefWidth="200.0" promptText="E-Mail">
+            <HBox.margin>
+               <Insets right="5.0" />
+            </HBox.margin>
+            <font>
+               <Font name="Trebuchet MS" size="18.0" />
+            </font>
+         </TextField>
+         <DatePicker fx:id="date" prefHeight="25.0" prefWidth="200.0" promptText="Date of birth">
+            <HBox.margin>
+               <Insets />
+            </HBox.margin>
+         </DatePicker>
+      </HBox>
+      <HBox alignment="TOP_CENTER" fillHeight="false" prefHeight="25.0" prefWidth="405.0">
+         <VBox.margin>
+            <Insets bottom="25.0" />
+         </VBox.margin>
+         <TextField fx:id="name" prefHeight="25.0" prefWidth="200.0" promptText="Name">
+            <HBox.margin>
+               <Insets right="5.0" />
+            </HBox.margin>
+            <font>
+               <Font name="Trebuchet MS" size="18.0" />
+            </font>
+         </TextField>
+         <TextField fx:id="lastname" prefHeight="25.0" prefWidth="200.0" promptText="Last name">
+            <HBox.margin>
+               <Insets />
+            </HBox.margin>
+            <font>
+               <Font name="Trebuchet MS" size="18.0" />
+            </font>
+         </TextField>
+      </HBox>
+      <Button mnemonicParsing="false" onAction="#register" prefHeight="20.0" prefWidth="142.0" text="Register a new user">
+         <font>
+            <Font name="Trebuchet MS" size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </Button>
+      <Label text="Server:">
+         <VBox.margin>
+            <Insets top="25.0" />
+         </VBox.margin>
+         <font>
+            <Font name="Trebuchet MS" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="server" prefHeight="25.0" prefWidth="284.0" promptText="Server IP:PORT" text="localhost:7274">
+         <VBox.margin>
+            <Insets bottom="-25.0" />
+         </VBox.margin>
+         <font>
+            <Font name="Trebuchet MS" size="18.0" />
+         </font>
+      </TextField>
+   </VBox>
 </AnchorPane>

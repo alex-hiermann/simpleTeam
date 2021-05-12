@@ -85,7 +85,7 @@ public class ClientMain extends Application {
     }
 
     public void showAddTeamWindow() throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/UI/AddTeam.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/UI/AddTeamWindow.fxml")));
         Stage stage = new Stage();
         stage.getIcons().add(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/icon-1.png"))));
         stage.setTitle("Add Team");
