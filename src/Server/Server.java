@@ -59,7 +59,8 @@ public class Server implements Runnable {
         }
         //TODO delete users 'a' and 'b'! :(
         users.add(new User("a", "a", "a", "a", LocalDate.MIN, "0CC175B9C0F1B6A831C399E269772661"));
-        users.add(new User("b", "b", "b", "b", LocalDate.MAX, "92EB5FFEE6AE2FEC3AD71C777531578F"));
+        users.add(new User("a", "a", "a", "aa@aa.at", LocalDate.MIN, "0CC175B9C0F1B6A831C399E269772661"));
+        users.add(new User("b", "b", "b", "bb@bb.at", LocalDate.MAX, "92EB5FFEE6AE2FEC3AD71C777531578F"));
         System.err.println("Starting Server");
         Thread thread = new Thread(new Server());
         thread.start();
@@ -122,6 +123,13 @@ public class Server implements Runnable {
                         }
                         System.out.println();
                     }
+                    break;
+                case "getListeners":
+                    System.out.println("#####Listeners#####");
+                    for (User user : listeners.keySet()) {
+                        System.out.println("User:" + user.getEmail() + "     =     " + listeners.get(user));
+                    }
+                    System.out.println();
                     break;
                 default:
                     System.err.println(("Unexpected value: " + command));

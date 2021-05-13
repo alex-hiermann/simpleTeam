@@ -26,6 +26,7 @@
                 <Font name="Trebuchet MS" size="18.0" />
             </font>
         </TextField>
+      <Text fx:id="infoText" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="131.13671875" />
         <Button mnemonicParsing="false" onAction="#inviteUserAction" text="Add user">
          <font>
             <Font name="Trebuchet MS" size="14.0" />

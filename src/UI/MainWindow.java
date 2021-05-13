@@ -31,6 +31,7 @@ public class MainWindow {
     public VBox chat;
     public AnchorPane pane;
     public MenuBar menubar;
+    public Button inviteButton;
     private Team selectedTeam;
 
     public void initialize() {
@@ -64,6 +65,17 @@ public class MainWindow {
             GridPane grid = new GridPane();
             Button chatRoomButton = new Button("Select Team");
             chatRoomButton.setOnAction(actionEvent -> {
+//            if (selectedTeam.getAdmin().equals(Client.user)) {
+//            }
+                inviteButton.setDisable(false);
+                inviteButton.setText("Add a user to your team");
+                inviteButton.setOnAction(l -> {
+                    try {
+                        new ClientMain().showInviteUserWindow(selectedTeam);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
                 selectedTeam = team;
                 chatParentContainer.setText(selectedTeam.getName());
                 printMessages(selectedTeam.getChatroom());
@@ -104,7 +116,6 @@ public class MainWindow {
             }
         });
     }
-
     public void setAddTeamButtonActive(boolean isActive) {
         addTeamButton.setDisable(!isActive);
     }

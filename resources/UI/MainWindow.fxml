@@ -52,7 +52,8 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="302.0" prefWidth="283.0">
                            <children>
-                              <Button fx:id="addTeamButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#createTeamDialog" text="Add Team" />
+                              <Button fx:id="addTeamButton" layoutX="67.0" layoutY="14.0" mnemonicParsing="false" onAction="#createTeamDialog" prefHeight="25.0" prefWidth="150.0" text="Add Team" />
+                              <Button fx:id="inviteButton" layoutX="67.0" layoutY="54.0" mnemonicParsing="false" onAction="#createTeamDialog" text="Select a team to continue" disable="true"/>
                            </children>
                         </AnchorPane>
                     </content>

@@ -12,10 +12,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.LinkedList;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static Utils.BasicFunctionLibrary.extractUserFromArgs;
 import static Utils.BasicFunctionLibrary.findValueFromArgs;
@@ -113,15 +111,25 @@ public class Listener implements Runnable {
                             Server.teams.get(Server.teams.indexOf(team)).getChatroom().addMessage(message);
                         }
                         case "addUserToTeam" -> {
-                            User invitedUser = BasicFunctionLibrary.extractUserFromArgs(args);
-                            Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args), BasicFunctionLibrary.findValueFromArgs("teamdesc", args));
+                            User invitedUser = new User(BasicFunctionLibrary.findValueFromArgs("email", args));
+                            Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args), BasicFunctionLibrary.findValueFromArgs("teamdesc", args), Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)));
                             Server.teams.get(Server.teams.indexOf(team)).members.add(Server.users.get(Server.users.indexOf(invitedUser)));
-                            Server.listeners.get(invitedUser).sendSTRequestToClient("requestTeams");
+                            try {
+                                Server.listeners.get(invitedUser).sendSTRequestToClient("requestTeams");
+                            } catch (NullPointerException ignored) {
+                                //When the user isn't online we are ignoring the request
+                            }
                         }
                     }
                 }
             }
-        } catch (IOException | ParseException e) {
+        } catch (SocketException e) {
+            for (Map.Entry<User,Listener> entry:Server.listeners.entrySet()){
+                if (entry.getValue().equals(this)) {
+                    Server.listeners.remove(entry.getKey(), entry.getValue());
+                }
+            }
+        } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
     }

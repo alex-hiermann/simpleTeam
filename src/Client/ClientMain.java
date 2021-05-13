@@ -1,5 +1,6 @@
 package Client;
 
+import UI.InviteUserWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -91,6 +92,17 @@ public class ClientMain extends Application {
         stage.setTitle("Add Team");
         stage.setScene(new Scene(root));
         stage.show();
+        currentStage = stage;
+    }
+
+    public void showInviteUserWindow(Team team) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/UI/InviteUserWindow.fxml")));
+        Stage stage = new Stage();
+        stage.getIcons().add(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/icon-1.png"))));
+        stage.setTitle("Add a user to the team");
+        stage.setScene(new Scene(root));
+        stage.show();
+        InviteUserWindow.selectedTeam = team;
         currentStage = stage;
     }
 

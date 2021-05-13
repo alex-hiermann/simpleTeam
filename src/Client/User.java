@@ -6,14 +6,14 @@ import java.util.Objects;
 
 public class User {
 
-    private String username;
-    private String name;
-    private String lastName;
-    private String email;
+    private String username = "";
+    private String name = "";
+    private String lastName = "";
+    private String email = "";
     private LocalDate birth;
-    private String password;
+    private String password = "";
     public LinkedList<Team> myTeams = new LinkedList<>();
-    private int id;
+    private int id = 0;
     public static int userId = 0;
 
 
@@ -23,14 +23,16 @@ public class User {
 
     private LinkedList<Task> tasks = new LinkedList<>();
 
-    public User(String username) {
-        this.username = username;
+    public User(String email) {
+        this.email = email;
     }
 
     public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
+
+
 
     public int getId() {
         return id;

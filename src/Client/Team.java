@@ -42,16 +42,16 @@ public class Team {
 
     /**
      * Only for indexing
+     *
      * @param id Id
      */
     public Team(int id) {
         this.id = id;
     }
 
-
     @Override
     public String toString() {
-        return "teamname='" + name + "',teamdesc='" + description + "'";
+        return "teamname='" + name + "',teamdesc='" + description + "',teamId='" + id + "'";
     }
 
     public void setAdmin(User newAdmin) {
