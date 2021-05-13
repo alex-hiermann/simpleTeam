@@ -158,8 +158,6 @@ Alexander Hiermann:
 * Twitter: [@GameAlexZocktYT](https://twitter.com/GameAlexZocktYT)
 * Instagram: [@alex.hier](https://instagram.com/alex.hier)
 
-Project Link: [https://github.com/alex-hiermann/simpleTeam](https://github.com/alex-hiermann/simpleTeam)
-
 Maximilian Burger:
 * Github: [ProRedMax](https://github.com/ProRedMax)
 * LinkedIn: [Maximilian Burger](https://linkedin.com/in/maximilian-burger-81a9581b3)
@@ -167,7 +165,7 @@ Maximilian Burger:
 * Twitter: [@maxx_bur](https://twitter.com/maxx_bur)
 * Instagram: [@maxx.bur](https://instagram.com/maxx.bur)
 
-Project Link: [https://github.com/ProRedMax/simpleTeam](https://github.com/ProRedMax/simpleTeam)
+Project Link: [https://github.com/alex-hiermann/simpleTeam](https://github.com/alex-hiermann/simpleTeam)
 
 
 
