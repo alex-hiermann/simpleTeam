@@ -22,7 +22,7 @@
          </viewport>
          <Image url="@../logo-1_cropped.png" />
       </ImageView>
-      <TextField fx:id="username" maxHeight="-Infinity" maxWidth="500.0" prefHeight="33.0" prefWidth="500.0" promptText="Username">
+      <TextField fx:id="email" maxHeight="-Infinity" maxWidth="500.0" prefHeight="33.0" prefWidth="500.0" promptText="E-Mail">
          <VBox.margin>
             <Insets top="25.0" />
          </VBox.margin>
@@ -38,7 +38,7 @@
             <Font name="Trebuchet MS" size="18.0" />
          </font>
       </PasswordField>
-      <TextField fx:id="server" maxWidth="500.0" prefWidth="500.0" promptText="Server IP and PORT" text="localhost:7274">
+      <TextField fx:id="server" maxWidth="500.0" prefWidth="500.0" promptText="Server IP and PORT (example: localhost:7274)" text="localhost:7274">
          <font>
             <Font name="Trebuchet MS" size="18.0" />
          </font></TextField>

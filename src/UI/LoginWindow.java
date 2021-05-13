@@ -4,11 +4,6 @@ import Client.ClientMain;
 import Client.Client;
 import Client.User;
 import Utils.BasicFunctionLibrary;
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -17,13 +12,10 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Base64;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ThreadLocalRandom;
 
 
 public class LoginWindow {
-    public TextField username;
+    public TextField email;
     public PasswordField password;
     public TextField server;
     public Button button;
@@ -38,7 +30,7 @@ public class LoginWindow {
         Socket temp = ClientMain.connectToServer(server.getText());
         Client client = new Client(temp, new User("tempUser05070201"));
         new Thread(client).start();
-        Client.sendSTRequest("login:email='" + username.getText() + "',password='" + BasicFunctionLibrary.hashPassword(password.getText()) + "'");
+        Client.sendSTRequest("login:email='" + email.getText() + "',password='" + BasicFunctionLibrary.hashPassword(password.getText()) + "'");
 //            service.start();
     }
 
