@@ -117,6 +117,7 @@ public class Listener implements Runnable {
                             try {
                                 Server.listeners.get(invitedUser).sendSTRequestToClient("requestTeams");
                             } catch (NullPointerException ignored) {
+                                System.err.println("No Listener Found");
                                 //When the user isn't online we are ignoring the request
                             }
                         }

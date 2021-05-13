@@ -135,7 +135,7 @@ public class Client implements Runnable {
                         }
                         ClientMain.mainWindow.initialize();
                     }
-                    case "requestTeams" -> sendSTRequest("getTeams");
+                    case "requestTeams" -> sendSTRequest("getTeams:" + user);
 //                    case "fetchMessages" -> {
 //                        String messageRequest[] = data.split(":")[1].split(";");
 //                        user.myTeams.forEach(l -> l.getChatroom().getMessages().clear());
