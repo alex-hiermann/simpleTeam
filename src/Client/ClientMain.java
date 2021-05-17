@@ -48,11 +48,6 @@ public class ClientMain extends Application {
         stage.getIcons().add(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/icon-1.png"))));
         stage.setTitle("Login");
         scene.getStylesheets().add(String.valueOf(getClass().getResource("/UI/style/LoginWindow.css")));
-        scene.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.ENTER) {
-                LoginWindow.extracted();
-            }
-        });
         stage.setScene(scene);
         stage.show();
         currentStage = stage;

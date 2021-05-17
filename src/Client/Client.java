@@ -9,8 +9,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Date;
 
 public class Client implements Runnable {
 
@@ -135,7 +133,10 @@ public class Client implements Runnable {
                         }
                         ClientMain.mainWindow.initialize();
                     }
-                    case "requestTeams" -> sendSTRequest("getTeams:" + user);
+                    case "requestTeams" -> {
+                        System.out.println("Hello I'm " + user.getEmail());
+                        sendSTRequest("getTeams:" + user);
+                    }
 //                    case "fetchMessages" -> {
 //                        String messageRequest[] = data.split(":")[1].split(";");
 //                        user.myTeams.forEach(l -> l.getChatroom().getMessages().clear());
