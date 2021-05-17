@@ -15,8 +15,8 @@ public class AddTeamWindow {
 
     public void createTeam(ActionEvent actionEvent) {
         if ((!teamname.getText().isEmpty() && !teamname.getText().isBlank()) || !teamname.getText().contains("'")) {
-            Client.sendSTRequest("createTeam:" + new Team(teamname.getText(), teamdesc.getText()) + "," + Client.user);
-            System.out.println("createTeam:" + new Team(teamname.getText(), teamdesc.getText()) + "," + Client.user);
+            Client.sendSTRequest("createTeam:" + new Team(teamname.getText(), teamdesc.getText()) + ",userId='" + Client.user.getId() + "'");
+            System.out.println("createTeam:" + new Team(teamname.getText(), teamdesc.getText()) + ",userId='" + Client.user.getId() + "'");
         }
     }
 }

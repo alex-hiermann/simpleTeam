@@ -3,6 +3,7 @@ package Server;
 import Client.Chat.Message;
 import Client.Team;
 import Client.User;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -11,6 +12,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Server implements Runnable {
@@ -56,9 +58,9 @@ public class Server implements Runnable {
         } catch (Exception ignored) {
         }
         //TODO delete users 'a' and 'b'! :(
-        users.add(new User("a", "a", "a", "a", LocalDate.MIN, "0CC175B9C0F1B6A831C399E269772661"));
-        users.add(new User("a", "a", "a", "aa@aa.at", LocalDate.MIN, "0CC175B9C0F1B6A831C399E269772661"));
-        users.add(new User("b", "b", "b", "bb@bb.at", LocalDate.MAX, "92EB5FFEE6AE2FEC3AD71C777531578F"));
+        users.add(new User("a", "a", "a", "a", LocalDate.MIN, "0CC175B9C0F1B6A831C399E269772661", 1));
+        users.add(new User("a", "a", "a", "aa@aa.at", LocalDate.MIN, "0CC175B9C0F1B6A831C399E269772661", 2));
+        users.add(new User("b", "b", "b", "bb@bb.at", LocalDate.MAX, "92EB5FFEE6AE2FEC3AD71C777531578F", 3));
         System.err.println("Starting Server");
         Thread thread = new Thread(new Server());
         thread.start();
@@ -80,7 +82,7 @@ public class Server implements Runnable {
         while (true) {
             Scanner sc = new Scanner(System.in);
             String command = sc.nextLine();
-            switch (command) {
+            switch (command.toLowerCase()) {
                 case "shutdown":
                     System.err.println("Server shutdowning in 5 seconds!");
                     try {
@@ -93,7 +95,7 @@ public class Server implements Runnable {
                 case "refresh":
                     System.out.println("Refreshed");
                     break;
-                case "getTeams":
+                case "getteams":
                     System.out.print("Teams:{");
                     for (Team team : teams) {
                         System.out.print(team);
@@ -101,18 +103,18 @@ public class Server implements Runnable {
                     }
                     System.out.println("};");
                     break;
-                case "getUsers":
+                case "getusers":
                     System.out.println("Users:{");
                     for (User user : users) {
                         System.out.println(user);
                     }
                     System.out.println("};");
                     break;
-                case "clearTeams":
+                case "clearteams":
                     System.out.println("Cleared all teams");
                     teams.clear();
                     break;
-                case "getAllMessages":
+                case "getallmessages":
                     System.out.println("####Messages####");
                     for (Team team : teams) {
                         System.out.println("##Messages from Team: " + team.getName() + " : " + team.getId());
@@ -122,7 +124,7 @@ public class Server implements Runnable {
                         System.out.println();
                     }
                     break;
-                case "getListeners":
+                case "getlisteners":
                     System.out.println("#####Listeners#####");
                     for (User user : listeners.keySet()) {
                         System.out.println("User:" + user.getEmail() + "     =     " + listeners.get(user));

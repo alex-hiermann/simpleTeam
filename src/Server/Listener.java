@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import static Utils.BasicFunctionLibrary.extractUserFromArgs;
+import static Utils.BasicFunctionLibrary.findValueFromArgs;
 
 public class Listener implements Runnable {
 
@@ -46,8 +47,9 @@ public class Listener implements Runnable {
                     }
                     switch (command) {
                         case "createTeam" -> {
+                            System.out.println("args = " + Arrays.toString(args));
                             Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args), BasicFunctionLibrary.findValueFromArgs("teamdesc", args));
-                            User serverUser = Server.users.get(Server.users.indexOf(extractUserFromArgs(args)));
+                            User serverUser = Server.users.get(Server.users.indexOf(new User(findValueFromArgs("userId", args))));
                             team.members.add(serverUser);   //Add user to team
                             serverUser.myTeams.add(team);   //Add the team to user
                             team.setAdmin(serverUser);      //Make him an admin, because he created the team
@@ -55,6 +57,7 @@ public class Listener implements Runnable {
                             sendSTRequestToClient("createTeam:" + team + ",teamid='" + team.getId() + "'");
                         }
                         case "getTeams" -> {
+                            System.out.println("args = " + args);
                             User serverUser = Server.users.get(Server.users.indexOf(extractUserFromArgs(args)));
                             StringBuilder request = new StringBuilder();
                             StringBuilder messageRequest = new StringBuilder();

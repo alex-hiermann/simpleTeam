@@ -14,7 +14,7 @@ public class User {
     private String password = "";
     public LinkedList<Team> myTeams = new LinkedList<>();
     private int id = 0;
-    public static int userId = 0;
+    public static int userId = 4;
 
 
     public String getPassword() {
@@ -33,7 +33,6 @@ public class User {
     }
 
 
-
     public int getId() {
         return id;
     }
@@ -44,10 +43,10 @@ public class User {
 
     /**
      * @param username Username
-     * @param name Name
+     * @param name     Name
      * @param lastName LastName
-     * @param email Email
-     * @param date Age
+     * @param email    Email
+     * @param date     Age
      */
     public User(String username, String name, String lastName, String email, LocalDate date, String password) {
         this.username = username;
@@ -75,6 +74,16 @@ public class User {
     @Override
     public String toString() {
         return "email='" + getEmail() + "',username='" + getUsername() + "',password='" + password + "',name='" + getName() + "',lastname='" + getLastName() + "',birth='" + getBirth() + "',userId='" + getId() + "'";
+    }
+
+    public User(String username, String name, String lastName, String email, LocalDate birth, String password, int id) {
+        this.username = username;
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.birth = birth;
+        this.password = password;
+        this.id = id;
     }
 
     public void addTask(Task task) {
