@@ -15,9 +15,9 @@ import java.net.Socket;
 
 
 public class LoginWindow {
-    public TextField email;
-    public PasswordField password;
-    public TextField server;
+    public static TextField email;
+    public static PasswordField password;
+    public static TextField server;
     public Button button;
     public VBox vbox;
     public ProgressBar progressBar;
@@ -25,8 +25,12 @@ public class LoginWindow {
     public Button register;
 
     @FXML
-    protected void loginAction(ActionEvent actionEvent) {
-//        button.setDisable(true);
+    public void loginAction(ActionEvent actionEvent) {
+        extracted();
+    }
+
+    public static void extracted() {
+        //        button.setDisable(true);
         Socket temp = ClientMain.connectToServer(server.getText());
         Client client = new Client(temp, new User("tempUser05070201"));
         new Thread(client).start();

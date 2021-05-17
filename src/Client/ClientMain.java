@@ -1,11 +1,13 @@
 package Client;
 
 import UI.InviteUserWindow;
+import UI.LoginWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import UI.MainWindow;
 
@@ -46,6 +48,11 @@ public class ClientMain extends Application {
         stage.getIcons().add(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/icon-1.png"))));
         stage.setTitle("Login");
         scene.getStylesheets().add(String.valueOf(getClass().getResource("/UI/style/LoginWindow.css")));
+        scene.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                LoginWindow.extracted();
+            }
+        });
         stage.setScene(scene);
         stage.show();
         currentStage = stage;

@@ -49,7 +49,7 @@ public class Listener implements Runnable {
                         case "createTeam" -> {
                             System.out.println("args = " + Arrays.toString(args));
                             Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args), BasicFunctionLibrary.findValueFromArgs("teamdesc", args));
-                            User serverUser = Server.users.get(Server.users.indexOf(new User(findValueFromArgs("userId", args))));
+                            User serverUser = Server.users.get(Server.users.indexOf(new User(findValueFromArgs("email", args))));
                             team.members.add(serverUser);   //Add user to team
                             serverUser.myTeams.add(team);   //Add the team to user
                             team.setAdmin(serverUser);      //Make him an admin, because he created the team
