@@ -1,9 +1,8 @@
 package Server;
 
-import Client.Chat.Chatroom;
 import Client.Chat.Message;
-import Client.User;
 import Client.Team;
+import Client.User;
 import Utils.BasicFunctionLibrary;
 
 import java.io.DataInputStream;
@@ -12,11 +11,10 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
 import java.text.ParseException;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.Map;
 
 import static Utils.BasicFunctionLibrary.extractUserFromArgs;
-import static Utils.BasicFunctionLibrary.findValueFromArgs;
 
 public class Listener implements Runnable {
 
@@ -125,7 +123,7 @@ public class Listener implements Runnable {
                 }
             }
         } catch (SocketException e) {
-            for (Map.Entry<User,Listener> entry:Server.listeners.entrySet()){
+            for (Map.Entry<User, Listener> entry : Server.listeners.entrySet()) {
                 if (entry.getValue().equals(this)) {
                     Server.listeners.remove(entry.getKey(), entry.getValue());
                 }

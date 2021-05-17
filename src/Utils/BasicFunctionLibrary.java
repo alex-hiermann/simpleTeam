@@ -6,7 +6,6 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class BasicFunctionLibrary {
 
@@ -37,12 +36,12 @@ public class BasicFunctionLibrary {
 
     public static User extractUserFromArgs(String[] args) {
         return new User(
-                BasicFunctionLibrary.findValueFromArgs("username", args),
-                BasicFunctionLibrary.findValueFromArgs("name", args),
-                BasicFunctionLibrary.findValueFromArgs("lastname", args),
-                BasicFunctionLibrary.findValueFromArgs("email", args),
-                LocalDate.parse(BasicFunctionLibrary.findValueFromArgs("birth", args)),
-                BasicFunctionLibrary.findValueFromArgs("password", args));
+                findValueFromArgs("username", args),
+                findValueFromArgs("name", args),
+                findValueFromArgs("lastname", args),
+                findValueFromArgs("email", args),
+                LocalDate.parse(findValueFromArgs("birth", args)),
+                findValueFromArgs("password", args));
     }
 
 }
