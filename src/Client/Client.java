@@ -1,5 +1,6 @@
 package Client;
 
+import Client.Chat.Message;
 import Utils.BasicFunctionLibrary;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -137,11 +138,12 @@ public class Client implements Runnable {
                         System.out.println("Hello I'm " + user.getEmail());
                         sendSTRequest("getTeams:" + user);
                     }
-//                    case "fetchMessages" -> {
-//                        String messageRequest[] = data.split(":")[1].split(";");
-//                        user.myTeams.forEach(l -> l.getChatroom().getMessages().clear());
-//                        //TODO messages per team
-//                    }
+                   case "fetchMessage" -> {
+                       Team team = user.myTeams.get(user.myTeams.indexOf(new Team(Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)))));
+                       team.getChatroom().addMessage(new Message(new User(BasicFunctionLibrary.findValueFromArgs("email", args)),
+                               BasicFunctionLibrary.findValueFromArgs("messageText", args),
+                               Message.dateFormat.parse(BasicFunctionLibrary.findValueFromArgs("date", args))));
+                    }
                     case "" -> {
 
                     }

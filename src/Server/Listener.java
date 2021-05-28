@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -59,20 +60,21 @@ public class Listener implements Runnable {
                         System.out.println("args = " + Arrays.toString(args));
                         User serverUser = Server.users.get(Server.users.indexOf(extractUserFromArgs(args)));
                         StringBuilder request = new StringBuilder();
-                        StringBuilder messageRequest = new StringBuilder();
+                        ArrayList<Team> userTeams = new ArrayList<>();
                         for (Team team : Server.teams) {
                             if (team.members.contains(serverUser)) {
                                 request.append(team).append(";");
-                                for (Message message : team.getChatroom().getMessages()) {
-                                    messageRequest.append(message).append(";");
-                                    //TODO Messages per team
-                                }
+                                userTeams.add(team);
                             }
                         }
                         String clientRequest = request.toString();
                         try {
                             sendSTRequestToClient("userTeams:" + clientRequest.substring(0, clientRequest.length() - 1));
-                            sendSTRequestToClient("fetchMessages:" + messageRequest);
+                            for (Team userTeam : userTeams) {
+                                for (String msgRequest : userTeam.getChatroom().generateMessages()) {
+                                    sendSTRequestToClient("fetchMessage:" + msgRequest);
+                                }
+                            }
                         } catch (StringIndexOutOfBoundsException ignored) {
                         }
 

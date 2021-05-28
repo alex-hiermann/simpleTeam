@@ -27,7 +27,7 @@ public class Message {
 
     @Override
     public String toString() {
-        return "messageText='" + getText() + "',date='" + getFormattedDate() + "'";
+        return "messageText='" + getText() + "',date='" + getFormattedDate() + "',email='" + user.getEmail() + "'";
     }
 
     public User getUser() {
