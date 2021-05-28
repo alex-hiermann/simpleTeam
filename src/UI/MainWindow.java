@@ -97,11 +97,11 @@ public class MainWindow {
     @FXML
     public void sendMessage(ActionEvent actionEvent) {
         if (selectedTeam == null) return;
-        Message message = new Message(messageField.getText(), new Date());
+        Message message = new Message(Client.user, messageField.getText(), new Date());
         messageField.clear();
         selectedTeam.getChatroom().addMessage(message);
         printMessages(selectedTeam.getChatroom());
-        String request = "sendMessage:" + message + "," + Client.user.toString() + ",teamid='" + selectedTeam.getId() + "'";
+        String request = "sendMessage:" + message + ",teamid='" + selectedTeam.getId() + "'";
         System.out.println("Request = " + request);
         Client.sendSTRequest(request);
     }

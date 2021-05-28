@@ -47,7 +47,6 @@ public class Listener implements Runnable {
                 }
                 switch (command) {
                     case "createTeam" -> {
-                        System.out.println("args = " + Arrays.toString(args));
                         Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args), BasicFunctionLibrary.findValueFromArgs("teamdesc", args));
                         User serverUser = Server.users.get(Server.users.indexOf(new User(findValueFromArgs("email", args))));
                         team.members.add(serverUser);   //Add user to team
@@ -57,7 +56,6 @@ public class Listener implements Runnable {
                         sendSTRequestToClient("createTeam:" + team + ",teamid='" + team.getId() + "'");
                     }
                     case "getTeams" -> {
-                        System.out.println("args = " + Arrays.toString(args));
                         User serverUser = Server.users.get(Server.users.indexOf(extractUserFromArgs(args)));
                         StringBuilder request = new StringBuilder();
                         ArrayList<Team> userTeams = new ArrayList<>();
@@ -71,7 +69,8 @@ public class Listener implements Runnable {
                         try {
                             sendSTRequestToClient("userTeams:" + clientRequest.substring(0, clientRequest.length() - 1));
                             for (Team userTeam : userTeams) {
-                                for (String msgRequest : userTeam.getChatroom().generateMessages()) {
+                                ArrayList<String> strings = userTeam.getChatroom().generateMessages();
+                                for (String msgRequest : strings) {
                                     sendSTRequestToClient("fetchMessage:" + msgRequest);
                                 }
                             }
@@ -106,14 +105,12 @@ public class Listener implements Runnable {
                         }
                     }
                     case "sendMessage" -> {
-                        System.out.println("args = " + Arrays.toString(args));
-                        User user = BasicFunctionLibrary.extractUserFromArgs(args);
+                        User user = new User(BasicFunctionLibrary.findValueFromArgs("email", args));
                         Message message = new Message(user, BasicFunctionLibrary.findValueFromArgs("messageText", args), Message.dateFormat.parse(BasicFunctionLibrary.findValueFromArgs("date", args)));
                         Team team = new Team(Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamid", args)));
                         Server.teams.get(Server.teams.indexOf(team)).getChatroom().addMessage(message);
                     }
                     case "addUserToTeam" -> {
-                        System.out.println("args = " + Arrays.toString(args));
                         User invitedUser = new User(BasicFunctionLibrary.findValueFromArgs("email", args));
                         System.out.println("invitedUser = " + invitedUser);
                         Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args), BasicFunctionLibrary.findValueFromArgs("teamdesc", args), Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)));

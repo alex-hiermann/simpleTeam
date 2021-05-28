@@ -12,9 +12,11 @@ public class Chatroom {
 
     public ArrayList<String> generateMessages() {
         ArrayList<String> generatedMessages = new ArrayList<>();
-        StringBuilder stringBuilder = new StringBuilder();
-        messages.forEach(l ->
-                generatedMessages.add(stringBuilder.append(l.toString()).append(",teamId='").append(team.getId()).append("'").toString()));
+        final StringBuilder[] stringBuilder = {new StringBuilder()};
+        messages.forEach(l -> {
+            generatedMessages.add(stringBuilder[0].append(l.toString()).append(",teamId='").append(team.getId()).append("'").toString());
+            stringBuilder[0] = new StringBuilder();
+        });
         return generatedMessages;
     }
 
