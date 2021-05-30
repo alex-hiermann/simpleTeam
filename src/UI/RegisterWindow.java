@@ -1,7 +1,7 @@
 package UI;
 
-import Client.ClientMain;
 import Client.Client;
+import Client.ClientMain;
 import Client.User;
 import Utils.BasicFunctionLibrary;
 import javafx.event.ActionEvent;
@@ -11,8 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.Socket;
-import java.sql.Date;
-import java.time.ZoneId;
 
 public class RegisterWindow {
 

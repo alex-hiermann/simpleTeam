@@ -11,7 +11,7 @@ public class Team {
     String description;
     private User admin;
     private static int uniqueTeamId = 0;
-    private int id;
+    private final int id;
     private Chatroom chatroom = new Chatroom(this);
     public LinkedList<User> members = new LinkedList<>();
 

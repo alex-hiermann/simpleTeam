@@ -9,7 +9,7 @@ public class User {
     private String username = "";
     private String name = "";
     private String lastName = "";
-    private String email = "";
+    private String email;
     private LocalDate birth;
     private String password = "";
     public LinkedList<Team> myTeams = new LinkedList<>();
