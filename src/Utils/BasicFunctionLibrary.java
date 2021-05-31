@@ -2,7 +2,11 @@ package Utils;
 
 import Client.User;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
@@ -44,4 +48,31 @@ public class BasicFunctionLibrary {
                 findValueFromArgs("password", args));
     }
 
+    /**
+     * This method is used to create all files needed for sqlite3
+     */
+    protected void createFolderStructure() {
+        try {
+            File javaDir = new File(Configuration.ST_DIR_PATH + "java/");
+            if (javaDir.mkdir()) {
+                System.out.println("Directory created: " + javaDir.getAbsolutePath());
+            } else {
+                System.out.println("Directory already exists.");
+            }
+
+            File connectDirs = new File(Configuration.ST_DIR_PATH + "java/connect/net/sqlitetutorial");
+            if (connectDirs.mkdir()) {
+                System.out.println("Directory created: " + connectDirs.getAbsolutePath());
+            } else {
+                System.out.println("Directory already exists.");
+            }
+
+            Files.copy(Path.of(String.valueOf(this.getClass().getResource("/drivers/sqlite-jdbc-3.34.0.jar"))),
+                    Path.of(Configuration.ST_DIR_PATH + "java/connect/sqlite-jdbc-3.34.0.jar"));
+
+        } catch (IOException e) {
+            System.err.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
 }
