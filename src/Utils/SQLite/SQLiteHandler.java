@@ -96,7 +96,9 @@ public class SQLiteHandler {
                 );
                 CREATE TABLE IF NOT EXISTS Task_User (
                     fk_pk_task_id INT NOT NULL,
-                    fk_pk_user_id INT NOT NULL
+                    fk_pk_user_id INT NOT NULL,
+                    FOREIGN KEY (fk_pk_task_id) REFERENCES Task (pk_task_id),
+                    FOREIGN KEY (fk_pk_user_id) REFERENCES User (pk_user_id)
                 );
                 """;
 
