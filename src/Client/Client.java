@@ -10,6 +10,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class Client implements Runnable {
 
@@ -63,7 +64,7 @@ public class Client implements Runnable {
                 }
                 switch (command) {
                     case "createTeam" -> {
-                        Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args), BasicFunctionLibrary.findValueFromArgs("teamdesc", args), Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamid", args)));
+                        Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args), BasicFunctionLibrary.findValueFromArgs("teamdesc", args), Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)));
                         team.setAdmin(user);
                         team.members.add(user);
                         user.myTeams.add(team);
@@ -129,20 +130,21 @@ public class Client implements Runnable {
                         user.myTeams.clear();
                         for (String team : teamRequests) {
                             String[] tempArgs = team.split(",");
-                            Team team1 = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", tempArgs), BasicFunctionLibrary.findValueFromArgs("teamdesc", tempArgs));
+                            Team team1 = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", tempArgs), BasicFunctionLibrary.findValueFromArgs("teamdesc", tempArgs), Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)));
                             user.myTeams.add(team1);
                         }
                         ClientMain.mainWindow.initialize();
                     }
                     case "requestTeams" -> {
-                        System.out.println("Hello I'm " + user.getEmail());
                         sendSTRequest("getTeams:" + user);
                     }
                    case "fetchMessage" -> {
+                       System.out.println("args = " + Arrays.toString(args));
                        Team team = user.myTeams.get(user.myTeams.indexOf(new Team(Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)))));
                        team.getChatroom().addMessage(new Message(new User(BasicFunctionLibrary.findValueFromArgs("email", args)),
                                BasicFunctionLibrary.findValueFromArgs("messageText", args),
                                Message.dateFormat.parse(BasicFunctionLibrary.findValueFromArgs("date", args))));
+                       ClientMain.mainWindow.printMessages(team.getChatroom());
                     }
                     case "" -> {
 

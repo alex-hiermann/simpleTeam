@@ -53,7 +53,7 @@ public class Listener implements Runnable {
                         serverUser.myTeams.add(team);   //Add the team to user
                         team.setAdmin(serverUser);      //Make him an admin, because he created the team
                         Server.teams.add(team);         //Finally add the team to the server
-                        sendSTRequestToClient("createTeam:" + team + ",teamid='" + team.getId() + "'");
+                        sendSTRequestToClient("createTeam:" + team + ",teamId='" + team.getId() + "'");
                     }
                     case "getTeams" -> {
                         User serverUser = Server.users.get(Server.users.indexOf(extractUserFromArgs(args)));
@@ -108,7 +108,13 @@ public class Listener implements Runnable {
                         User user = new User(BasicFunctionLibrary.findValueFromArgs("email", args));
                         Message message = new Message(user, BasicFunctionLibrary.findValueFromArgs("messageText", args), Message.dateFormat.parse(BasicFunctionLibrary.findValueFromArgs("date", args)));
                         Team team = new Team(Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamid", args)));
-                        Server.teams.get(Server.teams.indexOf(team)).getChatroom().addMessage(message);
+                        Team serverTeam = Server.teams.get(Server.teams.indexOf(team));
+                        serverTeam.getChatroom().addMessage(message);
+                        for (User teamUser : serverTeam.members) {
+                            if (!teamUser.equals(user)) {
+                                Server.listeners.get(teamUser).sendSTRequestToClient("fetchMessage:" + message + ",teamId='" + team.getId() + "'");
+                            }
+                        }
                     }
                     case "addUserToTeam" -> {
                         User invitedUser = new User(BasicFunctionLibrary.findValueFromArgs("email", args));

@@ -108,8 +108,8 @@ public class MainWindow {
 
     @FXML
     public void printMessages(Chatroom chatroom) {
-        chat.getChildren().clear();
         Platform.runLater(() -> {
+            chat.getChildren().clear();
             for (Message message : chatroom.getMessages()) {
                 System.out.println("message = " + message);
                 chat.getChildren().add(new Text(message.getText()));

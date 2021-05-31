@@ -22,7 +22,7 @@ public class Configuration {
     public final static String DATABASE_URL = "jdbc:sqlite:C:/ProgramFiles/simpleTeam/db/simpleTeam.db";
 
     /**
-     * This path defines the directory path in general, were different things are saved
+     * This path defines the directory path in general, where different things are saved
      */
     public final static String ST_DIR_PATH = "jdbc:sqlite:C:/ProgramFiles/simpleTeam/db/";
 }
