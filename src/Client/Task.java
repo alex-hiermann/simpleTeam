@@ -31,14 +31,6 @@ public class Task {
         this.difficulty = difficulty;
     }
 
-    public Date getTill() {
-        return till;
-    }
-
-    public E_TASK_TYPE getType() {
-        return type;
-    }
-
     public String getName() {
         return name;
     }
@@ -53,6 +45,22 @@ public class Task {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Date getTill() {
+        return till;
+    }
+
+    public void setTill(Date till) {
+        this.till = till;
+    }
+
+    public E_TASK_TYPE getType() {
+        return type;
+    }
+
+    public void setType(E_TASK_TYPE type) {
+        this.type = type;
     }
 
     public E_TASK_STATE getState() {
