@@ -1,44 +1,57 @@
 package Utils;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.*;
 
 /**
- * template used from sqlitetutorial.net
+ * @author Alex Hiermann
+ * different templates used from sqlitetutorial.net
  */
 public class SQLiteHandler {
 
     /**
-     * Connect to a sample database
-     *
-     * @param fileName the database file name
+     * @param args the command line arguments
      */
-    public static void createNewDatabase(String fileName) {
-        try (Connection conn = DriverManager.getConnection(Configuration.ST_DIR_PATH + fileName)) {
+    public static void main(String[] args) {
+        createNewDatabase();
+        createDefaultTables();
+    }
+
+    /**
+     * Connect to a database
+     */
+    public static void createNewDatabase() {
+        try (Connection conn = DriverManager.getConnection(Configuration.DATABASE_URL)) {
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
                 System.out.println("The driver name is " + meta.getDriverName());
                 System.out.println("A new database has been created.");
-            }
+            } else System.err.println("No connection found!");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
     /**
-     * Create a new table in the test database
+     * Create all needed tables in a provided database
      */
     public static void createDefaultTables() {
         // SQL statement for creating a new table
         String sql = """
+                /* SQLite for the Users */
                 CREATE TABLE IF NOT EXISTS User (
                 	pk_user_id INT PRIMARY KEY NOT NULL,
-                	username CHAR(32) NOT NULL,
-                	name CHAR(32) NOT NULL,
-                	lastname CHAR(32) NOT NULL,
+                	username CHAR(32),
+                	name CHAR(32),
+                	lastname CHAR(32),
                 	email CHAR(64) NOT NULL,
-                	birth DATE NOT NULL,
+                	birth DATE,
                 	password CHAR(20) NOT NULL
                 );
+                /* SQLite for the Chatrooms and Messages */
                 CREATE TABLE IF NOT EXISTS Chatroom (
                 	pk_chatroom_id INT PRIMARY KEY NOT NULL
                 );
@@ -51,10 +64,11 @@ public class SQLiteHandler {
                 	FOREIGN KEY (fk_pk_user_id) REFERENCES User (pk_user_id),
                     FOREIGN KEY (fk_pk_chatroom) REFERENCES Chatroom (pk_chatroom_id)
                 );
+                /* SQLite for the Teams */
                 CREATE TABLE IF NOT EXISTS Team (
                 	pk_team_id INT PRIMARY KEY NOT NULL,
-                	name CHAR(32) NOT NULL,
-                	description CHAR(128) NOT NULL,
+                	name CHAR(32),
+                	description CHAR(128),
                 	fk_admin_id INT NOT NULL,
                 	fk_pk_chatroom_id INT NOT NULL,
                 	FOREIGN KEY (fk_admin_id) REFERENCES User (pk_user_id),
@@ -66,33 +80,32 @@ public class SQLiteHandler {
                     FOREIGN KEY (fk_pk_team_id) REFERENCES Team (pk_team_id),
                     FOREIGN KEY (fk_pk_user_id) REFERENCES User (pk_user_id)
                 );
+                /* SQLite for the Tasks */
+                CREATE TABLE IF NOT EXISTS Task (
+                    pk_task_id INT PRIMARY KEY NOT NULL,
+                    name CHAR(32),
+                    note CHAR(128),
+                    till_date DATE,
+                    type CHAR(32) NOT NULL,
+                    state CHAR(32) NOT NULL,
+                    difficulty CHAR(32) NOT NULL,
+                    fk_admin_id INT,
+                    FOREIGN KEY (fk_admin_id) REFERENCES User (pk_user_id)
+                );
+                CREATE TABLE IF NOT EXISTS Task_User (
+                    fk_pk_task_id INT NOT NULL,
+                    fk_pk_user_id INT NOT NULL
+                );
                 """;
 
-//        TODO Add table "Task" to the database structure, template:
-//
-//        CREATE TABLE IF NOT EXISTS Task (
-//                pk_task_id INT PRIMARY KEY NOT NULL,
-//                name CHAR(32) NOT NULL,
-//        description CHAR(128) NOT NULL,
-//        fk_admin_id INT NOT NULL,
-//                );
-//
-//        TODO Add table for the connection between "Task" and "User" to the database structure, template:
-//
-//        CREATE TABLE IF NOT EXISTS Task_User (
-//                fk_pk_task_id INT NOT NULL,
-//                fk_pk_user_id INT NOT NULL,
-//                );
-//
 //        TODO Add table "Serverconfig" to the database structure, template:
-//
 //        CREATE TABLE IF NOT EXISTS Serverconfig (
 //                pk_srvconf_id INT PRIMARY KEY NOT NULL,
 //                ???
 //                ???
 //                ???
 //                ???
-//                );
+//        );
 //
         try (Connection conn = DriverManager.getConnection(Configuration.DATABASE_URL);
              Statement stmt = conn.createStatement()) {
@@ -100,13 +113,5 @@ public class SQLiteHandler {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        createNewDatabase("simpleTeam.db");
-        createDefaultTables();
     }
 }
