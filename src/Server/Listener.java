@@ -31,7 +31,7 @@ public class Listener implements Runnable {
 
             //STRequest handling
             while (!(data = dataInputStream.readUTF()).isEmpty()) {
-                String command = data.split(":")[0];
+                String command = data.split(":")[0]; //Who asked? :)
                 String[] args = new String[0];
                 try {
                     String[] temp = data.split(":");

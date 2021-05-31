@@ -1,7 +1,9 @@
 package Utils.SQLite;
 
+import Utils.BasicFunctionLibrary;
 import Utils.Configuration;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -9,7 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * @author Alex Hiermann
+ * Last updated by Alexander Hiermann on 05/31/2021
  * different templates used from sqlitetutorial.net
  */
 public class SQLiteHandler {
@@ -18,8 +20,18 @@ public class SQLiteHandler {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        new BasicFunctionLibrary().createServerFolderStructure();
+
+        try {
+            Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd " + Configuration.ST_DIR_PATH +
+                    "\\java\\connect && java -classpath \".;sqlite-jdbc-3.34.0.jar\" net.sqlitetutorial.Connect\"\"");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         createNewDatabase();
         createDefaultTables();
+        Connect.connect();
     }
 
     /**
@@ -58,7 +70,7 @@ public class SQLiteHandler {
                 	pk_chatroom_id INT PRIMARY KEY NOT NULL
                 );
                 CREATE TABLE IF NOT EXISTS Message (
-                	pk_message_id INT PRIMARY KEY NOT NULL,
+                	pk_message_id INT AUTOINCREMENT PRIMARY KEY NOT NULL,
                 	text TEXT NOT NULL,
                 	date DATE NOT NULL,
                 	fk_pk_user_id INT NOT NULL,
@@ -104,13 +116,13 @@ public class SQLiteHandler {
 
 //        TODO Add table "Serverconfig" to the database structure, template:
 //        CREATE TABLE IF NOT EXISTS Serverconfig (
-//                pk_srvconf_id INT PRIMARY KEY NOT NULL,
-//                ???
-//                ???
-//                ???
-//                ???
+//            pk_srvconf_id INT PRIMARY KEY NOT NULL,
+//            userId INT,
+//            teamId INT
+//            ???
+//            ???
 //        );
-//
+
         try (Connection conn = DriverManager.getConnection(Configuration.DATABASE_URL);
              Statement stmt = conn.createStatement()) {
             stmt.execute(sql);

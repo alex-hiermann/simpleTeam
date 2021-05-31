@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
@@ -51,26 +52,30 @@ public class BasicFunctionLibrary {
     /**
      * This method is used to create all files needed for sqlite3
      */
-    protected void createFolderStructure() {
+    public void createServerFolderStructure() {
         try {
-            File javaDir = new File(Configuration.ST_DIR_PATH + "java/");
-            if (javaDir.mkdir()) {
-                System.out.println("Directory created: " + javaDir.getAbsolutePath());
-            } else {
-                System.out.println("Directory already exists.");
+            if (!Files.exists(Paths.get(Configuration.ST_DIR_PATH + "java"))) {
+                Files.createDirectories(Paths.get(Configuration.ST_DIR_PATH + "java"));
+            }
+            if (!Files.exists(Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\net\\sqlitetutorial\\"))) {
+                Files.createDirectories(Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\net\\sqlitetutorial\\"));
             }
 
-            File connectDirs = new File(Configuration.ST_DIR_PATH + "java/connect/net/sqlitetutorial");
-            if (connectDirs.mkdir()) {
-                System.out.println("Directory created: " + connectDirs.getAbsolutePath());
-            } else {
-                System.out.println("Directory already exists.");
+            if (!Files.exists(Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\sqlite-jdbc-3.34.0.jar"))) {
+                Files.copy(Paths.get(new File("resources/drivers/sqlite-jdbc-3.34.0.jar").getAbsolutePath()),
+                        Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\sqlite-jdbc-3.34.0.jar"));
             }
 
-            Files.copy(Path.of(String.valueOf(this.getClass().getResource("/drivers/sqlite-jdbc-3.34.0.jar"))),
-                    Path.of(Configuration.ST_DIR_PATH + "java/connect/sqlite-jdbc-3.34.0.jar"));
+            if (!Files.exists(Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\net\\sqlitetutorial\\Connect.class"))) {
+                Files.copy(Paths.get(new File("out/production/simpleTeam/Utils/SQLite/Connect.class").getAbsolutePath()),
+                        Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\net\\sqlitetutorial\\Connect.class"));
+            }
 
-        } catch (IOException e) {
+            if (!Files.exists(Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\net\\sqlitetutorial\\Connect.java"))) {
+                Files.copy(Paths.get(new File("src/Utils/SQLite/Connect.java").getAbsolutePath()),
+                        Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\net\\sqlitetutorial\\Connect.java"));
+            }
+        } catch (Exception e) {
             System.err.println("An error occurred.");
             e.printStackTrace();
         }

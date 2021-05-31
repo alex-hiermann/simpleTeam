@@ -12,22 +12,29 @@ public class Configuration {
      */
     public final static String INVITATION_REGEX = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 
-
     /*
      * Variables used for the database structure following
      */
     /**
      * URL used to define the path for the database
      */
-    public final static String DATABASE_URL = "jdbc:sqlite:C:/ProgramData/simpleTeam/db/simpleTeam.db";
+    public final static String DATABASE_URL = "jdbc:sqlite:C:\\ProgramData\\simpleTeam\\db\\simpleTeam.db";
 
     /**
      * This path defines the directory path in general, where different things are saved
      */
-    public final static String ST_DIR_PATH = "C:/ProgramData/simpleTeam/";
+    public final static String ST_DIR_PATH = "C:\\ProgramData\\simpleTeam\\";
 
-    //SQL Variables
+    /*
+     * SQL Variables
+     */
+    /**
+     * Unique user id counter. (Starts at 4, because of the test users!)
+     */
     public static int userId = 4;
 
+    /**
+     * Unique team id counter
+     */
     public static int teamId = 0;
 }
