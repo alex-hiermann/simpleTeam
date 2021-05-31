@@ -51,7 +51,7 @@ public class Team {
 
     @Override
     public String toString() {
-        return "teamname='" + name + "',teamdesc='" + description + "',teamId='" + id + "'";
+        return "teamname='" + name + "',teamdesc='" + description + "',teamId='" + id + "',adminEmail='" + admin.getEmail() + "'";
     }
 
     public void setAdmin(User newAdmin) {

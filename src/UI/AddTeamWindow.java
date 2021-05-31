@@ -1,6 +1,7 @@
 package UI;
 
 import Client.Client;
+import Client.Team;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -15,8 +16,9 @@ public class AddTeamWindow {
 
     public void createTeam(ActionEvent actionEvent) {
         if ((!teamname.getText().isEmpty() && !teamname.getText().isBlank()) || !teamname.getText().contains("'")) {
-            Client.sendSTRequest("createTeam:" + new Team(teamname.getText(), teamdesc.getText()) + ",email='" + Client.user.getEmail() + "'");
-            System.out.println("createTeam:" + new Team(teamname.getText(), teamdesc.getText()) + ",email='" + Client.user.getEmail() + "'");
+            Team tempTeam = new Team(teamname.getText(), teamdesc.getText());
+            tempTeam.setAdmin(Client.user);
+            Client.sendSTRequest("createTeam:" + tempTeam + ",email='" + Client.user.getEmail() + "'");
         }
     }
 }

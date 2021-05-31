@@ -131,6 +131,7 @@ public class Client implements Runnable {
                         for (String team : teamRequests) {
                             String[] tempArgs = team.split(",");
                             Team team1 = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", tempArgs), BasicFunctionLibrary.findValueFromArgs("teamdesc", tempArgs), Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)));
+                            team1.setAdmin(new User(BasicFunctionLibrary.findValueFromArgs("adminEmail", tempArgs)));
                             user.myTeams.add(team1);
                         }
                         ClientMain.mainWindow.initialize();

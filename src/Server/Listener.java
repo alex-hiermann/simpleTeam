@@ -112,7 +112,11 @@ public class Listener implements Runnable {
                         serverTeam.getChatroom().addMessage(message);
                         for (User teamUser : serverTeam.members) {
                             if (!teamUser.equals(user)) {
-                                Server.listeners.get(teamUser).sendSTRequestToClient("fetchMessage:" + message + ",teamId='" + team.getId() + "'");
+                                try {
+                                    Server.listeners.get(teamUser).sendSTRequestToClient("fetchMessage:" + message + ",teamId='" + team.getId() + "'");
+                                } catch (NullPointerException ignored) {
+                                    //No active user!
+                                }
                             }
                         }
                     }
