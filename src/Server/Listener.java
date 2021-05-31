@@ -4,6 +4,7 @@ import Client.Chat.Message;
 import Client.Team;
 import Client.User;
 import Utils.BasicFunctionLibrary;
+import Utils.Configuration;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -83,7 +84,7 @@ public class Listener implements Runnable {
                         if (Server.users.contains(user)) {
                             sendSTRequestToClient("userExists");
                         } else {
-                            user.setId(++User.userId);
+                            user.setId(++Configuration.userId);
                             Server.users.add(user);
                             sendSTRequestToClient("userRegistered");
                         }

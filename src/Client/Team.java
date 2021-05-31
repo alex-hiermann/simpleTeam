@@ -1,6 +1,7 @@
 package Client;
 
 import Client.Chat.Chatroom;
+import Utils.Configuration;
 
 import java.util.LinkedList;
 import java.util.Objects;
@@ -10,7 +11,6 @@ public class Team {
     String name;
     String description;
     private User admin;
-    private static int uniqueTeamId = 0;
     private final int id;
     private Chatroom chatroom = new Chatroom(this);
     public LinkedList<User> members = new LinkedList<>();
@@ -24,7 +24,7 @@ public class Team {
     public Team(String name, String description) {
         this.name = name;
         this.description = description;
-        id = ++uniqueTeamId;
+        id = ++Configuration.teamId;
     }
 
     public int getId() {

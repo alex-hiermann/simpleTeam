@@ -68,15 +68,15 @@ public class MainWindow {
                 inviteButton.setText("Add a user to your team");
                 inviteButton.setDisable(true);
                 if (selectedTeam.getAdmin().equals(Client.user)) {
-                inviteButton.setDisable(false);
-                inviteButton.setOnAction(l -> {
-                    try {
-                        new ClientMain().showInviteUserWindow(selectedTeam);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-            }
+                    inviteButton.setDisable(false);
+                    inviteButton.setOnAction(l -> {
+                        try {
+                            new ClientMain().showInviteUserWindow(selectedTeam);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }
                 selectedTeam = team;
                 chatParentContainer.setText(selectedTeam.getName());
                 printMessages(selectedTeam.getChatroom());
@@ -117,6 +117,7 @@ public class MainWindow {
             }
         });
     }
+
     public void setAddTeamButtonActive(boolean isActive) {
         addTeamButton.setDisable(!isActive);
     }

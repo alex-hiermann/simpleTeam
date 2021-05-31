@@ -25,4 +25,9 @@ public class Configuration {
      * This path defines the directory path in general, where different things are saved
      */
     public final static String ST_DIR_PATH = "C:/ProgramData/simpleTeam/";
+
+    //SQL Variables
+    public static int userId = 4;
+
+    public static int teamId = 0;
 }

@@ -14,7 +14,6 @@ public class User {
     private String password = "";
     public LinkedList<Team> myTeams = new LinkedList<>();
     private int id = 0;
-    public static int userId = 4;
 
 
     public String getPassword() {
