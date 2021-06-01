@@ -59,7 +59,7 @@ public class Client implements Runnable {
                             arguments.append(":").append(temp[i]);
                         }
                     }
-                    args = arguments.toString().split(",");
+                    args = arguments.toString().split("(?<!=\\x{A826})(?<=\\x{A826}),(?=\\w+=\\x{A826})");
                 } catch (Exception ignored) {
                 }
                 switch (command) {
@@ -139,13 +139,13 @@ public class Client implements Runnable {
                     case "requestTeams" -> {
                         sendSTRequest("getTeams:" + user);
                     }
-                   case "fetchMessage" -> {
-                       System.out.println("args = " + Arrays.toString(args));
-                       Team team = user.myTeams.get(user.myTeams.indexOf(new Team(Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)))));
-                       team.getChatroom().addMessage(new Message(new User(BasicFunctionLibrary.findValueFromArgs("email", args)),
-                               BasicFunctionLibrary.findValueFromArgs("messageText", args),
-                               Message.dateFormat.parse(BasicFunctionLibrary.findValueFromArgs("date", args))));
-                       ClientMain.mainWindow.printMessages(team.getChatroom());
+                    case "fetchMessage" -> {
+                        System.out.println("args = " + Arrays.toString(args));
+                        Team team = user.myTeams.get(user.myTeams.indexOf(new Team(Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)))));
+                        team.getChatroom().addMessage(new Message(new User(BasicFunctionLibrary.findValueFromArgs("email", args)),
+                                BasicFunctionLibrary.findValueFromArgs("messageText", args),
+                                Message.dateFormat.parse(BasicFunctionLibrary.findValueFromArgs("date", args))));
+                        ClientMain.mainWindow.printMessages(team.getChatroom());
                     }
                     case "" -> {
 

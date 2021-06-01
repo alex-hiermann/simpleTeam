@@ -72,7 +72,7 @@ public class User {
     // registerUser:email='email',username='username',password='password',name='name',lastname='lastname',birth='birth'
     @Override
     public String toString() {
-        return "email='" + getEmail() + "',username='" + getUsername() + "',password='" + password + "',name='" + getName() + "',lastname='" + getLastName() + "',birth='" + getBirth() + "',userId='" + getId() + "'";
+        return "email=ꠦ" + getEmail() + "ꠦ,username=ꠦ" + getUsername() + "ꠦ,password=ꠦ" + password + "ꠦ,name=ꠦ" + getName() + "ꠦ,lastname=ꠦ" + getLastName() + "ꠦ,birth=ꠦ" + getBirth() + "ꠦ,userId=ꠦ" + getId() + "ꠦ";
     }
 
     public User(String username, String name, String lastName, String email, LocalDate birth, String password, int id) {

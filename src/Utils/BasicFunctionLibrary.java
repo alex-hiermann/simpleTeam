@@ -3,10 +3,8 @@ package Utils;
 import Client.User;
 
 import java.io.File;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -23,7 +21,7 @@ public class BasicFunctionLibrary {
     public static String findValueFromArgs(String forKey, String[] args) {
         for (String entry : args) {
             if (entry.split("=")[0].equals(forKey)) {
-                return entry.split("=")[1].replaceAll("'", "").trim();
+                return entry.split("=")[1].replaceAll("ꠦ", "").trim();
             }
         }
         return "";

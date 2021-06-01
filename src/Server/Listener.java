@@ -43,7 +43,7 @@ public class Listener implements Runnable {
                             arguments.append(":").append(temp[i]);
                         }
                     }
-                    args = arguments.toString().split(",");
+                    args = arguments.toString().split("(?<!=\\x{A826})(?<=\\x{A826}),(?=\\w+=\\x{A826})");
                 } catch (Exception ignored) {
                 }
                 switch (command) {
@@ -54,7 +54,7 @@ public class Listener implements Runnable {
                         serverUser.myTeams.add(team);   //Add the team to user
                         team.setAdmin(serverUser);      //Make him an admin, because he created the team
                         Server.teams.add(team);         //Finally add the team to the server
-                        sendSTRequestToClient("createTeam:" + team + ",teamId='" + team.getId() + "'");
+                        sendSTRequestToClient("createTeam:" + team + ",teamId=ꠦ" + team.getId() + "ꠦ");
                     }
                     case "getTeams" -> {
                         User serverUser = Server.users.get(Server.users.indexOf(extractUserFromArgs(args)));
@@ -114,7 +114,7 @@ public class Listener implements Runnable {
                         for (User teamUser : serverTeam.members) {
                             if (!teamUser.equals(user)) {
                                 try {
-                                    Server.listeners.get(teamUser).sendSTRequestToClient("fetchMessage:" + message + ",teamId='" + team.getId() + "'");
+                                    Server.listeners.get(teamUser).sendSTRequestToClient("fetchMessage:" + message + ",teamId=ꠦ" + team.getId() + "ꠦ");
                                 } catch (NullPointerException ignored) {
                                     //No active user!
                                 }

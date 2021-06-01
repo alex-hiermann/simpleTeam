@@ -14,7 +14,7 @@ public class Chatroom {
         ArrayList<String> generatedMessages = new ArrayList<>();
         final StringBuilder[] stringBuilder = {new StringBuilder()};
         messages.forEach(l -> {
-            generatedMessages.add(stringBuilder[0].append(l.toString()).append(",teamId='").append(team.getId()).append("'").toString());
+            generatedMessages.add(stringBuilder[0].append(l.toString()).append(",teamId=ꠦ").append(team.getId()).append("ꠦ").toString());
             stringBuilder[0] = new StringBuilder();
         });
         return generatedMessages;
