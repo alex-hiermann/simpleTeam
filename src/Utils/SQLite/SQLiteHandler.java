@@ -32,9 +32,9 @@ public class SQLiteHandler {
         try (java.sql.Connection conn = DriverManager.getConnection(Configuration.DATABASE_URL)) {
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
-                System.out.println("The driver name is " + meta.getDriverName() + ".");
-                System.out.println("A new database has been created.");
-            } else System.err.println("No connection found!");
+                System.out.println(Configuration.ANSI_BLUE + "The driver name is " + meta.getDriverName() + ".");
+                System.out.println("A new database has been created." + Configuration.ANSI_RESET);
+            } else System.err.println(Configuration.ANSI_RED + "No connection found!" + Configuration.ANSI_RESET);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

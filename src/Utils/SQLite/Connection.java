@@ -26,7 +26,7 @@ public class Connection {
     public static void connect() {
         try {
             connection = DriverManager.getConnection(Configuration.DATABASE_URL);
-            System.out.println("Connection to SQLite has been established.");
+            System.out.println(Configuration.ANSI_BLUE + "Connection to SQLite has been established." + Configuration.ANSI_RESET);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -42,13 +42,13 @@ public class Connection {
 
     public static void close() {
         connection = null;
-        System.err.println("Connection to SQLite has been closed.");
+        System.err.println(Configuration.ANSI_BLUE + "Connection to SQLite has been closed." + Configuration.ANSI_RESET);
     }
 
     public static void connectIfAbsent() {
         if (getConnection() == null) {
             connect();
-            System.out.println("Connection to SQLite has been established again.");
+            System.out.println(Configuration.ANSI_BLUE + "Connection to SQLite has been established again." + Configuration.ANSI_RESET);
         }
     }
 
