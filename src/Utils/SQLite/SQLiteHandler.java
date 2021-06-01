@@ -4,14 +4,13 @@ import Utils.BasicFunctionLibrary;
 import Utils.Configuration;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Last updated by Alexander Hiermann on 05/31/2021
+ * Last updated by Alexander Hiermann on 06/01/2021
  * different templates used from sqlitetutorial.net
  */
 public class SQLiteHandler {
@@ -21,27 +20,19 @@ public class SQLiteHandler {
      */
     public static void main(String[] args) {
         new BasicFunctionLibrary().createServerFolderStructure();
-
-        try {
-            Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd " + Configuration.ST_DIR_PATH +
-                    "\\java\\connect && java -classpath \".;sqlite-jdbc-3.34.0.jar\" net.sqlitetutorial.Connect\"\"");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         createNewDatabase();
         createDefaultTables();
-        Connect.connect();
+        Connection.connect();
     }
 
     /**
-     * Connect to a database
+     * Connection to a database
      */
     public static void createNewDatabase() {
-        try (Connection conn = DriverManager.getConnection(Configuration.DATABASE_URL)) {
+        try (java.sql.Connection conn = DriverManager.getConnection(Configuration.DATABASE_URL)) {
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
-                System.out.println("The driver name is " + meta.getDriverName());
+                System.out.println("The driver name is " + meta.getDriverName() + ".");
                 System.out.println("A new database has been created.");
             } else System.err.println("No connection found!");
         } catch (SQLException e) {
@@ -123,11 +114,11 @@ public class SQLiteHandler {
 //            ???
 //        );
 
-        try (Connection conn = DriverManager.getConnection(Configuration.DATABASE_URL);
+        try (java.sql.Connection conn = DriverManager.getConnection(Configuration.DATABASE_URL);
              Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println("An error occurred during ");
         }
     }
 }

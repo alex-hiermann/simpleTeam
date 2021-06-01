@@ -12,6 +12,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 
+/**
+ * Last updated by Alexander Hiermann on 06/01/2021
+ * @author Alexander Hiermann
+ * @author Maximilian burger
+ * @since 2021
+ */
 public class BasicFunctionLibrary {
 
     public static String findValueFromArgs(String forKey, String[] args) {
@@ -60,23 +66,26 @@ public class BasicFunctionLibrary {
             if (!Files.exists(Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\net\\sqlitetutorial\\"))) {
                 Files.createDirectories(Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\net\\sqlitetutorial\\"));
             }
+            if (!Files.exists(Paths.get(Configuration.ST_DIR_PATH + "db\\"))) {
+                Files.createDirectories(Paths.get(Configuration.ST_DIR_PATH + "db\\"));
+            }
 
             if (!Files.exists(Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\sqlite-jdbc-3.34.0.jar"))) {
                 Files.copy(Paths.get(new File("resources/drivers/sqlite-jdbc-3.34.0.jar").getAbsolutePath()),
                         Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\sqlite-jdbc-3.34.0.jar"));
             }
 
-            if (!Files.exists(Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\net\\sqlitetutorial\\Connect.class"))) {
-                Files.copy(Paths.get(new File("out/production/simpleTeam/Utils/SQLite/Connect.class").getAbsolutePath()),
-                        Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\net\\sqlitetutorial\\Connect.class"));
+            if (!Files.exists(Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\net\\sqlitetutorial\\Connection.class"))) {
+                Files.copy(Paths.get(new File("out/production/simpleTeam/Utils/SQLite/Connection.class").getAbsolutePath()),
+                        Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\net\\sqlitetutorial\\Connection.class"));
             }
 
-            if (!Files.exists(Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\net\\sqlitetutorial\\Connect.java"))) {
-                Files.copy(Paths.get(new File("src/Utils/SQLite/Connect.java").getAbsolutePath()),
-                        Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\net\\sqlitetutorial\\Connect.java"));
+            if (!Files.exists(Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\net\\sqlitetutorial\\Connection.java"))) {
+                Files.copy(Paths.get(new File("src/Utils/SQLite/Connection.java").getAbsolutePath()),
+                        Paths.get(Configuration.ST_DIR_PATH + "java\\connect\\net\\sqlitetutorial\\Connection.java"));
             }
         } catch (Exception e) {
-            System.err.println("An error occurred.");
+            System.err.println("An error occurred while creating the Server-Folder-Structure:");
             e.printStackTrace();
         }
     }
