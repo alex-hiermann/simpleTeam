@@ -37,7 +37,7 @@ public class LoginWindow {
         Socket temp = ClientMain.connectToServer(server.getText());
         Client client = new Client(temp, new User("tempUser05070201"));
         new Thread(client).start();
-        Client.sendSTRequest("login:email='" + email.getText() + "',password='" + BasicFunctionLibrary.hashPassword(password.getText()) + "'");
+        Client.sendSTRequest("login:email=ꠦ" + email.getText() + "ꠦ,password=ꠦ" + BasicFunctionLibrary.hashPassword(password.getText()) + "ꠦ");
 //            service.start();
     }
 

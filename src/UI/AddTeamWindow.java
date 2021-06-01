@@ -15,10 +15,10 @@ public class AddTeamWindow {
     public AnchorPane pane;
 
     public void createTeam(ActionEvent actionEvent) {
-        if ((!teamname.getText().isEmpty() && !teamname.getText().isBlank()) || !teamname.getText().contains("'")) {
+        if ((!teamname.getText().isEmpty() && !teamname.getText().isBlank())) {
             Team tempTeam = new Team(teamname.getText(), teamdesc.getText());
             tempTeam.setAdmin(Client.user);
-            Client.sendSTRequest("createTeam:" + tempTeam + ",email='" + Client.user.getEmail() + "'");
+            Client.sendSTRequest("createTeam:" + tempTeam + ",email=ꠦ" + Client.user.getEmail() + "ꠦ");
         }
     }
 }

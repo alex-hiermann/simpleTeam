@@ -102,7 +102,7 @@ public class MainWindow {
         messageField.clear();
         selectedTeam.getChatroom().addMessage(message);
         printMessages(selectedTeam.getChatroom());
-        String request = "sendMessage:" + message + ",teamid='" + selectedTeam.getId() + "'";
+        String request = "sendMessage:" + message + ",teamid=ꠦ" + selectedTeam.getId() + "ꠦ";
         System.out.println("Request = " + request);
         Client.sendSTRequest(request);
     }

@@ -44,7 +44,8 @@ public class Listener implements Runnable {
                         }
                     }
                     args = arguments.toString().split("(?<!=\\x{A826})(?<=\\x{A826}),(?=\\w+=\\x{A826})");
-                } catch (Exception ignored) {
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 switch (command) {
                     case "createTeam" -> {
@@ -90,6 +91,7 @@ public class Listener implements Runnable {
                         }
                     }
                     case "login" -> {
+                        System.out.println("args = " + Arrays.toString(args));
                         User user = new User(
                                 BasicFunctionLibrary.findValueFromArgs("email", args),
                                 BasicFunctionLibrary.findValueFromArgs("password", args));
