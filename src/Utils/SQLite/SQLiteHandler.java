@@ -4,10 +4,7 @@ import Utils.BasicFunctionLibrary;
 import Utils.Configuration;
 
 import java.io.IOException;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * Last updated by Alexander Hiermann on 06/01/2021
@@ -119,6 +116,27 @@ public class SQLiteHandler {
             stmt.execute(sql);
         } catch (SQLException e) {
             System.err.println("An error occurred during ");
+        }
+    }
+
+    /**
+     * select all rows in the warehouses table
+     */
+    public void selectAllFromCard(String table) {
+        String sql = "SELECT * FROM " + table;
+
+        try (java.sql.Connection conn = Connection.connection;
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            // loop through the result set
+            while (rs.next()) {
+                System.out.println(rs.getInt("id") + "\t" +
+                        rs.getString("name") + "\t" +
+                        rs.getDouble("capacity"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
