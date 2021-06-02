@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="608.0" prefWidth="912.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.AddNewTaskWindow">
+   <children>
+      <Text fill="#00c3ff" layoutX="320.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADD A NEW TASK" textAlignment="CENTER">
+         <font>
+            <Font name="Trebuchet MS" size="36.0" />
+         </font>
+      </Text>
+      <TextField fx:id="name" layoutX="14.0" layoutY="56.0" prefHeight="42.0" prefWidth="272.0" promptText="Task Name">
+         <font>
+            <Font name="Trebuchet MS" size="17.0" />
+         </font>
+      </TextField>
+      <TextArea fx:id="description" layoutX="14.0" layoutY="104.0" prefHeight="87.0" prefWidth="272.0" promptText="Description">
+         <font>
+            <Font name="Trebuchet MS" size="14.0" />
+         </font>
+      </TextArea>
+      <DatePicker fx:id="due" layoutX="14.0" layoutY="200.0" prefHeight="42.0" prefWidth="272.0" promptText="Due" />
+      <MenuButton layoutX="14.0" layoutY="254.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="272.0" text="Task Type" textFill="#00cbef">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Task" />
+          <MenuItem mnemonicParsing="false" text="Reminder" />
+            <MenuItem mnemonicParsing="false" text="Milestone" />
+        </items>
+         <font>
+            <Font name="Trebuchet MS" size="14.0" />
+         </font>
+      </MenuButton>
+      <MenuButton layoutX="14.0" layoutY="304.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="272.0" text="Task Difficulty" textFill="#00d1ff">
+         <items>
+            <MenuItem mnemonicParsing="false" text="Easy" />
+            <MenuItem mnemonicParsing="false" text="Medium" />
+            <MenuItem mnemonicParsing="false" text="Hard" />
+            <MenuItem mnemonicParsing="false" text="Extreme" />
+         </items>
+         <font>
+            <Font name="Trebuchet MS" size="14.0" />
+         </font>
+      </MenuButton>
+   </children>
+</AnchorPane>
