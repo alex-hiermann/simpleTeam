@@ -16,7 +16,7 @@ public class SQLiteHandler {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new BasicFunctionLibrary().createServerFolderStructure();
+        BasicFunctionLibrary.createServerFolderStructure();
         createNewDatabase();
         createDefaultTables();
         Connection.connect();
