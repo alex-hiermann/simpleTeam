@@ -17,7 +17,7 @@ public class Task {
     }
 
     private String name;
-    private String note;
+    private String description;
     private Date till;
     private E_TASK_TYPE type;
     private E_TASK_STATE state;
@@ -25,7 +25,7 @@ public class Task {
 
     public Task(String name, String note, Date till, E_TASK_TYPE type, E_TASK_DIFFICULTY difficulty) {
         this.name = name;
-        this.note = note;
+        this.description = note;
         this.till = till;
         this.type = type;
         this.difficulty = difficulty;
@@ -40,11 +40,11 @@ public class Task {
     }
 
     public String getNote() {
-        return note;
+        return description;
     }
 
     public void setNote(String note) {
-        this.note = note;
+        this.description = note;
     }
 
     public Date getTill() {
