@@ -56,7 +56,7 @@ public class BasicFunctionLibrary {
     /**
      * This method is used to create all files needed for sqlite3
      */
-    public void createServerFolderStructure() {
+    public static void createServerFolderStructure() {
         try {
             if (!Files.exists(Paths.get(Configuration.ST_DIR_PATH + "java"))) {
                 Files.createDirectories(Paths.get(Configuration.ST_DIR_PATH + "java"));

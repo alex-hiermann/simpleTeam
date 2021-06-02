@@ -94,4 +94,17 @@ public class Configuration {
      * Color-code used for white outputs
      */
     public static final String ANSI_WHITE = "\u001B[37m";
+
+    /*
+     * Variables used to print lines on top of an existing line following
+     */
+    /**
+     * provided by professor
+     */
+    public static final String CTR_BEFORE = new String(new byte[]{0x0b, 0x1b, '[', '1', 'A', 0x1b, '7', 0x1b, '[', '1', 'L', '\r'});
+
+    /**
+     * provided by professor
+     */
+    public static final String CTR_AFTER = new String(new byte[]{0x1b, '8', 0x1b, '[', '1', 'B'});
 }
