@@ -61,12 +61,11 @@ public class MainWindow {
         Platform.runLater(() -> {
             TitledPane teamPane = new TitledPane();
             teamPane.setText(team.getName());
-
             GridPane grid = new GridPane();
             Button chatRoomButton = new Button("Select Team");
             chatRoomButton.setOnAction(actionEvent -> {
+                selectedTeam = team;
                 inviteButton.setText("Add a user to your team");
-                inviteButton.setDisable(true);
                 if (selectedTeam.getAdmin().equals(Client.user)) {
                     inviteButton.setDisable(false);
                     inviteButton.setOnAction(l -> {
@@ -76,8 +75,9 @@ public class MainWindow {
                             e.printStackTrace();
                         }
                     });
+                } else {
+                    inviteButton.setDisable(true);
                 }
-                selectedTeam = team;
                 chatParentContainer.setText(selectedTeam.getName());
                 printMessages(selectedTeam.getChatroom());
             });
