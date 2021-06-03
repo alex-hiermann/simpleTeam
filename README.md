@@ -63,7 +63,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+<p align="center">
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
+</p>
 
 We created SimpleTeam in order to help everyone keeping their to-do list as dynamic, compact and efficiently as possible, unimportant if you are only one, or maybe a whole team of many people, there is enough space for everyone!
 
