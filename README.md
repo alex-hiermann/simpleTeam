@@ -192,4 +192,4 @@ Project Link: [https://github.com/alex-hiermann/simpleTeam](https://github.com/a
 [license-url]: https://github.com/alex-hiermann/simpleTeam/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/alexander-hiermann
-[product-screenshot]: resources/images/readme_screenshot.png
+[product-screenshot]: resources/images/readme_screenshot.PNG
