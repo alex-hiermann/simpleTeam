@@ -64,7 +64,7 @@
 ## About The Project
 
 <p align="center">
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+  <img src="resources/images/readme_screenshot.PNG" alt="GUI Screenshot">
 </p>
 
 We created SimpleTeam in order to help everyone keeping their to-do list as dynamic, compact and efficiently as possible, unimportant if you are only one, or maybe a whole team of many people, there is enough space for everyone!
@@ -194,4 +194,3 @@ Project Link: [https://github.com/alex-hiermann/simpleTeam](https://github.com/a
 [license-url]: https://github.com/alex-hiermann/simpleTeam/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/alexander-hiermann
-[product-screenshot]: resources/images/readme_screenshot.PNG
