@@ -94,6 +94,7 @@ public class ClientMain extends Application {
         stage.setTitle("Add Team");
         stage.setScene(new Scene(root));
         stage.show();
+        stage.setResizable(false);
         currentStage = stage;
     }
 
@@ -104,8 +105,8 @@ public class ClientMain extends Application {
         stage.setTitle("Add a user to the team");
         stage.setScene(new Scene(root));
         stage.show();
+        stage.setResizable(false);
         InviteUserWindow.selectedTeam = team;
         currentStage = stage;
     }
-
 }
