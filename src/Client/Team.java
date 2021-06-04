@@ -14,6 +14,7 @@ public class Team {
     private final int id;
     private Chatroom chatroom = new Chatroom(this);
     public LinkedList<User> members = new LinkedList<>();
+    public LinkedList<Task> tasks = new LinkedList<>();
 
     public Team(String name, String description, int id) {
         this.name = name;

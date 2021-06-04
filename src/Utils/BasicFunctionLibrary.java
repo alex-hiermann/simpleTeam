@@ -1,5 +1,6 @@
 package Utils;
 
+import Client.Task;
 import Client.User;
 
 import java.io.File;
@@ -9,6 +10,7 @@ import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.LinkedList;
 
 /**
  * Last updated by Alexander Hiermann on 06/01/2021
@@ -51,6 +53,29 @@ public class BasicFunctionLibrary {
                 findValueFromArgs("email", args),
                 LocalDate.parse(findValueFromArgs("birth", args)),
                 findValueFromArgs("password", args));
+    }
+
+    public static Task.E_TASK_TYPE extractTaskTypeFromText(String text) {
+        return switch (text.toLowerCase()) {
+            case "reminder" -> Task.E_TASK_TYPE.REMINDER;
+            case "milestone" -> Task.E_TASK_TYPE.MILESTONE;
+            case "task" -> Task.E_TASK_TYPE.TASK;
+            default -> null;
+        };
+    }
+
+    public static Task.E_TASK_DIFFICULTY extractTaskDifficultyFromText(String text) {
+        return switch (text.toLowerCase()) {
+            case "easy" -> Task.E_TASK_DIFFICULTY.EASY;
+            case "medium" -> Task.E_TASK_DIFFICULTY.MEDIUM;
+            case "hard" -> Task.E_TASK_DIFFICULTY.HARD;
+            case "extreme" -> Task.E_TASK_DIFFICULTY.EXTREME;
+            default -> null;
+        };
+    }
+
+    public static <T> T getEntryFromLinkedList(LinkedList<T> list, T Entry) {
+        return list.get(list.indexOf(Entry));
     }
 
     /**

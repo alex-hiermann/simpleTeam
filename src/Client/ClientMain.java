@@ -1,5 +1,6 @@
 package Client;
 
+import UI.AddNewTaskWindow;
 import UI.InviteUserWindow;
 import UI.LoginWindow;
 import javafx.application.Application;
@@ -109,4 +110,19 @@ public class ClientMain extends Application {
         InviteUserWindow.selectedTeam = team;
         currentStage = stage;
     }
+
+    public void showAddNewTaskWindow(Team team, boolean admin) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/UI/AddNewTaskWindow.fxml")));
+        Stage stage = new Stage();
+        stage.getIcons().add(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/icon-1.png"))));
+        stage.setTitle("Add a new Task");
+        stage.setScene(new Scene(root));
+        stage.show();
+        stage.setResizable(false);
+        currentStage = stage;
+        AddNewTaskWindow.team = team;
+        AddNewTaskWindow.admin = admin;
+    }
+
+
 }

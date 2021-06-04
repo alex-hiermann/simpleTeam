@@ -48,7 +48,7 @@
             </DatePicker>
             <HBox prefHeight="42.0" prefWidth="420.0">
                <children>
-                  <MenuButton mnemonicParsing="false" prefHeight="42.0" prefWidth="272.0" text="Task Type" textFill="#29abe2">
+                  <MenuButton fx:id="type" mnemonicParsing="false" prefHeight="42.0" prefWidth="272.0" text="Task Type" textFill="#29abe2">
                     <items>
                       <MenuItem mnemonicParsing="false" text="Task" />
                       <MenuItem mnemonicParsing="false" text="Reminder" />
@@ -61,7 +61,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </MenuButton>
-                  <MenuButton mnemonicParsing="false" prefHeight="42.0" prefWidth="272.0" text="Task Difficulty" textFill="#29abe2">
+                  <MenuButton fx:id="diff" mnemonicParsing="false" prefHeight="42.0" prefWidth="272.0" text="Task Difficulty" textFill="#29abe2">
                      <items>
                         <MenuItem mnemonicParsing="false" text="Easy" />
                         <MenuItem mnemonicParsing="false" text="Medium" />
@@ -77,7 +77,7 @@
                   <Insets bottom="30.0" />
                </VBox.margin>
             </HBox>
-            <Button mnemonicParsing="false" text="Add">
+            <Button mnemonicParsing="false" text="Add" onAction="#addTask">
                <font>
                   <Font name="Trebuchet MS" size="14.0" />
                </font>

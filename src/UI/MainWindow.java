@@ -32,6 +32,7 @@ public class MainWindow {
     public AnchorPane pane;
     public MenuBar menubar;
     public Button inviteButton;
+    public Button addTask;
     private Team selectedTeam;
 
     public void initialize() {
@@ -65,6 +66,18 @@ public class MainWindow {
             Button chatRoomButton = new Button("Select Team");
             chatRoomButton.setOnAction(actionEvent -> {
                 selectedTeam = team;
+
+                //Add Task
+                addTask.setDisable(false);
+                addTask.setOnAction(l -> {
+                    try {
+                        new ClientMain().showAddNewTaskWindow(selectedTeam, selectedTeam.getAdmin().equals(Client.user));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+                // Invite User
                 inviteButton.setText("Add a user to your team");
                 if (selectedTeam.getAdmin().equals(Client.user)) {
                     inviteButton.setDisable(false);
@@ -121,4 +134,5 @@ public class MainWindow {
     public void setAddTeamButtonActive(boolean isActive) {
         addTeamButton.setDisable(!isActive);
     }
+
 }

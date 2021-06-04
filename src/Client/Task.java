@@ -1,29 +1,41 @@
 package Client;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Task {
 
-    enum E_TASK_TYPE {
+    public enum E_TASK_TYPE {
         TASK, REMINDER, MILESTONE
     }
 
-    enum E_TASK_STATE {
+    public enum E_TASK_STATE {
         OPEN, STARTED, FINISHED, DUE
     }
 
-    enum E_TASK_DIFFICULTY {
+    public enum E_TASK_DIFFICULTY {
         EASY, MEDIUM, HARD, EXTREME
     }
 
     private String name;
     private String description;
-    private Date till;
+    private LocalDate till;
     private E_TASK_TYPE type;
-    private E_TASK_STATE state;
+    private E_TASK_STATE state = E_TASK_STATE.OPEN;
     private E_TASK_DIFFICULTY difficulty;
 
-    public Task(String name, String note, Date till, E_TASK_TYPE type, E_TASK_DIFFICULTY difficulty) {
+    @Override
+    public String toString() {
+        return  "taskName=ꠦ" + name + "ꠦ" +
+                ",taskDescription='" + description + 'ꠦ' +
+                ",TaskDue=ꠦ" + till +
+                "ꠦ,TaskType=ꠦ" + type +
+                "ꠦ,taskState=ꠦ" + state +
+                "ꠦ,taskDifficulty=" + difficulty +
+                'ꠦ';
+    }
+
+    public Task(String name, String note, LocalDate till, E_TASK_TYPE type, E_TASK_DIFFICULTY difficulty) {
         this.name = name;
         this.description = note;
         this.till = till;
@@ -47,11 +59,11 @@ public class Task {
         this.description = note;
     }
 
-    public Date getTill() {
+    public LocalDate getTill() {
         return till;
     }
 
-    public void setTill(Date till) {
+    public void setTill(LocalDate till) {
         this.till = till;
     }
 
