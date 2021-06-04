@@ -126,7 +126,9 @@ public class Client implements Runnable {
                         team.getChatroom().addMessage(new Message(new User(BasicFunctionLibrary.findValueFromArgs("email", args)),
                                 BasicFunctionLibrary.findValueFromArgs("messageText", args),
                                 Message.dateFormat.parse(BasicFunctionLibrary.findValueFromArgs("date", args))));
-                        ClientMain.mainWindow.printMessages(team.getChatroom());
+                        if (ClientMain.mainWindow.selectedTeam.equals(team)) {
+                            ClientMain.mainWindow.printMessages(team.getChatroom());
+                        }
                     }
                     case "" -> {
 

@@ -33,7 +33,7 @@ public class MainWindow {
     public MenuBar menubar;
     public Button inviteButton;
     public Button addTask;
-    private Team selectedTeam;
+    public Team selectedTeam;
 
     public void initialize() {
         Platform.runLater(() -> teams.getChildren().removeAll(teams.getChildren()));
