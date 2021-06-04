@@ -36,12 +36,14 @@ public class AddNewTaskWindow {
         } else {
             sendRequest();
         }
+
     }
 
     private void sendRequest() {
         Task tempTask = new Task(name.getText(), description.getText(), due.getValue(),
                 BasicFunctionLibrary.extractTaskTypeFromText(type.getText()),
                 BasicFunctionLibrary.extractTaskDifficultyFromText(type.getText()));
+        tempTask.setTeam_id(team.getId());
         Client.sendSTRequest("addTask:" + tempTask);
         Client.user.addTask(tempTask);
         BasicFunctionLibrary.getEntryFromLinkedList(Client.user.myTeams, team).tasks.add(tempTask);

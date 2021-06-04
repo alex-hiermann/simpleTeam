@@ -23,21 +23,17 @@ public class Client implements Runnable {
         Client.user = user;
     }
 
-
     /**
      * @param request Request in the following pattern: 'requestType':'option1'='value1','option2'='value2'
-     * @return Successful
      */
-    public static boolean sendSTRequest(String request) {
+    public static void sendSTRequest(String request) {
         try {
             DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
             dos.writeUTF(request);
             dos.flush();
-            return true;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     @Override
@@ -46,20 +42,11 @@ public class Client implements Runnable {
         try {
             DataInputStream dis = new DataInputStream(socket.getInputStream());
             String data;
-            while (!(data = dis.readUTF()).isEmpty()) {    //Until data is not empty
-                String command = data.split(":")[0];    //WER HAT GEFRAGT???????????
+            while (!(data = dis.readUTF()).isEmpty()) {
+                String command = data.split(":")[0];
                 String[] args = new String[0];
                 try {
-                    String[] temp = data.split(":");
-                    StringBuilder arguments = new StringBuilder();
-                    for (int i = 1; i < temp.length; i++) {
-                        if (i == 1) {
-                            arguments.append(temp[i]);
-                        } else {
-                            arguments.append(":").append(temp[i]);
-                        }
-                    }
-                    args = arguments.toString().split("(?<!=\\x{A826})(?<=\\x{A826}),(?=\\w+=\\x{A826})");
+                    args = BasicFunctionLibrary.getArgs(data, args);
                 } catch (Exception ignored) {
                 }
                 switch (command) {
@@ -87,15 +74,13 @@ public class Client implements Runnable {
                             }
                         });
                     }
-                    case "userExists" -> {
-                        Platform.runLater(() -> {
-                                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                                    alert.setTitle("Error");
-                                    alert.setHeaderText("User already exists!");
-                                    alert.showAndWait();
-                                }
-                        );
-                    }
+                    case "userExists" -> Platform.runLater(() -> {
+                                Alert alert = new Alert(Alert.AlertType.ERROR);
+                                alert.setTitle("Error");
+                                alert.setHeaderText("User already exists!");
+                                alert.showAndWait();
+                            }
+                    );
                     case "canLogin" -> {
                         user = new User(
                                 BasicFunctionLibrary.findValueFromArgs("username", args),
@@ -115,16 +100,14 @@ public class Client implements Runnable {
                             }
                         });
                     }
-                    case "rejectedLogin" -> {
-                        Platform.runLater(() -> {
-                                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                                    alert.setTitle("Error");
-                                    alert.setHeaderText("User credentials are invalid!");
-                                    alert.setContentText("Try again!");
-                                    alert.showAndWait();
-                                }
-                        );
-                    }
+                    case "rejectedLogin" -> Platform.runLater(() -> {
+                                Alert alert = new Alert(Alert.AlertType.ERROR);
+                                alert.setTitle("Error");
+                                alert.setHeaderText("User credentials are invalid!");
+                                alert.setContentText("Try again!");
+                                alert.showAndWait();
+                            }
+                    );
                     case "userTeams" -> {
                         String[] teamRequests = data.split(":")[1].split(";");
                         user.myTeams.clear();
@@ -136,9 +119,7 @@ public class Client implements Runnable {
                         }
                         ClientMain.mainWindow.initialize();
                     }
-                    case "requestTeams" -> {
-                        sendSTRequest("getTeams:" + user);
-                    }
+                    case "requestTeams" -> sendSTRequest("getTeams:" + user);
                     case "fetchMessage" -> {
                         System.out.println("args = " + Arrays.toString(args));
                         Team team = user.myTeams.get(user.myTeams.indexOf(new Team(Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)))));

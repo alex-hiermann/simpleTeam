@@ -1,7 +1,6 @@
 package Client;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Task {
 
@@ -23,16 +22,17 @@ public class Task {
     private E_TASK_TYPE type;
     private E_TASK_STATE state = E_TASK_STATE.OPEN;
     private E_TASK_DIFFICULTY difficulty;
+    private int team_id;
 
     @Override
     public String toString() {
         return  "taskName=ꠦ" + name + "ꠦ" +
-                ",taskDescription='" + description + 'ꠦ' +
-                ",TaskDue=ꠦ" + till +
+                ",taskDescription='" + description + "ꠦ" +
+                ",taskDue=ꠦ" + till +
                 "ꠦ,TaskType=ꠦ" + type +
                 "ꠦ,taskState=ꠦ" + state +
                 "ꠦ,taskDifficulty=" + difficulty +
-                'ꠦ';
+                "ꠦ,teamId=ꠦ" + team_id + "ꠦ";
     }
 
     public Task(String name, String note, LocalDate till, E_TASK_TYPE type, E_TASK_DIFFICULTY difficulty) {
@@ -89,5 +89,21 @@ public class Task {
 
     public void setDifficulty(E_TASK_DIFFICULTY difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getTeam_id() {
+        return team_id;
+    }
+
+    public void setTeam_id(int team_id) {
+        this.team_id = team_id;
     }
 }

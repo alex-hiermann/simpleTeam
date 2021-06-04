@@ -1,10 +1,12 @@
 package Server;
 
 import Client.Chat.Message;
+import Client.Task;
 import Client.Team;
 import Client.User;
 import Utils.BasicFunctionLibrary;
 import Utils.Configuration;
+import Utils.SQLite.SQLiteHandler;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -12,12 +14,16 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
+import static Utils.BasicFunctionLibrary.extractTaskDifficultyFromText;
+import static Utils.BasicFunctionLibrary.extractTaskTypeFromText;
 import static Utils.BasicFunctionLibrary.extractUserFromArgs;
 import static Utils.BasicFunctionLibrary.findValueFromArgs;
+import static Utils.BasicFunctionLibrary.getEntryFromLinkedList;
 
 public class Listener implements Runnable {
 
@@ -27,23 +33,14 @@ public class Listener implements Runnable {
     public void run() {
         try {
             DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-            String data = "";
+            String data;
 
             //STRequest handling
             while (!(data = dataInputStream.readUTF()).isEmpty()) {
-                String command = data.split(":")[0]; //Who asked? :)
+                String command = data.split(":")[0];
                 String[] args = new String[0];
                 try {
-                    String[] temp = data.split(":");
-                    StringBuilder arguments = new StringBuilder();
-                    for (int i = 1; i < temp.length; i++) {
-                        if (i == 1) {
-                            arguments.append(temp[i]);
-                        } else {
-                            arguments.append(":").append(temp[i]);
-                        }
-                    }
-                    args = arguments.toString().split("(?<!=\\x{A826})(?<=\\x{A826}),(?=\\w+=\\x{A826})");
+                    args = BasicFunctionLibrary.getArgs(data, args);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -85,6 +82,7 @@ public class Listener implements Runnable {
                         if (Server.users.contains(user)) {
                             sendSTRequestToClient("userExists");
                         } else {
+                            Configuration.userId = SQLiteHandler.retrieveUserID();
                             user.setId(++Configuration.userId);
                             Server.users.add(user);
                             sendSTRequestToClient("userRegistered");
@@ -135,9 +133,17 @@ public class Listener implements Runnable {
                             //When the user isn't online we are ignoring the request
                         }
                     }
+                    case "addTask" -> {
+                        Task tempTask = new Task(findValueFromArgs("taskName", args),
+                                findValueFromArgs("taskDescription", args),
+                                LocalDate.parse(findValueFromArgs("taskDue", args)),
+                                extractTaskTypeFromText(findValueFromArgs("taskType", args)),
+                                extractTaskDifficultyFromText(findValueFromArgs("taskDifficulty", args)));
+                        tempTask.setTeam_id(Integer.parseInt(findValueFromArgs("teamId", args)));
+                        getEntryFromLinkedList(Server.teams, new Team(Integer.parseInt(findValueFromArgs("teamId", args)))).tasks.add(tempTask);
+                    }
                 }
             }
-
         } catch (SocketException e) {
             for (Map.Entry<User, Listener> entry : Server.listeners.entrySet()) {
                 if (entry.getValue().equals(this)) {
@@ -169,5 +175,4 @@ public class Listener implements Runnable {
         }
         return false;
     }
-
 }

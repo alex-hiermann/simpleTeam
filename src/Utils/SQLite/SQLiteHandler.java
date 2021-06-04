@@ -91,24 +91,16 @@ public class SQLiteHandler {
                     type CHAR(32) NOT NULL,
                     state CHAR(32) NOT NULL,
                     difficulty CHAR(32) NOT NULL,
-                    fk_admin_id INT,
-                    FOREIGN KEY (fk_admin_id) REFERENCES User (pk_user_id)
-                );
-                CREATE TABLE IF NOT EXISTS Task_User (
-                    fk_pk_task_id INT NOT NULL,
-                    fk_pk_user_id INT NOT NULL,
-                    FOREIGN KEY (fk_pk_task_id) REFERENCES Task (pk_task_id),
-                    FOREIGN KEY (fk_pk_user_id) REFERENCES User (pk_user_id)
+                    team INT,
+                    fk_team_id INT,
+                    FOREIGN KEY (fk_team_id) REFERENCES Team (pk_team_id)
                 );
                 """;
 
 //        TODO Add table "Serverconfig" to the database structure, template:
 //        CREATE TABLE IF NOT EXISTS Serverconfig (
-//            pk_srvconf_id INT PRIMARY KEY NOT NULL,
-//            userId INT,
-//            teamId INT
-//            ???
-//            ???
+//            unique_user_id    UNSIGNED INT,
+//            unique_team_id    UNSIGNED INT
 //        );
 
         try (java.sql.Connection conn = DriverManager.getConnection(Configuration.DATABASE_URL);
@@ -119,24 +111,17 @@ public class SQLiteHandler {
         }
     }
 
-    /**
-     * select all rows in the warehouses table
-     */
-    public void selectAllFromCard(String table) {
-        String sql = "SELECT * FROM " + table;
+    public static int retrieveUserID() {
+        String sql = "SELECT pk_user_id FROM User";
 
         try (java.sql.Connection conn = Connection.connection;
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
-            // loop through the result set
-            while (rs.next()) {
-                System.out.println(rs.getInt("id") + "\t" +
-                        rs.getString("name") + "\t" +
-                        rs.getDouble("capacity"));
-            }
+            return rs.getInt("pk_user_id");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return 0;
     }
 }

@@ -112,4 +112,18 @@ public class BasicFunctionLibrary {
             e.printStackTrace();
         }
     }
+
+    public static String[] getArgs(String data, String[] args) {
+        String[] temp = data.split(":");
+        StringBuilder arguments = new StringBuilder();
+        for (int i = 1; i < temp.length; i++) {
+            if (i == 1) {
+                arguments.append(temp[i]);
+            } else {
+                arguments.append(":").append(temp[i]);
+            }
+        }
+        args = arguments.toString().split("(?<!=\\x{A826})(?<=\\x{A826}),(?=\\w+=\\x{A826})");
+        return args;
+    }
 }
