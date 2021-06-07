@@ -60,7 +60,7 @@ public class Task {
                 ",taskDue=ꠦ" + till +
                 "ꠦ,TaskType=ꠦ" + type +
                 "ꠦ,taskState=ꠦ" + state +
-                "ꠦ,taskDifficulty=" + difficulty +
+                "ꠦ,taskDifficulty=ꠦ" + difficulty +
                 "ꠦ,teamId=ꠦ" + team_id +
                 "ꠦ,email=ꠦ" + user.getEmail() + "ꠦ";
     }

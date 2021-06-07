@@ -137,7 +137,7 @@ public class Server implements Runnable {
                         for (Team team : teams) {
                             System.out.println(Configuration.ANSI_RED + "   ###" + team.getName() + ":" + team.getId() + "###");
                             for (Task task : team.tasks) {
-                                System.out.println(Configuration.ANSI_RED + "       #" + task.getName() + "," + task.getState() + ", for user: " + task.getUser().getId());
+                                System.out.println(Configuration.ANSI_RED + "       #" + task.getName() + "," + task.getDifficulty() + ", for user: " + task.getUser().getId());
                             }
                             System.out.println();
                         }
