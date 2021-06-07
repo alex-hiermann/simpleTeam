@@ -73,7 +73,7 @@
             </font>
          </MenuButton>
       </HBox>
-      <Button mnemonicParsing="false" onAction="#createTask" text="Add">
+      <Button mnemonicParsing="false" onAction="#addTask" text="Add">
          <font>
             <Font name="Trebuchet MS" size="14.0" />
          </font>

@@ -1,19 +1,22 @@
 package Client;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Task {
 
-    enum E_TASK_TYPE {
+    public void setTeam_id(int teamId) {
+        this.team_id = teamId;
+    }
+
+    public enum E_TASK_TYPE {
         TASK, REMINDER, MILESTONE
     }
 
-    enum E_TASK_STATE {
+    public enum E_TASK_STATE {
         OPEN, STARTED, FINISHED, DUE
     }
 
-    enum E_TASK_DIFFICULTY {
+    public enum E_TASK_DIFFICULTY {
         EASY, MEDIUM, HARD, EXTREME
     }
 
@@ -23,6 +26,7 @@ public class Task {
     private E_TASK_TYPE type;
     private E_TASK_STATE state;
     private E_TASK_DIFFICULTY difficulty;
+    private int team_id;
 
     public Task(String name, String note, LocalDate till, E_TASK_TYPE type, E_TASK_DIFFICULTY difficulty) {
         this.name = name;
@@ -34,6 +38,17 @@ public class Task {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return  "taskName=ꠦ" + name + "ꠦ" +
+                ",taskDescription='" + description + "ꠦ" +
+                ",taskDue=ꠦ" + till +
+                "ꠦ,TaskType=ꠦ" + type +
+                "ꠦ,taskState=ꠦ" + state +
+                "ꠦ,taskDifficulty=" + difficulty +
+                "ꠦ,teamId=ꠦ" + team_id + "ꠦ";
     }
 
     public void setName(String name) {
