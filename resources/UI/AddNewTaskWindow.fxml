@@ -14,75 +14,69 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="608.0" prefWidth="912.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.AddNewTaskWindow">
-   <children>
-      <VBox alignment="CENTER" layoutX="246.0" prefHeight="608.0" prefWidth="420.0">
-         <children>
-            <Text fill="#29abe2" strokeType="OUTSIDE" strokeWidth="0.0" text="Add a new task" textAlignment="CENTER">
-               <font>
-                  <Font name="Trebuchet MS" size="32.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="50.0" top="25.0" />
-               </VBox.margin>
-            </Text>
-            <TextField fx:id="name" alignment="CENTER" prefHeight="42.0" prefWidth="272.0" promptText="Task name">
-               <font>
-                  <Font name="Trebuchet MS" size="22.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </TextField>
-            <TextArea fx:id="description" prefHeight="87.0" prefWidth="272.0" promptText="Description">
-               <font>
-                  <Font name="Trebuchet MS" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </TextArea>
-            <DatePicker fx:id="due" prefHeight="42.0" prefWidth="272.0" promptText="Expiring date">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </DatePicker>
-            <HBox prefHeight="42.0" prefWidth="420.0">
-               <children>
-                  <MenuButton fx:id="type" mnemonicParsing="false" prefHeight="42.0" prefWidth="272.0" text="Task Type" textFill="#29abe2">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Task" />
-                      <MenuItem mnemonicParsing="false" text="Reminder" />
-                        <MenuItem mnemonicParsing="false" text="Milestone" />
-                    </items>
-                     <font>
-                        <Font name="Trebuchet MS" size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </MenuButton>
-                  <MenuButton fx:id="diff" mnemonicParsing="false" prefHeight="42.0" prefWidth="272.0" text="Task Difficulty" textFill="#29abe2">
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="Easy" />
-                        <MenuItem mnemonicParsing="false" text="Medium" />
-                        <MenuItem mnemonicParsing="false" text="Hard" />
-                        <MenuItem mnemonicParsing="false" text="Extreme" />
-                     </items>
-                     <font>
-                        <Font name="Trebuchet MS" size="14.0" />
-                     </font>
-                  </MenuButton>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="30.0" />
-               </VBox.margin>
-            </HBox>
-            <Button mnemonicParsing="false" text="Add" onAction="#addTask">
-               <font>
-                  <Font name="Trebuchet MS" size="14.0" />
-               </font>
-            </Button>
-         </children>
-      </VBox>
-   </children>
+   <VBox alignment="CENTER" layoutX="246.0" prefHeight="608.0" prefWidth="420.0">
+      <Text fill="#29abe2" strokeType="OUTSIDE" strokeWidth="0.0" text="Add a new task" textAlignment="CENTER">
+         <font>
+            <Font name="Trebuchet MS" size="32.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="50.0" top="25.0" />
+         </VBox.margin>
+      </Text>
+      <TextField fx:id="name" alignment="CENTER" prefHeight="42.0" prefWidth="272.0" promptText="Task name">
+         <font>
+            <Font name="Trebuchet MS" size="22.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </TextField>
+      <TextArea fx:id="description" prefHeight="87.0" prefWidth="272.0" promptText="Description">
+         <font>
+            <Font name="Trebuchet MS" size="18.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </TextArea>
+      <DatePicker fx:id="due" prefHeight="42.0" prefWidth="272.0" promptText="Expiring date">
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </DatePicker>
+      <HBox prefHeight="42.0" prefWidth="420.0">
+         <VBox.margin>
+            <Insets bottom="30.0" />
+         </VBox.margin>
+         <MenuButton fx:id="type" mnemonicParsing="false" prefHeight="42.0" prefWidth="272.0" text="Task Type" textFill="#29abe2">
+            <items>
+               <MenuItem mnemonicParsing="false" text="Task" />
+               <MenuItem mnemonicParsing="false" text="Reminder" />
+               <MenuItem mnemonicParsing="false" text="Milestone" />
+            </items>
+            <font>
+               <Font name="Trebuchet MS" size="14.0" />
+            </font>
+            <HBox.margin>
+               <Insets right="10.0" />
+            </HBox.margin>
+         </MenuButton>
+         <MenuButton fx:id="difficulty" mnemonicParsing="false" prefHeight="42.0" prefWidth="272.0" text="Task Difficulty" textFill="#29abe2">
+            <items>
+               <MenuItem mnemonicParsing="false" text="Easy" />
+               <MenuItem mnemonicParsing="false" text="Medium" />
+               <MenuItem mnemonicParsing="false" text="Hard" />
+               <MenuItem mnemonicParsing="false" text="Extreme" />
+            </items>
+            <font>
+               <Font name="Trebuchet MS" size="14.0" />
+            </font>
+         </MenuButton>
+      </HBox>
+      <Button mnemonicParsing="false" onAction="#createTask" text="Add">
+         <font>
+            <Font name="Trebuchet MS" size="14.0" />
+         </font>
+      </Button>
+   </VBox>
 </AnchorPane>
