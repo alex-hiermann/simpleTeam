@@ -8,6 +8,18 @@ public class Task {
         this.team_id = teamId;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getTeam_id() {
+        return team_id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
     public enum E_TASK_TYPE {
         TASK, REMINDER, MILESTONE
     }
@@ -27,6 +39,7 @@ public class Task {
     private E_TASK_STATE state;
     private E_TASK_DIFFICULTY difficulty;
     private int team_id;
+    private User user = new User("aa@aa.at");
 
     public Task(String name, String note, LocalDate till, E_TASK_TYPE type, E_TASK_DIFFICULTY difficulty) {
         this.name = name;
@@ -43,12 +56,13 @@ public class Task {
     @Override
     public String toString() {
         return  "taskName=ꠦ" + name + "ꠦ" +
-                ",taskDescription='" + description + "ꠦ" +
+                ",taskDescription=ꠦ" + description + "ꠦ" +
                 ",taskDue=ꠦ" + till +
                 "ꠦ,TaskType=ꠦ" + type +
                 "ꠦ,taskState=ꠦ" + state +
                 "ꠦ,taskDifficulty=" + difficulty +
-                "ꠦ,teamId=ꠦ" + team_id + "ꠦ";
+                "ꠦ,teamId=ꠦ" + team_id +
+                "ꠦ,email=ꠦ" + user.getEmail() + "ꠦ";
     }
 
     public void setName(String name) {

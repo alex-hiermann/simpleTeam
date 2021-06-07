@@ -1,6 +1,7 @@
 package Server;
 
 import Client.Chat.Message;
+import Client.Task;
 import Client.Team;
 import Client.User;
 import Utils.Configuration;
@@ -114,7 +115,7 @@ public class Server implements Runnable {
                         System.out.println(Configuration.ANSI_RED + "Cleared all teams" + Configuration.ANSI_RESET);
                         teams.clear();
                     }
-                    case "getallmessages" -> {
+                    case "getmessages" -> {
                         System.out.println(Configuration.ANSI_RED + "####Messages####");
                         for (Team team : teams) {
                             System.out.println("##Messages from Team: " + team.getName() + " : " + team.getId());
@@ -130,6 +131,16 @@ public class Server implements Runnable {
                             System.out.println("User:" + user.getEmail() + "     =     " + listeners.get(user));
                         }
                         System.out.println(Configuration.ANSI_RESET);
+                    }
+                    case "gettasks" -> {
+                        System.out.println(Configuration.ANSI_RED + "#####Tasks#####");
+                        for (Team team : teams) {
+                            System.out.println(Configuration.ANSI_RED + "   ###" + team.getName() + ":" + team.getId() + "###");
+                            for (Task task : team.tasks) {
+                                System.out.println(Configuration.ANSI_RED + "       #" + task.getName() + "," + task.getState() + ", for user: " + task.getUser().getId());
+                            }
+                            System.out.println();
+                        }
                     }
                     default -> System.err.println(Configuration.ANSI_RED + ("Unexpected value: " + command) + Configuration.ANSI_RESET);
                 }
