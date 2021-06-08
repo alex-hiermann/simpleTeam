@@ -70,6 +70,9 @@
                         <String fx:value="Extreme" />
                     </FXCollections>
                 </items>
+            <HBox.margin>
+               <Insets right="10.0" />
+            </HBox.margin>
             </ChoiceBox>
          <ChoiceBox fx:id="users" prefHeight="42.0" prefWidth="272.0" value="User">
 
