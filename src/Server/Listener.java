@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Map;
 
 import static Utils.BasicFunctionLibrary.extractTaskDifficultyFromText;
@@ -142,6 +143,12 @@ public class Listener implements Runnable {
                         tempTask.setTeam_id(Integer.parseInt(findValueFromArgs("teamId", args)));
                         getEntryFromLinkedList(Server.teams, new Team(Integer.parseInt(findValueFromArgs("teamId", args)))).tasks.add(tempTask);
                     }
+                    case "requestUsers" -> {
+                        int teamId = Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args));
+                        for (User user : getEntryFromLinkedList(Server.teams, new Team(teamId)).members) {
+                            sendSTRequestToClient("fetchedUser" + user.toString() + ",teamId=ꠦ" + teamId + "ꠦ");
+                        }
+                    }
                 }
             }
         } catch (SocketException e) {
@@ -164,15 +171,13 @@ public class Listener implements Runnable {
         socket = s;
     }
 
-    public boolean sendSTRequestToClient(String message) {
+    public void sendSTRequestToClient(String message) {
         try {
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
             dataOutputStream.writeUTF(message);
             dataOutputStream.flush();
-            return true;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
     }
 }

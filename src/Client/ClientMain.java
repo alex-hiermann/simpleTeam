@@ -112,6 +112,8 @@ public class ClientMain extends Application {
     }
 
     public void showAddNewTaskWindow(Team team, boolean admin) throws IOException {
+        AddNewTaskWindow.team = team;
+        AddNewTaskWindow.admin = admin;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/UI/AddNewTaskWindow.fxml")));
         Stage stage = new Stage();
         stage.getIcons().add(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/icon-1.png"))));
@@ -120,8 +122,6 @@ public class ClientMain extends Application {
         stage.show();
         stage.setResizable(false);
         currentStage = stage;
-        AddNewTaskWindow.team = team;
-        AddNewTaskWindow.admin = admin;
     }
 
 

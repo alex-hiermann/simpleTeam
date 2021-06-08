@@ -93,6 +93,7 @@ public class MainWindow {
                 }
                 chatParentContainer.setText(selectedTeam.getName());
                 printMessages(selectedTeam.getChatroom());
+                Client.sendSTRequest("requestUsers:teamId=ꠦ" + team.getId() + "ꠦ");
             });
 
             grid.setVgap(4);
@@ -125,7 +126,6 @@ public class MainWindow {
         Platform.runLater(() -> {
             chat.getChildren().clear();
             for (Message message : chatroom.getMessages()) {
-                System.out.println("message = " + message);
                 chat.getChildren().add(new Text(message.getText()));
             }
         });

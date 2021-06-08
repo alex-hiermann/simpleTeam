@@ -51,7 +51,9 @@ public class Client implements Runnable {
                 }
                 switch (command) {
                     case "createTeam" -> {
-                        Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args), BasicFunctionLibrary.findValueFromArgs("teamdesc", args), Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)));
+                        Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args),
+                                BasicFunctionLibrary.findValueFromArgs("teamdesc", args),
+                                Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)));
                         team.setAdmin(user);
                         team.members.add(user);
                         user.myTeams.add(team);
@@ -113,7 +115,9 @@ public class Client implements Runnable {
                         user.myTeams.clear();
                         for (String team : teamRequests) {
                             String[] tempArgs = team.split(",");
-                            Team team1 = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", tempArgs), BasicFunctionLibrary.findValueFromArgs("teamdesc", tempArgs), Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)));
+                            Team team1 = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", tempArgs),
+                                    BasicFunctionLibrary.findValueFromArgs("teamdesc", tempArgs),
+                                    Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)));
                             team1.setAdmin(new User(BasicFunctionLibrary.findValueFromArgs("adminEmail", tempArgs)));
                             user.myTeams.add(team1);
                         }
@@ -122,7 +126,8 @@ public class Client implements Runnable {
                     case "requestTeams" -> sendSTRequest("getTeams:" + user);
                     case "fetchMessage" -> {
                         System.out.println("args = " + Arrays.toString(args));
-                        Team team = user.myTeams.get(user.myTeams.indexOf(new Team(Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)))));
+                        Team team = user.myTeams.get(user.myTeams.indexOf(new Team(Integer.parseInt(BasicFunctionLibrary
+                                .findValueFromArgs("teamId", args)))));
                         team.getChatroom().addMessage(new Message(new User(BasicFunctionLibrary.findValueFromArgs("email", args)),
                                 BasicFunctionLibrary.findValueFromArgs("messageText", args),
                                 Message.dateFormat.parse(BasicFunctionLibrary.findValueFromArgs("date", args))));
@@ -130,6 +135,10 @@ public class Client implements Runnable {
                             ClientMain.mainWindow.printMessages(team.getChatroom());
                         }
                     }
+
+                    case "fetchedUser" -> BasicFunctionLibrary.getEntryFromLinkedList(user.myTeams, new Team(Integer.parseInt(
+                            BasicFunctionLibrary.findValueFromArgs("teamId", args)))).members.add(BasicFunctionLibrary.extractUserFromArgs(args));
+
                     case "" -> {
 
                     }

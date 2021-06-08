@@ -24,7 +24,7 @@ public class Server implements Runnable {
 
     public static LinkedList<User> users = new LinkedList<>();
 
-    public static HashMap<User, Listener> listeners = new HashMap<User, Listener>();
+    public static HashMap<User, Listener> listeners = new HashMap<>();
 
     public static LinkedList<Team> teams = new LinkedList<>();
 

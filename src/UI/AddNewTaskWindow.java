@@ -1,13 +1,18 @@
 package UI;
 
 import Client.Client;
+import Client.*;
 import Client.Task;
 import Client.Team;
 import Utils.BasicFunctionLibrary;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
+import java.util.LinkedList;
 
 public class AddNewTaskWindow {
     public TextField name;
@@ -17,6 +22,9 @@ public class AddNewTaskWindow {
     public static Team team;
     public static boolean admin;
     public ChoiceBox<String> difficulty;
+    public ChoiceBox<String> users;
+
+    ObservableList<String> list = FXCollections.observableArrayList();
 
 
     public void addTask(ActionEvent actionEvent) {
@@ -41,7 +49,13 @@ public class AddNewTaskWindow {
 
     @FXML
     public void initialize() {
-
+        list.removeAll(list);
+        LinkedList<User> members = BasicFunctionLibrary.getEntryFromLinkedList(Client.user.myTeams, team).members;
+        System.out.println("members = " + members);
+        for (User user : members) {
+            list.add(user.getUsername() + ":" + user.getEmail());
+        }
+        users.getItems().addAll(list);
     }
 
     private void sendRequest() {
