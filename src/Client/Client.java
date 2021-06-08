@@ -125,7 +125,6 @@ public class Client implements Runnable {
                     }
                     case "requestTeams" -> sendSTRequest("getTeams:" + user);
                     case "fetchMessage" -> {
-                        System.out.println("args = " + Arrays.toString(args));
                         Team team = user.myTeams.get(user.myTeams.indexOf(new Team(Integer.parseInt(BasicFunctionLibrary
                                 .findValueFromArgs("teamId", args)))));
                         team.getChatroom().addMessage(new Message(new User(BasicFunctionLibrary.findValueFromArgs("email", args)),
@@ -136,8 +135,10 @@ public class Client implements Runnable {
                         }
                     }
 
-                    case "fetchedUser" -> BasicFunctionLibrary.getEntryFromLinkedList(user.myTeams, new Team(Integer.parseInt(
-                            BasicFunctionLibrary.findValueFromArgs("teamId", args)))).members.add(BasicFunctionLibrary.extractUserFromArgs(args));
+                    case "fetchedUser" -> {
+                        BasicFunctionLibrary.getEntryFromLinkedList(user.myTeams, new Team(Integer.parseInt(
+                                BasicFunctionLibrary.findValueFromArgs("teamId", args)))).members.add(BasicFunctionLibrary.extractUserFromArgs(args));
+                    }
 
                     case "" -> {
 

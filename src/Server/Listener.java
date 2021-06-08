@@ -146,7 +146,8 @@ public class Listener implements Runnable {
                     case "requestUsers" -> {
                         int teamId = Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args));
                         for (User user : getEntryFromLinkedList(Server.teams, new Team(teamId)).members) {
-                            sendSTRequestToClient("fetchedUser" + user.toString() + ",teamId=ꠦ" + teamId + "ꠦ");
+                            System.out.println("user = " + user);
+                            sendSTRequestToClient("fetchedUser:" + user.toString() + ",teamId=ꠦ" + teamId + "ꠦ");
                         }
                     }
                 }

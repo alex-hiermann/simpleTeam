@@ -3,6 +3,7 @@ package Client;
 import Client.Chat.Chatroom;
 import Utils.Configuration;
 
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Objects;
 
@@ -13,7 +14,7 @@ public class Team {
     private User admin;
     private final int id;
     private Chatroom chatroom = new Chatroom(this);
-    public LinkedList<User> members = new LinkedList<>();
+    public LinkedHashSet<User> members = new LinkedHashSet<>();
     public LinkedList<Task> tasks = new LinkedList<>();
 
     public Team(String name, String description, int id) {

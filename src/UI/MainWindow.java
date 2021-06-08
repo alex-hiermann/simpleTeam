@@ -71,6 +71,7 @@ public class MainWindow {
                 addTask.setDisable(false);
                 addTask.setOnAction(l -> {
                     try {
+                        Client.sendSTRequest("requestUsers:teamId=ꠦ" + team.getId() + "ꠦ");
                         new ClientMain().showAddNewTaskWindow(selectedTeam, selectedTeam.getAdmin().equals(Client.user));
                     } catch (IOException e) {
                         e.printStackTrace();

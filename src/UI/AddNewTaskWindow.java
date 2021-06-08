@@ -50,9 +50,7 @@ public class AddNewTaskWindow {
     @FXML
     public void initialize() {
         list.removeAll(list);
-        LinkedList<User> members = BasicFunctionLibrary.getEntryFromLinkedList(Client.user.myTeams, team).members;
-        System.out.println("members = " + members);
-        for (User user : members) {
+        for (User user : BasicFunctionLibrary.getEntryFromLinkedList(Client.user.myTeams, team).members) {
             list.add(user.getUsername() + ":" + user.getEmail());
         }
         users.getItems().addAll(list);
