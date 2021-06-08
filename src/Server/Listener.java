@@ -47,7 +47,8 @@ public class Listener implements Runnable {
                 }
                 switch (command) {
                     case "createTeam" -> {
-                        Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args), BasicFunctionLibrary.findValueFromArgs("teamdesc", args));
+                        Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args),
+                                BasicFunctionLibrary.findValueFromArgs("teamdesc", args));
                         User serverUser = Server.users.get(Server.users.indexOf(new User(findValueFromArgs("email", args))));
                         team.members.add(serverUser);   //Add user to team
                         serverUser.myTeams.add(team);   //Add the team to user
@@ -78,7 +79,8 @@ public class Listener implements Runnable {
                         }
 
                     }
-                    case "registerUser" -> {    // registerUser:email='email',username='username',password='password',name='name',lastname='lastname',birth='age'
+                    // registerUser:email='email',username='username',password='password',name='name',lastname='lastname',birth='age'
+                    case "registerUser" -> {
                         User user = extractUserFromArgs(args);
                         if (Server.users.contains(user)) {
                             sendSTRequestToClient("userExists");
@@ -108,14 +110,16 @@ public class Listener implements Runnable {
                     }
                     case "sendMessage" -> {
                         User user = new User(BasicFunctionLibrary.findValueFromArgs("email", args));
-                        Message message = new Message(user, BasicFunctionLibrary.findValueFromArgs("messageText", args), Message.dateFormat.parse(BasicFunctionLibrary.findValueFromArgs("date", args)));
+                        Message message = new Message(user, BasicFunctionLibrary.findValueFromArgs("messageText", args),
+                                Message.dateFormat.parse(BasicFunctionLibrary.findValueFromArgs("date", args)));
                         Team team = new Team(Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamid", args)));
                         Team serverTeam = Server.teams.get(Server.teams.indexOf(team));
                         serverTeam.getChatroom().addMessage(message);
                         for (User teamUser : serverTeam.members) {
                             if (!teamUser.equals(user)) {
                                 try {
-                                    Server.listeners.get(teamUser).sendSTRequestToClient("fetchMessage:" + message + ",teamId=ꠦ" + team.getId() + "ꠦ");
+                                    Server.listeners.get(teamUser).sendSTRequestToClient("fetchMessage:" + message +
+                                            ",teamId=ꠦ" + team.getId() + "ꠦ");
                                 } catch (NullPointerException ignored) {
                                     //No active user!
                                 }
@@ -125,7 +129,9 @@ public class Listener implements Runnable {
                     case "addUserToTeam" -> {
                         User invitedUser = new User(BasicFunctionLibrary.findValueFromArgs("email", args));
                         System.out.println("invitedUser = " + invitedUser);
-                        Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args), BasicFunctionLibrary.findValueFromArgs("teamdesc", args), Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)));
+                        Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args),
+                                BasicFunctionLibrary.findValueFromArgs("teamdesc", args),
+                                Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)));
                         Server.teams.get(Server.teams.indexOf(team)).members.add(Server.users.get(Server.users.indexOf(invitedUser)));
                         try {
                             Server.listeners.get(invitedUser).sendSTRequestToClient("requestTeams");
@@ -141,12 +147,13 @@ public class Listener implements Runnable {
                                 extractTaskTypeFromText(findValueFromArgs("taskType", args)),
                                 extractTaskDifficultyFromText(findValueFromArgs("taskDifficulty", args)));
                         tempTask.setTeam_id(Integer.parseInt(findValueFromArgs("teamId", args)));
-                        getEntryFromLinkedList(Server.teams, new Team(Integer.parseInt(findValueFromArgs("teamId", args)))).tasks.add(tempTask);
+                        tempTask.setUser(new User(BasicFunctionLibrary.findValueFromArgs("email", args)));
+                        getEntryFromLinkedList(Server.teams, new Team(Integer.parseInt(findValueFromArgs("teamId", args))))
+                                .tasks.add(tempTask);
                     }
                     case "requestUsers" -> {
                         int teamId = Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args));
                         for (User user : getEntryFromLinkedList(Server.teams, new Team(teamId)).members) {
-                            System.out.println("user = " + user);
                             sendSTRequestToClient("fetchedUser:" + user.toString() + ",teamId=ꠦ" + teamId + "ꠦ");
                         }
                     }

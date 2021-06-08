@@ -49,7 +49,7 @@ public class AddNewTaskWindow {
 
     @FXML
     public void initialize() {
-        list.removeAll(list);
+        list.clear();
         for (User user : BasicFunctionLibrary.getEntryFromLinkedList(Client.user.myTeams, team).members) {
             list.add(user.getUsername() + ":" + user.getEmail());
         }
@@ -61,6 +61,7 @@ public class AddNewTaskWindow {
                 BasicFunctionLibrary.extractTaskTypeFromText(type.getValue()),
                 BasicFunctionLibrary.extractTaskDifficultyFromText(difficulty.getValue()));
         tempTask.setTeam_id(team.getId());
+        tempTask.setUser(new User(users.getValue().split(":")[1]));
         Client.sendSTRequest("addTask:" + tempTask);
         Client.user.addTask(tempTask);
         BasicFunctionLibrary.getEntryFromLinkedList(Client.user.myTeams, team).tasks.add(tempTask);
