@@ -13,7 +13,7 @@ public class Configuration {
     /**
      * This regex is used to collect only relevant input for a valid invitation
      */
-    public static final String INVITATION_REGEX = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+    public static final String CHECK_EMAIL_REGEX = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 
     /*
      * Variables used for the database structure following

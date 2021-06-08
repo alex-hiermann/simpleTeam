@@ -49,7 +49,7 @@
             <VBox.margin>
                 <Insets bottom="30.0" />
             </VBox.margin>
-            <ChoiceBox fx:id="type" prefHeight="42.0" prefWidth="272.0" value="Task Type">
+            <ChoiceBox fx:id="type" prefHeight="42.0" prefWidth="272.0" value="Task">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Task" />
@@ -61,7 +61,7 @@
                     <Insets right="10.0" />
                 </HBox.margin>
             </ChoiceBox>
-            <ChoiceBox fx:id="difficulty" prefHeight="42.0" prefWidth="272.0" value="Task Difficulty">
+            <ChoiceBox fx:id="difficulty" prefHeight="42.0" prefWidth="272.0" value="Medium">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Easy" />

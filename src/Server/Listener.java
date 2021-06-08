@@ -148,8 +148,12 @@ public class Listener implements Runnable {
                                 extractTaskDifficultyFromText(findValueFromArgs("taskDifficulty", args)));
                         tempTask.setTeam_id(Integer.parseInt(findValueFromArgs("teamId", args)));
                         tempTask.setUser(new User(BasicFunctionLibrary.findValueFromArgs("email", args)));
-                        getEntryFromLinkedList(Server.teams, new Team(Integer.parseInt(findValueFromArgs("teamId", args))))
-                                .tasks.add(tempTask);
+                        if (getEntryFromLinkedList(Server.teams, new Team(Integer.parseInt(findValueFromArgs("teamId", args))))
+                                .tasks.add(tempTask)) {
+                            sendSTRequestToClient("taskAddSuccess");
+                        } else {
+                            sendSTRequestToClient("taskAddFail");
+                        }
                     }
                     case "requestUsers" -> {
                         int teamId = Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args));

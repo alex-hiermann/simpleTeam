@@ -20,7 +20,7 @@ public class InviteUserWindow {
     public static Team selectedTeam;
 
     public void inviteUserAction(ActionEvent actionEvent) {
-        Pattern pattern = Pattern.compile(Configuration.INVITATION_REGEX);
+        Pattern pattern = Pattern.compile(Configuration.CHECK_EMAIL_REGEX);
 
         Matcher matcher = pattern.matcher(email.getText());
         if (matcher.matches()) {

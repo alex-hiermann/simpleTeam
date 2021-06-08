@@ -1,18 +1,19 @@
 package UI;
 
 import Client.Client;
-import Client.*;
 import Client.Task;
 import Client.Team;
+import Client.User;
 import Utils.BasicFunctionLibrary;
+import Utils.Configuration;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
-import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AddNewTaskWindow {
     public TextField name;
@@ -26,8 +27,32 @@ public class AddNewTaskWindow {
 
     ObservableList<String> list = FXCollections.observableArrayList();
 
-
-    public void addTask(ActionEvent actionEvent) {
+    @FXML
+    public void addTask() {
+        Pattern pattern = Pattern.compile(Configuration.CHECK_EMAIL_REGEX);
+        Matcher matcher = null;
+        try {
+            matcher = pattern.matcher(users.getValue().split(":")[1]);
+            if (!matcher.matches()) {
+                Platform.runLater(() -> {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Error");
+                            alert.setHeaderText("Invalid user");
+                            alert.setContentText("Please make sure that you have set the user in the bottom right corner of the window!");
+                            alert.showAndWait();
+                        }
+                );
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText("Invalid user");
+                        alert.setContentText("Please make sure that you have set the user in the bottom right corner of the window!");
+                        alert.showAndWait();
+                    }
+            );
+        }
         if (!admin) {
             if (!type.getValue().equalsIgnoreCase("Reminder")) {
                 Platform.runLater(() -> {
@@ -46,6 +71,7 @@ public class AddNewTaskWindow {
         }
 
     }
+
 
     @FXML
     public void initialize() {

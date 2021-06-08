@@ -140,6 +140,24 @@ public class Client implements Runnable {
                                 BasicFunctionLibrary.findValueFromArgs("teamId", args)))).members.add(BasicFunctionLibrary.extractUserFromArgs(args));
                     }
 
+                    case "taskAddSuccess" -> Platform.runLater(() -> {
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setTitle("Success");
+                                alert.setHeaderText("Your new task has been added to your team!");
+                                alert.setContentText("If the user is online he will receive a notification that a new Task has been assigned to him");
+                                alert.showAndWait();
+                            }
+                    );
+
+                    case "taskAddFail" -> Platform.runLater(() -> {
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setTitle("Error");
+                                alert.setHeaderText("There has been a problem on the server");
+                                alert.setContentText("The server somehow couldn't add the task to the team!");
+                                alert.showAndWait();
+                            }
+                    );
+
                     case "" -> {
 
                     }
