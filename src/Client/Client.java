@@ -12,12 +12,25 @@ import java.net.Socket;
 import java.time.LocalDate;
 import java.util.Arrays;
 
+/**
+ * Client class which receives and handles STRequest sent from the server
+ */
 public class Client implements Runnable {
 
+    /**
+     * Socket connected to the listener
+     */
     static Socket socket;
+    /**
+     * User object
+     */
     public static User user;
 
 
+    /**
+     * @param socket Socket
+     * @param user User (Can also be tempUser for login purposes)
+     */
     public Client(Socket socket, User user) {
         Client.socket = socket;
         Client.user = user;
@@ -36,6 +49,9 @@ public class Client implements Runnable {
         }
     }
 
+    /**
+     * This method is the core of simpleTeam. It listens to server responses and replicates data
+     */
     @Override
     public void run() {
         System.out.println("####WELCOME USER: " + user.getUsername() + "####");
@@ -50,6 +66,7 @@ public class Client implements Runnable {
                 } catch (Exception ignored) {
                 }
                 switch (command) {
+                    //Called when the server created your team
                     case "createTeam" -> {
                         Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args),
                                 BasicFunctionLibrary.findValueFromArgs("teamdesc", args),
@@ -59,6 +76,7 @@ public class Client implements Runnable {
                         user.myTeams.add(team);
                         ClientMain.mainWindow.initialize();
                     }
+                    //Alerts the user about a successful registration
                     case "userRegistered" -> {
                         Platform.runLater(() -> {
                                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -76,6 +94,7 @@ public class Client implements Runnable {
                             }
                         });
                     }
+                    //Alerts the user, that the email he used in the registration is already in use
                     case "userExists" -> Platform.runLater(() -> {
                                 Alert alert = new Alert(Alert.AlertType.ERROR);
                                 alert.setTitle("Error");
@@ -83,6 +102,7 @@ public class Client implements Runnable {
                                 alert.showAndWait();
                             }
                     );
+                    //Logins the user
                     case "canLogin" -> {
                         user = new User(
                                 BasicFunctionLibrary.findValueFromArgs("username", args),
@@ -102,6 +122,7 @@ public class Client implements Runnable {
                             }
                         });
                     }
+                    //Alerts the user that their credentials are incorrect
                     case "rejectedLogin" -> Platform.runLater(() -> {
                                 Alert alert = new Alert(Alert.AlertType.ERROR);
                                 alert.setTitle("Error");
@@ -110,6 +131,7 @@ public class Client implements Runnable {
                                 alert.showAndWait();
                             }
                     );
+                    //Fetch the teams from the server
                     case "userTeams" -> {
                         String[] teamRequests = data.split(":")[1].split(";");
                         user.myTeams.clear();
@@ -123,7 +145,9 @@ public class Client implements Runnable {
                         }
                         ClientMain.mainWindow.initialize();
                     }
+                    //Force refresh teams
                     case "requestTeams" -> sendSTRequest("getTeams:" + user);
+                    //Fetches a single Message
                     case "fetchMessage" -> {
                         Team team = user.myTeams.get(user.myTeams.indexOf(new Team(Integer.parseInt(BasicFunctionLibrary
                                 .findValueFromArgs("teamId", args)))));
@@ -134,12 +158,12 @@ public class Client implements Runnable {
                             ClientMain.mainWindow.printMessages(team.getChatroom());
                         }
                     }
-
+                    //Fetches a single User
                     case "fetchedUser" -> {
                         BasicFunctionLibrary.getEntryFromLinkedList(user.myTeams, new Team(Integer.parseInt(
                                 BasicFunctionLibrary.findValueFromArgs("teamId", args)))).members.add(BasicFunctionLibrary.extractUserFromArgs(args));
                     }
-
+                    //Alerts the user about a successful task creation
                     case "taskAddSuccess" -> Platform.runLater(() -> {
                                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                 alert.setTitle("Success");
@@ -148,7 +172,7 @@ public class Client implements Runnable {
                                 alert.showAndWait();
                             }
                     );
-
+                    //Alerts the user that the task creation failed
                     case "taskAddFail" -> Platform.runLater(() -> {
                                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                 alert.setTitle("Error");
