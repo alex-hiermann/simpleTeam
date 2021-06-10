@@ -5,6 +5,7 @@ import Client.Chat.Message;
 import Client.Client;
 import Client.ClientMain;
 import Client.Team;
+import Utils.Configuration;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,7 +44,7 @@ public class MainWindow {
     public TableView table;
 
     public void initialize() {
-        Platform.runLater(() -> tabPane.getTabs().removeAll(tabPane.getTabs().stream().filter(tab -> tab.getId().equals("1")).collect(Collectors.toList())));
+        Platform.runLater(() -> tabPane.getTabs().removeAll(tabPane.getTabs().stream().filter(tab -> !tab.getId().equals("1")).collect(Collectors.toList())));
         if (Client.user.myTeams.size() > 0) {
             selectedTeam = Client.user.myTeams.getFirst();
             for (Team team : Client.user.myTeams) {
@@ -70,6 +71,7 @@ public class MainWindow {
             Tab teamTab = new Tab();
             teamTab.setClosable(true);
             teamTab.setText(team.getName());
+            teamTab.setId(Integer.toString(team.getId()));
 
             ScrollPane chatroomPane = new ScrollPane(new Text("Welcome to the team: \"" + team.getName() + "\"!"));
             TextField messageField = new TextField();
