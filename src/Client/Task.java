@@ -9,6 +9,7 @@ public class Task {
 
     /**
      * Set the team Id
+     *
      * @param teamId unique team Id. Usually received from the server
      */
     public void setTeam_id(int teamId) {
@@ -17,12 +18,12 @@ public class Task {
 
     /**
      * Setting the assigned user
+     *
      * @param user User Object
      */
     public void setUser(User user) {
         this.user = user;
     }
-
 
     /**
      * @return Unique teamId
@@ -94,10 +95,11 @@ public class Task {
 
     /**
      * Default constructor
-     * @param name Taskname
-     * @param note Further task instructions
-     * @param till Task due
-     * @param type Tasktype
+     *
+     * @param name       Taskname
+     * @param note       Further task instructions
+     * @param till       Task due
+     * @param type       Tasktype
      * @param difficulty Taskdifficulty
      */
     public Task(String name, String note, LocalDate till, E_TASK_TYPE type, E_TASK_DIFFICULTY difficulty) {
@@ -117,11 +119,12 @@ public class Task {
 
     /**
      * Returns a string conform for constructing a STRequest
+     *
      * @return STRequest conform string
      */
     @Override
     public String toString() {
-        return  "taskName=ꠦ" + name + "ꠦ" +
+        return "taskName=ꠦ" + name + "ꠦ" +
                 ",taskDescription=ꠦ" + description + "ꠦ" +
                 ",taskDue=ꠦ" + till +
                 "ꠦ,TaskType=ꠦ" + type +
@@ -133,6 +136,7 @@ public class Task {
 
     /**
      * Set the new task name
+     *
      * @param name New Name
      */
     public void setName(String name) {
@@ -148,6 +152,7 @@ public class Task {
 
     /**
      * Set the new task description
+     *
      * @param note New note
      */
     public void setNote(String note) {
