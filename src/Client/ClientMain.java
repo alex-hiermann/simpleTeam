@@ -84,7 +84,6 @@ public class ClientMain extends Application {
         stage.getIcons().add(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/icon-1.png"))));
         stage.setTitle("SimpleTeam");
         stage.setScene(new Scene(root));
-        stage.setMaximized(true);
         stage.show();
         currentStage = stage;
     }

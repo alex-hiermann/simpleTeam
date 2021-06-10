@@ -12,6 +12,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -25,7 +26,6 @@ public class MainWindow {
 
     @FXML
     public VBox teams = new VBox();
-    public Button sendButton;
     public TextField messageField;
     public TitledPane chatParentContainer;
     public VBox chat;
@@ -33,10 +33,16 @@ public class MainWindow {
     public MenuBar menubar;
     public Button inviteButton;
     public Button addTask;
+
     public Team selectedTeam;
+    public Menu profileItem;
+    public Button refreshButton;
+    public TabPane tabPane;
+    public Tab homeTab;
+    public TableView table;
 
     public void initialize() {
-        Platform.runLater(() -> teams.getChildren().removeAll(teams.getChildren()));
+        Platform.runLater(() -> tabPane.getTabs().removeIf(tab -> !tab.getId().equals("1")));
         if (Client.user.myTeams.size() > 0) {
             selectedTeam = Client.user.myTeams.getFirst();
             for (Team team : Client.user.myTeams) {
@@ -60,7 +66,20 @@ public class MainWindow {
     @FXML
     public void addTeam(Team team) {
         Platform.runLater(() -> {
+            Tab teamTab = new Tab();
+            teamTab.setClosable(true);
+            teamTab.setText(team.getName());
+
+            ScrollPane chatroomPane = new ScrollPane(new Text("Welcome to the team: \"" + team.getName() + "\"!"));
+            TextField messageField = new TextField();
+            Button sendMessage = new Button("Send");
+            VBox vBox = new VBox(new Text(team.getName().toUpperCase()), chatroomPane, new HBox(messageField, sendMessage));
+            teamTab.setContent(vBox);
+
+            tabPane.getTabs().add(teamTab);
+
             TitledPane teamPane = new TitledPane();
+            teamPane.setCollapsible(false);
             teamPane.setText(team.getName());
             GridPane grid = new GridPane();
             Button chatRoomButton = new Button("Select Team");
@@ -127,7 +146,7 @@ public class MainWindow {
         Platform.runLater(() -> {
             chat.getChildren().clear();
             for (Message message : chatroom.getMessages()) {
-                chat.getChildren().add(new Text(message.getText()));
+                chat.getChildren().add(new Text(message.getUser().getUsername() + ": " + message.getText()));
             }
         });
     }
@@ -135,5 +154,4 @@ public class MainWindow {
     public void setAddTeamButtonActive(boolean isActive) {
         addTeamButton.setDisable(!isActive);
     }
-
 }

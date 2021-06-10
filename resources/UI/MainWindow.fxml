@@ -4,87 +4,77 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="pane" prefHeight="707.0" prefWidth="1091.0" stylesheets="@style/MainWindow.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.MainWindow">
-   <children>
-      <MenuBar fx:id="menubar" layoutY="2.0" prefHeight="25.0" prefWidth="1091.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <MenuBar fx:id="menubar" layoutY="2.0" prefHeight="25.0" prefWidth="1091.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Menu mnemonicParsing="false" text="File">
+            <items>
+                <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+            <items>
+                <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+            <items>
+                <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+        </Menu>
+    </MenuBar>
+    <MenuBar AnchorPane.rightAnchor="0.0">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
+          <Menu fx:id="profileItem" mnemonicParsing="false" text="Profile">
+              <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
           </Menu>
         </menus>
-      </MenuBar>
-      <MenuBar AnchorPane.rightAnchor="0.0">
-         <menus>
-            <Menu fx:id="profileButton" mnemonicParsing="false" text="Profile">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-              </items>
-            </Menu>
-         </menus>
-      </MenuBar>
-      <VBox layoutY="27.0" prefHeight="684.0" prefWidth="242.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="25.0">
-         <children>
-            <TitledPane animated="false" collapsible="false" prefHeight="400.0" prefWidth="254.0" text="Teams">
-               <content>
-                  <ScrollPane prefHeight="487.0" prefWidth="240.0">
-                     <content>
-                        <VBox fx:id="teams" prefHeight="373.0" prefWidth="240.0" />
-                     </content>
-                  </ScrollPane>
-               </content>
-               <font>
-                  <Font name="Trebuchet MS" size="12.0" />
-               </font>
-            </TitledPane>
-            <TitledPane animated="false" prefHeight="281.0" prefWidth="242.0" text="Settings">
-               <content>
-                  <ScrollPane prefHeight="307.0" prefWidth="285.0">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="283.0" prefWidth="240.0">
-                           <children>
-                              <Button fx:id="addTeamButton" layoutX="45.0" layoutY="14.0" mnemonicParsing="false" onAction="#createTeamDialog" prefHeight="25.0" prefWidth="150.0" text="Add Team">
-                                 <font>
-                                    <Font name="Trebuchet MS" size="12.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="inviteButton" disable="true" layoutX="44.0" layoutY="53.0" mnemonicParsing="false" onAction="#createTeamDialog" text="Select a Team to continue" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="Trebuchet MS" size="12.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="addTask" disable="true" layoutX="43.0" layoutY="93.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="154.0" text="Add Task" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="Trebuchet MS" size="12.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                    </content>
-                  </ScrollPane>
-               </content>
-               <font>
-                  <Font name="Trebuchet MS" size="12.0" />
-               </font>
-            </TitledPane>
-         </children>
-      </VBox>
-   </children>
+    </MenuBar>
+    <TabPane fx:id="tabPane" layoutX="48.0" layoutY="54.0" prefHeight="604.0" prefWidth="1004.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="50.0">
+      <tabs>
+          <Tab id="1" fx:id="homeTab" text="Home">
+              <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="550.0" layoutX="14.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="100.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="900.0" AnchorPane.topAnchor="15.0" />
+                          <Line endX="-2.0" endY="1.52587890625E-5" layoutX="119.0" layoutY="64.0" startX="-105.0" startY="1.52587890625E-5" stroke="#d7dee4" />
+                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="49.0" layoutX="116.0" layoutY="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="882.0" AnchorPane.bottomAnchor="525.0" AnchorPane.leftAnchor="116.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="15.0" />
+                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="474.0" layoutX="144.0" layoutY="91.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="852.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="144.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="91.0" />
+                          <Text layoutX="30.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings">
+                              <font>
+                                  <Font name="Trebuchet MS" size="20.0" />
+                              </font>
+                          </Text>
+                          <TableView fx:id="table" layoutX="144.0" layoutY="91.0" prefHeight="475.0" prefWidth="853.0">
+                              <columns>
+                                  <TableColumn editable="false" prefWidth="520.4444885253906" sortable="false" text="Information" />
+                                  <TableColumn editable="false" minWidth="0.0" prefWidth="168.0" sortable="false" text="Value" />
+                                  <TableColumn editable="false" minWidth="0.0" prefWidth="166.22222900390625" sortable="false" text="Option" />
+                              </columns>
+                          </TableView>
+                          <Button fx:id="refreshButton" layoutX="37.0" layoutY="79.0" mnemonicParsing="false" text="Refresh">
+                              <font>
+                                  <Font name="Trebuchet MS" size="12.0" />
+                              </font>
+                          </Button>
+                     <Line endX="-2.0" endY="1.52587890625E-5" layoutX="118.0" layoutY="117.0" startX="-105.0" startY="1.52587890625E-5" stroke="#d7dee4" />
+                     <Line endX="-2.0" endY="1.52587890625E-5" layoutX="118.0" layoutY="170.0" startX="-105.0" startY="1.52587890625E-5" stroke="#d7dee4" />
+                     <Button fx:id="addTeamButton" onAction="#createTeamDialog" layoutX="29.0" layoutY="132.0" mnemonicParsing="false" text="Add Team" />
+                      </children>
+                  </AnchorPane>
+              </content>
+          </Tab>
+      </tabs>
+    </TabPane>
 </AnchorPane>
