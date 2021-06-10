@@ -6,6 +6,7 @@ import Client.User;
 import Utils.Configuration;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
@@ -18,6 +19,14 @@ public class InviteUserWindow {
     public Text infoText;
 
     public static Team selectedTeam;
+
+    public void initialize() {
+        email.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                inviteUserAction(new ActionEvent());
+            }
+        });
+    }
 
     public void inviteUserAction(ActionEvent actionEvent) {
         Pattern pattern = Pattern.compile(Configuration.CHECK_EMAIL_REGEX);

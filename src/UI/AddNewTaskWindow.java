@@ -9,9 +9,14 @@ import Utils.Configuration;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,7 +35,7 @@ public class AddNewTaskWindow {
     @FXML
     public void addTask() {
         Pattern pattern = Pattern.compile(Configuration.CHECK_EMAIL_REGEX);
-        Matcher matcher = null;
+        Matcher matcher;
         try {
             matcher = pattern.matcher(users.getValue().split(":")[1]);
             if (!matcher.matches()) {
@@ -80,6 +85,12 @@ public class AddNewTaskWindow {
             list.add(user.getUsername() + ":" + user.getEmail());
         }
         users.getItems().addAll(list);
+
+        name.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                addTask();
+            }
+        });
     }
 
     private void sendRequest() {

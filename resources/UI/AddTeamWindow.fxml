@@ -32,7 +32,7 @@
             <Font name="Trebuchet MS" size="18.0" />
          </font>
       </TextArea>
-      <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#createTeam" prefHeight="2.0" prefWidth="61.0" text="Create">
+      <Button fx:id="button" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#createTeam" prefHeight="2.0" prefWidth="61.0" text="Create">
          <font>
             <Font name="Trebuchet MS" size="14.0" />
          </font>

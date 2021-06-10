@@ -123,6 +123,4 @@ public class ClientMain extends Application {
         stage.setResizable(false);
         currentStage = stage;
     }
-
-
 }

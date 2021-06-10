@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -26,6 +27,20 @@ public class LoginWindow {
     public ProgressBar progressBar;
     public AnchorPane pane;
     public Button register;
+
+    public void initialize() {
+        password.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                loginAction(new ActionEvent());
+            }
+        });
+
+        server.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                loginAction(new ActionEvent());
+            }
+        });
+    }
 
     @FXML
     public void loginAction(ActionEvent actionEvent) {

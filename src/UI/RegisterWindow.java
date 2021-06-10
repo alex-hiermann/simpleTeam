@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.Socket;
@@ -22,6 +23,26 @@ public class RegisterWindow {
     public TextField username;
     public TextField server;
     public AnchorPane pane;
+
+    public void initialize() {
+        username.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                register(new ActionEvent());
+            }
+        });
+
+        password.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                register(new ActionEvent());
+            }
+        });
+
+        server.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                register(new ActionEvent());
+            }
+        });
+    }
 
     public void register(ActionEvent actionEvent) {
         User tempUser = new User(username.getText(), name.getText(), lastname.getText(), email.getText(), date.getValue(), BasicFunctionLibrary.hashPassword(password.getText()));
