@@ -44,7 +44,7 @@ public class Configuration {
     /**
      * Unique team id counter
      */
-    public static int teamId = 0;
+    public static int teamId = 1;
 
     /*
      * Variables used for colorful outputs following
