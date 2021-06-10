@@ -18,6 +18,7 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 public class MainWindow {
 
@@ -42,7 +43,7 @@ public class MainWindow {
     public TableView table;
 
     public void initialize() {
-        Platform.runLater(() -> tabPane.getTabs().removeIf(tab -> !tab.getId().equals("1")));
+        Platform.runLater(() -> tabPane.getTabs().removeAll(tabPane.getTabs().stream().filter(tab -> tab.getId().equals("1")).collect(Collectors.toList())));
         if (Client.user.myTeams.size() > 0) {
             selectedTeam = Client.user.myTeams.getFirst();
             for (Team team : Client.user.myTeams) {

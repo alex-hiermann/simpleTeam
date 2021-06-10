@@ -1,3 +1,7 @@
 #pane {
     -fx-background-color: #d7dee4;
 }
+
+* {
+    -fx-font-family: "Trebuchet MS";
+}
