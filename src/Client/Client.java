@@ -161,6 +161,7 @@ public class Client implements Runnable {
                     }
                     //Fetches a single User
                     case "fetchedUser" -> {
+                        System.out.println("args = " + Arrays.toString(args));
                         BasicFunctionLibrary.getEntryFromLinkedList(user.myTeams, new Team(Integer.parseInt(
                                 BasicFunctionLibrary.findValueFromArgs("teamId", args)))).members.add(BasicFunctionLibrary.extractUserFromArgs(args));
                     }

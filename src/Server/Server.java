@@ -59,12 +59,13 @@ public class Server implements Runnable {
         }
         //TODO Create TestFile with these Users, so that u dont need to delete them :) (just adopt them into another file)
         users.add(new User("a", "a", "a", "a", LocalDate.MIN, "0CC175B9C0F1B6A831C399E269772661", 1));
-        users.add(new User("a", "a", "a", "aa@aa.at", LocalDate.MIN, "0CC175B9C0F1B6A831C399E269772661", 2));
+        User coolUser = new User("a", "a", "a", "aa@aa.at", LocalDate.MIN, "0CC175B9C0F1B6A831C399E269772661", 2);
+        users.add(coolUser);
         users.add(new User("b", "b", "b", "bb@bb.at", LocalDate.MAX, "92EB5FFEE6AE2FEC3AD71C777531578F", 3));
 
         Team team = new Team("Testteam", "Team for testing", 1);
-        team.setAdmin(new User("aa@aa.at"));
-        team.members.add(new User("aa@aa.at"));
+        team.setAdmin(coolUser);
+        team.members.add(coolUser);
         teams.add(team);
 
         System.out.println(Configuration.ANSI_RED + "Starting Server" + Configuration.ANSI_RESET);

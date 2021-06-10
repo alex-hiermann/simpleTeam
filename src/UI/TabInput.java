@@ -24,7 +24,6 @@ public class TabInput {
     public static AnchorPane chat;
 
     public Team selectedTeam;
-    static int teamId;
     public TextField messageField;
 
     public void initialize() {
@@ -41,7 +40,7 @@ public class TabInput {
 
         addTaskButton.setOnAction(l -> {
             try {
-                Client.sendSTRequest("requestUsers:teamId=ꠦ" + teamId + "ꠦ");
+                Client.sendSTRequest("requestUsers:teamId=ꠦ" + selectedTeam.getId() + "ꠦ");
                 new ClientMain().showAddNewTaskWindow(selectedTeam, selectedTeam.getAdmin().equals(Client.user));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -63,7 +62,7 @@ public class TabInput {
         } else {
             inviteButton.setDisable(true);
         }
-        Client.sendSTRequest("requestUsers:teamId=ꠦ" + teamId + "ꠦ");
+        Client.sendSTRequest("requestUsers:teamId=ꠦ" + selectedTeam.getId() + "ꠦ");
     }
 
     @FXML

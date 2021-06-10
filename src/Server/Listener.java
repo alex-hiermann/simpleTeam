@@ -47,6 +47,7 @@ public class Listener implements Runnable {
                 }
                 switch (command) {
                     case "createTeam" -> {
+                        System.out.println("Teamargs = " + Arrays.toString(args));
                         Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args),
                                 BasicFunctionLibrary.findValueFromArgs("teamdesc", args));
                         User serverUser = Server.users.get(Server.users.indexOf(new User(findValueFromArgs("email", args))));
@@ -156,6 +157,7 @@ public class Listener implements Runnable {
                         }
                     }
                     case "requestUsers" -> {
+                        System.out.println("args = " + Arrays.toString(args));
                         int teamId = Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args));
                         for (User user : getEntryFromLinkedList(Server.teams, new Team(teamId)).members) {
                             sendSTRequestToClient("fetchedUser:" + user.toString() + ",teamId=ꠦ" + teamId + "ꠦ");
