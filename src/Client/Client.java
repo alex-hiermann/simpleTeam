@@ -1,8 +1,10 @@
 package Client;
 
 import Client.Chat.Message;
+import Server.Server;
 import UI.TabInput;
 import Utils.BasicFunctionLibrary;
+import Utils.Configuration;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 
@@ -12,6 +14,9 @@ import java.io.IOException;
 import java.net.Socket;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static Utils.BasicFunctionLibrary.getEntryFromLinkedList;
 
 /**
  * Client class which receives and handles STRequest sent from the server
@@ -30,7 +35,7 @@ public class Client implements Runnable {
 
     /**
      * @param socket Socket
-     * @param user User (Can also be tempUser for login purposes)
+     * @param user   User (Can also be tempUser for login purposes)
      */
     public Client(Socket socket, User user) {
         Client.socket = socket;
@@ -165,15 +170,24 @@ public class Client implements Runnable {
                         BasicFunctionLibrary.getEntryFromLinkedList(user.myTeams, new Team(Integer.parseInt(
                                 BasicFunctionLibrary.findValueFromArgs("teamId", args)))).members.add(BasicFunctionLibrary.extractUserFromArgs(args));
                     }
-                    //Alerts the user about a successful task creation
-                    case "taskAddSuccess" -> Platform.runLater(() -> {
-                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                alert.setTitle("Success");
-                                alert.setHeaderText("Your new task has been added to your team!");
-                                alert.setContentText("If the user is online he will receive a notification that a new Task has been assigned to him");
-                                alert.showAndWait();
-                            }
-                    );
+                    //Alerts the user about a successful task creation and sets the server parameters
+                    case "taskAddSuccess" -> {
+                        int teamId = Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args));
+                        int clientTaskId = Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("clientTaskId", args));
+                        Task tempTask = new Task(clientTaskId);
+                        int newTaskId = Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("taskId", args));
+                        BasicFunctionLibrary.getEntryFromLinkedList(getEntryFromLinkedList(user.myTeams,
+                                new Team(teamId)).tasks, tempTask).setTaskId(newTaskId);
+                        tempTask.setTaskId(newTaskId);
+                        Platform.runLater(() -> {
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setTitle("Success");
+                                    alert.setHeaderText("Your new task has been added to your team!");
+                                    alert.setContentText("If the user is online he will receive a notification that a new Task has been assigned to him");
+                                    alert.showAndWait();
+                                }
+                        );
+                    }
                     //Alerts the user that the task creation failed
                     case "taskAddFail" -> Platform.runLater(() -> {
                                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

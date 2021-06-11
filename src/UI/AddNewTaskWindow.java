@@ -17,6 +17,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -99,7 +100,9 @@ public class AddNewTaskWindow {
                 BasicFunctionLibrary.extractTaskDifficultyFromText(difficulty.getValue()));
         tempTask.setTeam_id(team.getId());
         tempTask.setUser(new User(users.getValue().split(":")[1]));
-        Client.sendSTRequest("addTask:" + tempTask);
+        int rand = ThreadLocalRandom.current().nextInt(0, Integer.MAX_VALUE);
+        tempTask.setTaskId(rand);
+        Client.sendSTRequest("addTask:" + tempTask + ",clientTaskId=ꠦ" + rand + "ꠦ");
         Client.user.addTask(tempTask);
         BasicFunctionLibrary.getEntryFromLinkedList(Client.user.myTeams, team).tasks.add(tempTask);
     }
