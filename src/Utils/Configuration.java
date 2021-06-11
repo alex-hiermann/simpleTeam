@@ -46,6 +46,12 @@ public class Configuration {
      */
     public static int teamId = 1;
 
+
+    /**
+     * Uniqze task id counter
+     */
+    public static int taskId = 0;
+
     /*
      * Variables used for colorful outputs following
      */

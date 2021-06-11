@@ -64,6 +64,16 @@ public class BasicFunctionLibrary {
         };
     }
 
+    public static Task.E_TASK_STATE extractTaskStateFromText(String text) {
+        return switch (text.toLowerCase()) {
+            case "open" -> Task.E_TASK_STATE.OPEN;
+            case "due" -> Task.E_TASK_STATE.DUE;
+            case "started" -> Task.E_TASK_STATE.STARTED;
+            case "finished" -> Task.E_TASK_STATE.FINISHED;
+            default -> null;
+        };
+    }
+
     public static Task.E_TASK_DIFFICULTY extractTaskDifficultyFromText(String text) {
         return switch (text.toLowerCase()) {
             case "easy" -> Task.E_TASK_DIFFICULTY.EASY;

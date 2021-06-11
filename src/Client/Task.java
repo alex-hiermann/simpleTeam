@@ -1,11 +1,38 @@
 package Client;
 
+import Utils.Configuration;
+
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * Task class, which contains data about the given task for a specific user in a team
  */
 public class Task {
+
+    /**
+     * @param taskId Task Id
+     */
+    public Task(int taskId) {
+        this.taskId = taskId;
+    }
+
+    /**
+     * @param o Other
+     * @return Whether or not the taskId equals o.taskid
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return taskId == task.taskId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(taskId);
+    }
 
     /**
      * Set the team Id
@@ -44,6 +71,26 @@ public class Task {
      */
     public enum E_TASK_TYPE {
         TASK, REMINDER, MILESTONE
+    }
+
+    /**
+     * Task identifier
+     */
+    private int taskId = Configuration.taskId;
+
+    /**
+     * @return Task id
+     */
+    public int getTaskId() {
+        return taskId;
+    }
+
+    /**
+     * Setting the new task id
+     * @param taskId new Id
+     */
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
     }
 
     /**

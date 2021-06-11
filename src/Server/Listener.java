@@ -157,11 +157,17 @@ public class Listener implements Runnable {
                         }
                     }
                     case "requestUsers" -> {
-                        System.out.println("args = " + Arrays.toString(args));
                         int teamId = Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args));
                         for (User user : getEntryFromLinkedList(Server.teams, new Team(teamId)).members) {
                             sendSTRequestToClient("fetchedUser:" + user.toString() + ",teamId=ꠦ" + teamId + "ꠦ");
                         }
+                    }
+                    case "changeTaskState" -> {
+                        Task.E_TASK_STATE newTaskState = BasicFunctionLibrary.extractTaskStateFromText(
+                                BasicFunctionLibrary.findValueFromArgs("newTaskState", args));
+                        Task task = new Task(Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("taskId", args)));
+                        int teamId = Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args));
+                        BasicFunctionLibrary.getEntryFromLinkedList(getEntryFromLinkedList(Server.teams, new Team(teamId)).tasks, task).setState(newTaskState);
                     }
                 }
             }
