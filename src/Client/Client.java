@@ -161,7 +161,7 @@ public class Client implements Runnable {
                                 BasicFunctionLibrary.findValueFromArgs("messageText", args),
                                 Message.dateFormat.parse(BasicFunctionLibrary.findValueFromArgs("date", args))));
                         if (ClientMain.mainWindow.selectedTeam.equals(team)) {
-                            TabInput.printMessages(team.getChatroom());
+                            new TabInput().printMessages(team.getChatroom());
                         }
                     }
                     //Fetches a single User

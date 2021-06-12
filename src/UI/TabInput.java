@@ -11,7 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -21,16 +21,20 @@ public class TabInput {
 
     public Button addTaskButton;
     public Button inviteButton;
-    public static AnchorPane chat;
 
-    public Team selectedTeam;
+    public static Team selectedTeam;
+    public Text teamName;
     public TextField messageField;
+    public VBox chat;
+    public VBox tasks;
 
     public void initialize() {
         selectedTeam = Client.user.myTeams.getFirst();
         if (selectedTeam.getChatroom().getMessages().size() > 0) {
             printMessages(selectedTeam.getChatroom());
         }
+
+        teamName.setText(selectedTeam.getName());
 
         messageField.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ENTER) {
@@ -66,11 +70,6 @@ public class TabInput {
     }
 
     @FXML
-    public void addTask(ActionEvent actionEvent) {
-
-    }
-
-    @FXML
     public void sendMessage(ActionEvent actionEvent) {
         if (selectedTeam == null) return;
         Message message = new Message(Client.user, messageField.getText(), new Date());
@@ -83,11 +82,14 @@ public class TabInput {
     }
 
     @FXML
-    public static void printMessages(Chatroom chatroom) {
+    public void printMessages(Chatroom chatroom) {
         Platform.runLater(() -> {
-            chat.getChildren().clear();
-            for (Message message : chatroom.getMessages()) {
-                chat.getChildren().add(new Text(message.getUser().getUsername() + ": " + message.getText()));
+            try {
+                chat.getChildren().clear();
+                for (Message message : chatroom.getMessages()) {
+                    chat.getChildren().add(new Text(message.getUser().getUsername() + ": " + message.getText()));
+                }
+            } catch (NullPointerException ignored) {
             }
         });
     }

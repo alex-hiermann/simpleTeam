@@ -48,7 +48,6 @@ public class MainWindow {
     }
 
     public void refresh() {
-
     }
 
     @FXML
@@ -73,10 +72,17 @@ public class MainWindow {
             }
             teamTab.setClosable(true);
             teamTab.setText(team.getName());
+            loadedPane.getChildren().stream().filter(node -> node.toString()
+                    .startsWith("Text"))
+                    .collect(Collectors.toList())
+                    .forEach(node -> node = new Text(team.getName().substring(0, 3)));
             teamTab.setContent(loadedPane);
             teamTab.setId(Integer.toString(team.getId()));
 
             teamTab.setContent(loadedPane);
+            teamTab.setOnSelectionChanged(event -> {
+                new TabInput().printMessages(team.getChatroom());
+            });
             tabPane.getTabs().add(teamTab);
         });
     }

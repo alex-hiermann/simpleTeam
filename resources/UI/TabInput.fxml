@@ -5,6 +5,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -16,34 +17,34 @@
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="47.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="882.0" AnchorPane.bottomAnchor="525.0" AnchorPane.leftAnchor="116.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="15.0" />
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="474.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="852.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="144.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="91.0" />
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#29abe2" height="49.0" layoutX="14.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="102.0" />
-    <Text fill="WHITE" layoutX="26.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Teamkzl">
+    <Text fx:id="teamName" fill="WHITE" layoutX="26.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Teamkzl">
         <font>
-          <Font name="Trebuchet MS" size="20.0" />
+            <Font name="Trebuchet MS" size="20.0" />
         </font>
     </Text>
     <Button fx:id="addTaskButton" layoutX="32.0" layoutY="79.0" mnemonicParsing="false" text="Add Task">
         <font>
-          <Font name="Trebuchet MS" size="12.0" />
+            <Font name="Trebuchet MS" size="12.0" />
         </font>
     </Button>
     <Line endX="115.0" endY="165.0" layoutY="8.0" startX="15.0" startY="165.0" stroke="#d7dee4" />
     <Line endX="-3.0" endY="1.52587890625E-5" startX="-103.0" startY="1.52587890625E-5" stroke="#d7dee4" />
     <Button fx:id="inviteButton" layoutX="19.0" layoutY="132.0" mnemonicParsing="false" onAction="#createTeamDialog" text="Invite to Team" />
-    <SplitPane dividerPositions="0.75" layoutX="144.0" layoutY="91.0" orientation="VERTICAL" prefHeight="474.0" prefWidth="852.0">
+    <SplitPane dividerPositions="0.548728813559322" layoutX="144.0" layoutY="91.0" orientation="VERTICAL" prefHeight="474.0" prefWidth="852.0">
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
             <ScrollPane layoutX="-1.0" prefHeight="351.0" prefWidth="852.0">
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                <VBox fx:id="tasks" prefHeight="348.0" prefWidth="850.0" />
             </ScrollPane>
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-            <TextField fx:id="messageField" layoutY="90.0" prefHeight="25.0" prefWidth="850.0" promptText="Insert your message here">
+            <ScrollPane prefHeight="185.0" prefWidth="850.0">
+                <VBox fx:id="chat" prefHeight="183.0" prefWidth="848.0" />
+            </ScrollPane>
+            <TextField fx:id="messageField" layoutY="185.0" prefHeight="25.0" prefWidth="850.0" promptText="Insert your message here.">
                 <font>
                     <Font name="Trebuchet MS" size="12.0" />
                 </font>
             </TextField>
-            <ScrollPane layoutY="-2.0" prefHeight="92.0" prefWidth="850.0">
-                <AnchorPane fx:id="chat" minHeight="0.0" minWidth="0.0" prefHeight="90.0" prefWidth="826.0" />
-            </ScrollPane>
         </AnchorPane>
     </SplitPane>
 </AnchorPane>
