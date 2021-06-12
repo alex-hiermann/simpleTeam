@@ -155,4 +155,26 @@ public class SQLiteHandler {
         }
     }
 
+    public static User retrieveUser(String email) {
+        String sql = "SELECT * FROM User WHERE email LIKE ?";
+        try {
+            java.sql.Connection connection = Connection.connection;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            User user = new User(
+                    rs.getString("username"),
+                    rs.getString("name"),
+                    rs.getString("lastname"),
+                    rs.getString("email"),
+                    rs.getDate("birth").toLocalDate(),
+                    rs.getString("password"),
+                    rs.getInt("pk_user_id"));
+            return user;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
 }
