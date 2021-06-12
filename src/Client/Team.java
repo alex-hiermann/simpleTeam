@@ -12,10 +12,14 @@ public class Team {
     String name;
     String description;
     private User admin;
-    private final int id;
+    private int id = 0;
     private Chatroom chatroom = new Chatroom(this);
     public LinkedHashSet<User> members = new LinkedHashSet<>();
     public LinkedList<Task> tasks = new LinkedList<>();
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Team(String name, String description, int id) {
         this.name = name;
@@ -26,7 +30,6 @@ public class Team {
     public Team(String name, String description) {
         this.name = name;
         this.description = description;
-        id = ++Configuration.teamId;
     }
 
     public int getId() {
