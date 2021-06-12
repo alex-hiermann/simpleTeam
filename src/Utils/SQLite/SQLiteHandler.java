@@ -116,14 +116,10 @@ public class SQLiteHandler {
         Connection.connectIfAbsent();
         String sql = "SELECT MAX(pk_user_id) AS 'USERID' FROM User";
 
-        try (java.sql.Connection conn = Connection.connection;
-             ResultSet rs = conn.createStatement().executeQuery(sql)) {
-
+        try {
+            java.sql.Connection conn = Connection.connection;
+            ResultSet rs = conn.createStatement().executeQuery(sql);
             int userid = rs.getInt("USERID");
-
-            rs.close();
-            conn.close();
-            closeConnection();
 
             return userid;
         } catch (SQLException e) {
@@ -143,7 +139,8 @@ public class SQLiteHandler {
     public static void addNewUserToDatabase(User user) {
         Connection.connectIfAbsent();
         String sql = "INSERT INTO User(pk_user_id, username, name, lastname, email, birth, password) VALUES (?,?,?,?,?,?,?)";
-        try (java.sql.Connection connection = Connection.connection) {
+        try {
+            java.sql.Connection connection = Connection.connection;
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, user.getId());
             stmt.setString(2, user.getUsername());
@@ -153,9 +150,6 @@ public class SQLiteHandler {
             stmt.setDate(6, Date.valueOf(user.getBirth()));
             stmt.setString(7, user.getPassword());
             stmt.execute();
-            stmt.close();
-            connection.close();
-            closeConnection();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
