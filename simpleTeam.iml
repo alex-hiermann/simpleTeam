@@ -14,7 +14,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="javafx16--lib" level="project" />
-    <orderEntry type="library" exported="" scope="RUNTIME" name="javafx16-runtime" level="project" />
     <orderEntry type="module-library">
       <library name="JUnit5.7.0">
         <CLASSES>
@@ -31,8 +30,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="javafx-lib" level="project" />
-    <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="sqlite-jdbc-3.34.0" level="project" />
   </component>
 </module>
