@@ -3,16 +3,17 @@ package UI;
 import Client.Client;
 import Client.ClientMain;
 import Client.Team;
+import com.sun.javafx.fxml.FXMLLoaderHelper;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -35,7 +36,6 @@ public class MainWindow {
     public Button refreshButton;
     public TabPane tabPane;
     public Tab homeTab;
-    public TableView table;
 
     public void initialize() {
         Platform.runLater(() -> tabPane.getTabs().removeAll(tabPane.getTabs().stream().filter(tab -> tab != homeTab).collect(Collectors.toList())));
@@ -63,25 +63,22 @@ public class MainWindow {
     public void addTeam(Team team) {
         Platform.runLater(() -> {
             Tab teamTab = new Tab();
-            Pane loadedPane = new Pane();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/TabInput.fxml"));
+            Parent loadedPane = null;
             try {
-                loadedPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/UI/TabInput.fxml")));
-            } catch (IOException e) {
-                e.printStackTrace();
-                loadedPane.getChildren().add(new Text("An error occurred while loading the Team, please try again!"));
+                loadedPane = loader.load();
+            } catch (IOException ignored) {
             }
+            TabInput tabInput = loader.getController();
+
             teamTab.setClosable(true);
             teamTab.setText(team.getName());
-            loadedPane.getChildren().stream().filter(node -> node.toString()
-                    .startsWith("Text"))
-                    .collect(Collectors.toList())
-                    .forEach(node -> node = new Text(team.getName().substring(0, 3)));
-            teamTab.setContent(loadedPane);
             teamTab.setId(Integer.toString(team.getId()));
 
             teamTab.setContent(loadedPane);
             teamTab.setOnSelectionChanged(event -> {
-                new TabInput().printMessages(team.getChatroom());
+                tabInput.selectedTeam = team;
+                tabInput.initialize();
             });
             tabPane.getTabs().add(teamTab);
         });
