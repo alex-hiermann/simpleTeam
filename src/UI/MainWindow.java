@@ -7,7 +7,12 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -30,6 +35,7 @@ public class MainWindow {
     public Button refreshButton;
     public TabPane tabPane;
     public Tab homeTab;
+    public TableView table;
 
     public void initialize() {
         Platform.runLater(() -> tabPane.getTabs().removeAll(tabPane.getTabs().stream().filter(tab -> tab != homeTab).collect(Collectors.toList())));
@@ -39,6 +45,10 @@ public class MainWindow {
                 addTeam(team);
             }
         }
+    }
+
+    public void refresh() {
+
     }
 
     @FXML
