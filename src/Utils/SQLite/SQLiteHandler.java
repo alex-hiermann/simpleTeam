@@ -378,7 +378,7 @@ public class SQLiteHandler {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
-            User user = new User(
+            return new User(
                     rs.getString("username"),
                     rs.getString("name"),
                     rs.getString("lastname"),
@@ -386,7 +386,6 @@ public class SQLiteHandler {
                     rs.getDate("birth").toLocalDate(),
                     rs.getString("password"),
                     rs.getInt("pk_user_id"));
-            return user;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
