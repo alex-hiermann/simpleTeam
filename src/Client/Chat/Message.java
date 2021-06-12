@@ -9,13 +9,11 @@ public class Message {
 
     private User user;
     private String text;
-    private static int messageID;
     private Date date;
     public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
     public Message(String text, Date date) {
         this.text = text;
-        messageID = getMessageID();
         this.date = date;
     }
 
@@ -44,14 +42,6 @@ public class Message {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public static int getMessageID() {
-        return ++messageID;
-    }
-
-    public static void setMessageID(int messageID) {
-        Message.messageID = messageID;
     }
 
     public String getFormattedDate() {

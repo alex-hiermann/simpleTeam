@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class Chatroom {
 
-    private final LinkedList<Message> messages = new LinkedList<>();
+    public final LinkedList<Message> messages = new LinkedList<>();
     private Team team;
 
     public ArrayList<String> generateMessages() {
