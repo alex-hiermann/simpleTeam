@@ -122,14 +122,29 @@ public class SQLiteHandler {
         try {
             java.sql.Connection conn = Connection.connection;
             ResultSet rs = conn.createStatement().executeQuery(sql);
-            int userid = rs.getInt("USERID");
 
-            return userid;
+            return rs.getInt("USERID");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return 0;
     }
+
+    public static int retrieveTeamId() {
+        Connection.connectIfAbsent();
+        String sql = "SELECT MAX(pk_team_id) AS 'TEAMID' FROM Team";
+
+        try {
+            java.sql.Connection conn = Connection.connection;
+            ResultSet rs = conn.createStatement().executeQuery(sql);
+
+            return rs.getInt("TEAMID");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 
     public static void closeConnection() {
         try {

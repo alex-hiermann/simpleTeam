@@ -50,14 +50,20 @@ public class Listener implements Runnable {
                         System.out.println("Teamargs = " + Arrays.toString(args));
                         Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args),
                                 BasicFunctionLibrary.findValueFromArgs("teamdesc", args));
+                        Configuration.teamId = SQLiteHandler.retrieveTeamId();
+                        team.setId(++Configuration.teamId);
                         User serverUser = Server.users.get(Server.users.indexOf(new User(findValueFromArgs("email", args))));
                         team.members.add(serverUser);   //Add user to team
                         serverUser.myTeams.add(team);   //Add the team to user
                         team.setAdmin(serverUser);      //Make him an admin, because he created the team
                         Server.teams.add(team);         //Finally add the team to the server
                         sendSTRequestToClient("createTeam:" + team + ",teamId=ꠦ" + team.getId() + "ꠦ");
+                        SQLiteHandler.addNewTeamToDatabase(team);
                     }
                     case "getTeams" -> {
+                        SQLiteHandler.getAllTeams();
+                        SQLiteHandler.getAllMessages();
+                        SQLiteHandler.getAllUsers();
                         User serverUser = Server.users.get(Server.users.indexOf(extractUserFromArgs(args)));
                         StringBuilder request = new StringBuilder();
                         ArrayList<Team> userTeams = new ArrayList<>();
@@ -94,6 +100,7 @@ public class Listener implements Runnable {
                         }
                     }
                     case "login" -> {
+                        SQLiteHandler.getAllUsers();
                         System.out.println("args = " + Arrays.toString(args));
                         User user = new User(
                                 BasicFunctionLibrary.findValueFromArgs("email", args),
@@ -127,6 +134,7 @@ public class Listener implements Runnable {
                                 }
                             }
                         }
+                        SQLiteHandler.addNewMessageToDatabase(message, team.getId());
                     }
                     case "addUserToTeam" -> {
                         User invitedUser = new User(BasicFunctionLibrary.findValueFromArgs("email", args));
@@ -141,6 +149,7 @@ public class Listener implements Runnable {
                             System.err.println("No Listener Found");
                             //When the user isn't online we are ignoring the request
                         }
+                        SQLiteHandler.addUserToTeam(invitedUser, team);
                     }
                     case "addTask" -> {
                         Task tempTask = new Task(findValueFromArgs("taskName", args),
@@ -158,17 +167,20 @@ public class Listener implements Runnable {
                             sendSTRequestToClient("taskAddSuccess:taskId=ꠦ" + tempTask.getTaskId() + "ꠦ,teamId=ꠦ" +
                                     teamId + "ꠦ,clientTaskId=ꠦ" +
                                     clientTaskId + "ꠦ");
+                            SQLiteHandler.addNewTaskToDatabase(tempTask);
                         } else {
                             sendSTRequestToClient("taskAddFail");
                         }
                     }
                     case "requestUsers" -> {
+                        SQLiteHandler.getAllUsers();
                         int teamId = Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args));
                         for (User user : getEntryFromLinkedList(Server.teams, new Team(teamId)).members) {
                             sendSTRequestToClient("fetchedUser:" + user.toString() + ",teamId=ꠦ" + teamId + "ꠦ");
                         }
                     }
                     case "changeTaskState" -> {
+                        SQLiteHandler.getAllTasks();
                         Task.E_TASK_STATE newTaskState = BasicFunctionLibrary.extractTaskStateFromText(
                                 BasicFunctionLibrary.findValueFromArgs("newTaskState", args));
                         Task task = new Task(Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("taskId", args)));
