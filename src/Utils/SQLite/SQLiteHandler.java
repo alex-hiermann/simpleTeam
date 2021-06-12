@@ -53,6 +53,7 @@ public class SQLiteHandler {
     public static void createDefaultTables() {
         // SQL statement for creating a new table
         String sql = """
+                
                 /* SQLite for the Users */
                 CREATE TABLE IF NOT EXISTS User (
                 	pk_user_id INT PRIMARY KEY NOT NULL,
@@ -107,12 +108,18 @@ public class SQLiteHandler {
 //            unique_team_id    UNSIGNED INT
 //        );
 
-        try (java.sql.Connection conn = DriverManager.getConnection(Configuration.DATABASE_URL);
-             Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
-        } catch (SQLException e) {
-            System.err.println("An error occurred during ");
+        for (String statement : sql.split(";")) {
+            try {
+                java.sql.Connection conn = DriverManager.getConnection(Configuration.DATABASE_URL);
+                conn.createStatement().executeUpdate(statement);
+                conn.close();
+            } catch (SQLException e) {
+                System.err.println("An error occurred during ");
+                e.printStackTrace();
+            }
+
         }
+
     }
 
     public static int retrieveUserID() {
@@ -342,6 +349,7 @@ public class SQLiteHandler {
                         .stream()
                         .map(SQLiteHandler::retrieveUserForTeamId)
                         .collect(Collectors.toList());
+                System.out.println(users);
                 team.members.addAll(users);
 
                 Server.teams.add(team);

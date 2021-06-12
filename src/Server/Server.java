@@ -85,6 +85,11 @@ public class Server implements Runnable {
         //SQLite establish connection
         Connection.connect();
 
+        //Retrieve data
+        SQLiteHandler.getAllUsers();
+        SQLiteHandler.getAllTasks();
+        SQLiteHandler.getAllMessages();
+        SQLiteHandler.getAllTeams();
 
         Thread thread = new Thread(new Server());
         thread.start();

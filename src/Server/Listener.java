@@ -59,6 +59,7 @@ public class Listener implements Runnable {
                         Server.teams.add(team);         //Finally add the team to the server
                         sendSTRequestToClient("createTeam:" + team + ",teamId=ꠦ" + team.getId() + "ꠦ");
                         SQLiteHandler.addNewTeamToDatabase(team);
+                        SQLiteHandler.addUserToTeam(serverUser, team);
                     }
                     case "getTeams" -> {
                         SQLiteHandler.getAllTeams();
