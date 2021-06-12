@@ -47,7 +47,7 @@
                         <Font name="Trebuchet MS" size="20.0" />
                     </font>
                 </Text>
-                <TableView fx:id="table" layoutX="144.0" layoutY="91.0" prefHeight="543.0" prefWidth="929.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="144.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="91.0">
+                <TableView layoutX="144.0" layoutY="91.0" prefHeight="543.0" prefWidth="929.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="144.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="91.0">
                     <columns>
                         <TableColumn id="table" editable="false" prefWidth="520.4444885253906" sortable="false" text="Information" />
                         <TableColumn editable="false" minWidth="0.0" prefWidth="168.0" sortable="false" text="Value" />

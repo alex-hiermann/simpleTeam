@@ -22,7 +22,7 @@ public class TabInput {
     public Button addTaskButton;
     public Button inviteButton;
 
-    public static Team selectedTeam;
+    public Team selectedTeam;
     public Text teamName;
     public TextField messageField;
     public VBox chat;
@@ -34,7 +34,11 @@ public class TabInput {
             printMessages(selectedTeam.getChatroom());
         }
 
-        teamName.setText(selectedTeam.getName());
+        switch (teamName.getText().length()) {
+            case 2 -> teamName.setText(selectedTeam.getName().substring(0, 2));
+            case 1 -> teamName.setText(selectedTeam.getName().substring(0, 1));
+            default -> teamName.setText(selectedTeam.getName().substring(0, 3));
+        }
 
         messageField.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ENTER) {
@@ -76,6 +80,8 @@ public class TabInput {
         messageField.clear();
         selectedTeam.getChatroom().addMessage(message);
         printMessages(selectedTeam.getChatroom());
+        System.out.println("selectedTeam = " + selectedTeam);
+
         String request = "sendMessage:" + message + ",teamid=ꠦ" + selectedTeam.getId() + "ꠦ";
         System.out.println("Request = " + request);
         Client.sendSTRequest(request);
