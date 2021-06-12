@@ -15,5 +15,12 @@
       <jdbc-url>jdbc:sqlite:C:\Users\mrale\IdeaProjects\simpleTeam\identifier.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="identifier [2]" uuid="1121b90b-3b35-429f-8973-867f2bf5e051">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:F:\Programmieren\SimpleTeam\identifier.sqlite</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

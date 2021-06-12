@@ -90,6 +90,7 @@ public class Listener implements Runnable {
                             user.setId(++Configuration.userId);
                             Server.users.add(user);
                             sendSTRequestToClient("userRegistered");
+                            SQLiteHandler.addNewUserToDatabase(user);
                         }
                     }
                     case "login" -> {

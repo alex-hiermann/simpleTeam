@@ -1,5 +1,6 @@
 package Utils.SQLite;
 
+import Client.User;
 import Utils.BasicFunctionLibrary;
 import Utils.Configuration;
 
@@ -58,7 +59,7 @@ public class SQLiteHandler {
                 	pk_chatroom_id INT PRIMARY KEY NOT NULL
                 );
                 CREATE TABLE IF NOT EXISTS Message (
-                	pk_message_id INT AUTOINCREMENT PRIMARY KEY NOT NULL,
+                	pk_message_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 	text TEXT NOT NULL,
                 	date DATE NOT NULL,
                 	fk_pk_user_id INT NOT NULL,
@@ -112,16 +113,52 @@ public class SQLiteHandler {
     }
 
     public static int retrieveUserID() {
-        String sql = "SELECT pk_user_id FROM User";
+        Connection.connectIfAbsent();
+        String sql = "SELECT MAX(pk_user_id) AS 'USERID' FROM User";
 
         try (java.sql.Connection conn = Connection.connection;
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+             ResultSet rs = conn.createStatement().executeQuery(sql)) {
 
-            return rs.getInt("pk_user_id");
+            int userid = rs.getInt("USERID");
+
+            rs.close();
+            conn.close();
+            closeConnection();
+
+            return userid;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return 0;
     }
+
+    public static void closeConnection() {
+        try {
+            Connection.connection.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void addNewUserToDatabase(User user) {
+        Connection.connectIfAbsent();
+        String sql = "INSERT INTO User(pk_user_id, username, name, lastname, email, birth, password) VALUES (?,?,?,?,?,?,?)";
+        try (java.sql.Connection connection = Connection.connection) {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, user.getId());
+            stmt.setString(2, user.getUsername());
+            stmt.setString(3, user.getName());
+            stmt.setString(4, user.getLastName());
+            stmt.setString(5, user.getEmail());
+            stmt.setDate(6, Date.valueOf(user.getBirth()));
+            stmt.setString(7, user.getPassword());
+            stmt.execute();
+            stmt.close();
+            connection.close();
+            closeConnection();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
 }

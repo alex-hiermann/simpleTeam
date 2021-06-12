@@ -14,7 +14,7 @@
 
 <AnchorPane fx:id="pane" prefHeight="400.0" prefWidth="600.0" stylesheets="@style/RegisterWindow.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.RegisterWindow">
    <VBox alignment="CENTER" layoutX="75.0" prefHeight="400.0" prefWidth="450.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="0.0">
-      <Text fill="#29abe2" strokeType="OUTSIDE" strokeWidth="0.0" text="Register a new team" textAlignment="CENTER" wrappingWidth="360.13671875">
+      <Text fill="#29abe2" strokeType="OUTSIDE" strokeWidth="0.0" text="Register a new user" textAlignment="CENTER" wrappingWidth="360.13671875">
          <font>
             <Font name="Trebuchet MS" size="32.0" />
          </font>

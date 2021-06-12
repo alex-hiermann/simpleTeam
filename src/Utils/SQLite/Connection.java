@@ -28,16 +28,8 @@ public class Connection {
             connection = DriverManager.getConnection(Configuration.DATABASE_URL);
             System.out.println(Configuration.ANSI_BLUE + "Connection to SQLite has been established." + Configuration.ANSI_RESET);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
+            System.err.println(e.getMessage());
+       }
     }
 
     public static void close() {

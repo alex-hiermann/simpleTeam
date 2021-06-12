@@ -4,7 +4,10 @@ import Client.Chat.Message;
 import Client.Task;
 import Client.Team;
 import Client.User;
+import Utils.BasicFunctionLibrary;
 import Utils.Configuration;
+import Utils.SQLite.Connection;
+import Utils.SQLite.SQLiteHandler;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -69,6 +72,20 @@ public class Server implements Runnable {
         teams.add(team);
 
         System.out.println(Configuration.ANSI_RED + "Starting Server" + Configuration.ANSI_RESET);
+
+        //Create simpleTeam Server file structure
+        BasicFunctionLibrary.createServerFolderStructure();
+
+        //Create and connect to a database
+        SQLiteHandler.createNewDatabase();
+
+        //Create Default Tables IF NOT EXIST
+        SQLiteHandler.createDefaultTables();
+
+        //SQLite establish connection
+        Connection.connect();
+
+
         Thread thread = new Thread(new Server());
         thread.start();
         try {
@@ -89,7 +106,7 @@ public class Server implements Runnable {
     @Override
     public void run() {
         while (true) {
-            System.out.print("Server>");
+            System.out.print(Configuration.ANSI_RESET + "Server>");
             Scanner sc = new Scanner(System.in);
             String command = sc.nextLine();
             if (!(command.trim().isBlank() || command.trim().isEmpty() || command.trim().equalsIgnoreCase("\n"))) {
@@ -150,7 +167,7 @@ public class Server implements Runnable {
                             System.out.println();
                         }
                     }
-                    default -> System.err.println(Configuration.ANSI_RED + ("Unexpected value: " + command) + Configuration.ANSI_RESET);
+                    default -> System.out.println(Configuration.ANSI_RED + ("Unexpected value: " + command) + Configuration.ANSI_RESET);
                 }
             }
         }
