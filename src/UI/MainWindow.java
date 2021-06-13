@@ -14,6 +14,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -37,7 +38,6 @@ public class MainWindow {
         Platform.runLater(() -> tabPane.getTabs().removeAll(tabPane.getTabs().stream().filter(tab -> tab != homeTab).collect(Collectors.toList())));
         if (Client.user.myTeams.size() > 0) {
             selectedTeam = Client.user.myTeams.getFirst();
-            System.out.println(Client.user.myTeams.size());
             for (Team team : Client.user.myTeams) {
                 addTeam(team);
             }
@@ -62,9 +62,7 @@ public class MainWindow {
             System.out.print(Configuration.ANSI_PURPLE + "{Adding team " + team.getName() + " [" + team.getId() + "];}" + Configuration.ANSI_RESET);
             Tab teamTab = new Tab();
             Pane loadedPane = new Pane();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/TabInput.fxml"));
             try {
-                fxmlLoader.load();
                 loadedPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/UI/TabInput.fxml")));
             } catch (IOException exception) {
                 exception.printStackTrace();
@@ -74,10 +72,13 @@ public class MainWindow {
             teamTab.setId(Integer.toString(team.getId()));
 
             teamTab.setContent(loadedPane);
+            Pane finalLoadedPane = loadedPane;
             teamTab.setOnSelectionChanged(event -> {
-                TabInput tabInput = fxmlLoader.getController();
-                tabInput.selectedTeam = team;
-                tabInput.initialize();
+                Text text = (Text) finalLoadedPane.lookup("#teamName");
+                new TabInput().changeTeamText(text, team);
+
+                System.out.println("finalLoadedPane.lookupAll(\"#selectedTeam\") = " + finalLoadedPane.lookupAll("#selectedTeam"));
+                System.out.println("finalLoadedPane.lookupAll(\"#selectedTeam\") = " + finalLoadedPane.lookupAll("#teamName"));
             });
             tabPane.getTabs().add(teamTab);
         });

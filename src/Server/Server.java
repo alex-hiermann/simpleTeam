@@ -89,7 +89,7 @@ public class Server implements Runnable {
                 Socket s = serverSocket.accept();
                 new Thread(new Listener(s)).start();
                 clients.add(s);
-                System.out.println(Configuration.CTR_BEFORE + Configuration.ANSI_RED + "New client connected: " + s.toString() + Configuration.ANSI_RESET + Configuration.CTR_AFTER);
+                System.out.println(Configuration.CTR_BEFORE + Configuration.ANSI_RED + "New client connected: " + s.toString() + "\n" + Configuration.ANSI_RESET + Configuration.CTR_AFTER);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -116,8 +116,7 @@ public class Server implements Runnable {
                     case "refresh" -> System.out.println(Configuration.ANSI_RED + "Refreshed" + Configuration.ANSI_RESET);
                     case "getteams" -> {
                         System.out.println(Configuration.ANSI_RED + "Teams:{");
-                        for (Team team : teams) {
-                            System.out.print(team);
+                        for (int i = 0; i < teams.size(); i++) {
                             System.out.println(", ");
                         }
                         System.out.println("};" + Configuration.ANSI_RESET);

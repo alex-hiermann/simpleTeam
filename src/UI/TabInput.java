@@ -43,11 +43,7 @@ public class TabInput {
             }
         });
 
-        switch (teamName.getText().length()) {
-            case 2 -> teamName.setText(selectedTeam.getName().substring(0, 2).toUpperCase());
-            case 1 -> teamName.setText(selectedTeam.getName().substring(0, 1).toUpperCase());
-            default -> teamName.setText(selectedTeam.getName().substring(0, 3).toUpperCase());
-        }
+        changeTeamText(teamName, selectedTeam);
 
         messageField.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ENTER) {
@@ -78,6 +74,7 @@ public class TabInput {
         if (selectedTeam == null) return;
         Message message = new Message(Client.user, messageField.getText(), new Date());
         messageField.clear();
+        System.out.println("selectedTeam = " + selectedTeam);
         selectedTeam.getChatroom().addMessage(message);
         printMessages(selectedTeam.getChatroom());
         String request = "sendMessage:" + message + ",teamid=ꠦ" + selectedTeam.getId() + "ꠦ";
@@ -95,5 +92,13 @@ public class TabInput {
             } catch (NullPointerException ignored) {
             }
         });
+    }
+
+    public void changeTeamText(Text text, Team team) {
+        switch (text.getText().length()) {
+            case 2 -> text.setText(team.getName().substring(0, 2).toUpperCase());
+            case 1 -> text.setText(team.getName().substring(0, 1).toUpperCase());
+            default -> text.setText(team.getName().substring(0, 3).toUpperCase());
+        }
     }
 }
