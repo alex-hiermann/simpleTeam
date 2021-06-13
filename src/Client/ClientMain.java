@@ -3,6 +3,7 @@ package Client;
 import UI.AddNewTaskWindow;
 import UI.InviteUserWindow;
 import UI.LoginWindow;
+import Utils.Configuration;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,14 +29,14 @@ public class ClientMain extends Application {
     public static MainWindow mainWindow;
 
     public static void main(String[] args) {
-        System.out.println("Initializing Simple Team");
+        System.out.println(Configuration.ANSI_GREEN + "Initializing Simple Team" + Configuration.ANSI_RESET);
         launch(args);
     }
 
     public static Socket connectToServer(String ip) {
         try {
             Socket s = new Socket(ip.split(":")[0], Integer.parseInt(ip.split(":")[1]));
-            System.out.println("Connection successful: " + s);
+            System.out.println(Configuration.ANSI_GREEN + "Connection successful: " + s + Configuration.ANSI_RESET);
             return s;
         } catch (Exception ignored) {
         }

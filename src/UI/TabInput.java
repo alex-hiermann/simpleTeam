@@ -80,10 +80,7 @@ public class TabInput {
         messageField.clear();
         selectedTeam.getChatroom().addMessage(message);
         printMessages(selectedTeam.getChatroom());
-        System.out.println("selectedTeam = " + selectedTeam);
-
         String request = "sendMessage:" + message + ",teamid=ꠦ" + selectedTeam.getId() + "ꠦ";
-        System.out.println("Request = " + request);
         Client.sendSTRequest(request);
     }
 

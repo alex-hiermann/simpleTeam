@@ -61,6 +61,6 @@ public class Message {
     }
 
     public void setDateFormat(SimpleDateFormat dateFormat) {
-        this.dateFormat = dateFormat;
+        Message.dateFormat = dateFormat;
     }
 }

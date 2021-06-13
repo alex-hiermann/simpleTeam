@@ -2,6 +2,7 @@ package Client;
 
 import Client.Chat.Message;
 import Utils.BasicFunctionLibrary;
+import Utils.Configuration;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 
@@ -56,7 +57,7 @@ public class Client implements Runnable {
      */
     @Override
     public void run() {
-        System.out.println("####WELCOME USER: " + user.getUsername() + "####");
+        System.out.println(Configuration.ANSI_GREEN + "Client has been started!" + Configuration.ANSI_RESET);
         try {
             DataInputStream dis = new DataInputStream(socket.getInputStream());
             String data;
@@ -70,14 +71,11 @@ public class Client implements Runnable {
                 switch (command) {
                     //Called when the server created your team
                     case "createTeam" -> {
-                        System.out.println("args = " + Arrays.toString(args));
-                        System.out.println(BasicFunctionLibrary.findValueFromArgs("teamId", args));
                         Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args),
                                 BasicFunctionLibrary.findValueFromArgs("teamdesc", args),
                                 Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)));
                         team.setAdmin(user);
                         team.members.add(user);
-                        System.out.println("CLIENT TEAM" + team);
                         user.myTeams.add(team);
                         ClientMain.mainWindow.initialize();
                     }
@@ -165,7 +163,6 @@ public class Client implements Runnable {
                     }
                     //Fetches a single User
                     case "fetchedUser" -> {
-                        System.out.println("args = " + Arrays.toString(args));
                         BasicFunctionLibrary.getEntryFromLinkedList(user.myTeams, new Team(Integer.parseInt(
                                 BasicFunctionLibrary.findValueFromArgs("teamId", args)))).members.add(BasicFunctionLibrary.extractUserFromArgs(args));
                     }

@@ -3,6 +3,7 @@ package UI;
 import Client.Client;
 import Client.ClientMain;
 import Client.Team;
+import Utils.Configuration;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,8 +37,8 @@ public class MainWindow {
         Platform.runLater(() -> tabPane.getTabs().removeAll(tabPane.getTabs().stream().filter(tab -> tab != homeTab).collect(Collectors.toList())));
         if (Client.user.myTeams.size() > 0) {
             selectedTeam = Client.user.myTeams.getFirst();
+            System.out.println(Client.user.myTeams.size());
             for (Team team : Client.user.myTeams) {
-                System.out.println("team = " + team);
                 addTeam(team);
             }
         }
@@ -58,22 +59,25 @@ public class MainWindow {
     @FXML
     public void addTeam(Team team) {
         Platform.runLater(() -> {
+            System.out.print(Configuration.ANSI_PURPLE + "{Adding team " + team.getName() + " [" + team.getId() + "];}" + Configuration.ANSI_RESET);
             Tab teamTab = new Tab();
             Pane loadedPane = new Pane();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/TabInput.fxml"));
             try {
+                fxmlLoader.load();
                 loadedPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/UI/TabInput.fxml")));
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
             teamTab.setClosable(true);
             teamTab.setText(team.getName());
-            System.out.println(team.getId());
             teamTab.setId(Integer.toString(team.getId()));
 
             teamTab.setContent(loadedPane);
             teamTab.setOnSelectionChanged(event -> {
-                System.out.println("teamID = " + team.getId());
-                System.out.println("teamTabID = " + teamTab.getId());
+                TabInput tabInput = fxmlLoader.getController();
+                tabInput.selectedTeam = team;
+                tabInput.initialize();
             });
             tabPane.getTabs().add(teamTab);
         });

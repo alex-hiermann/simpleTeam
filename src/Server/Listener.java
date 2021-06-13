@@ -46,14 +46,12 @@ public class Listener implements Runnable {
                 }
                 switch (command) {
                     case "createTeam" -> {
-                        System.out.println("Teamargs = " + Arrays.toString(args));
                         Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args),
                                 BasicFunctionLibrary.findValueFromArgs("teamdesc", args),
                                 new User(BasicFunctionLibrary.findValueFromArgs("adminEmail", args)));
 
                         Configuration.teamId = SQLiteHandler.retrieveTeamId();
                         team.setId(++Configuration.teamId);
-                        System.out.println("TEAMID" + team.getId());
 
                         User serverUser = Server.users.get(Server.users.indexOf(
                                 new User(findValueFromArgs("email", args))));
@@ -111,7 +109,6 @@ public class Listener implements Runnable {
                     }
                     case "login" -> {
                         SQLiteHandler.getAllUsers();
-                        System.out.println("args = " + Arrays.toString(args));
                         User user = new User(
                                 BasicFunctionLibrary.findValueFromArgs("email", args),
                                 BasicFunctionLibrary.findValueFromArgs("password", args));
@@ -148,7 +145,6 @@ public class Listener implements Runnable {
                     }
                     case "addUserToTeam" -> {
                         User invitedUser = new User(BasicFunctionLibrary.findValueFromArgs("email", args));
-                        System.out.println("invitedUser = " + invitedUser);
                         Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args),
                                 BasicFunctionLibrary.findValueFromArgs("teamdesc", args),
                                 Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)));
@@ -162,7 +158,6 @@ public class Listener implements Runnable {
                         SQLiteHandler.addUserToTeam(invitedUser, team);
                     }
                     case "addTask" -> {
-                        System.out.println("args = " + Arrays.toString(args));
                         Task tempTask = new Task(findValueFromArgs("taskName", args),
                                 findValueFromArgs("taskDescription", args),
                                 LocalDate.parse(findValueFromArgs("taskDue", args)),
