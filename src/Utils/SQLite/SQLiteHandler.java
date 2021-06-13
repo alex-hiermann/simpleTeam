@@ -486,7 +486,8 @@ public class SQLiteHandler {
                 );
 
                 task.setUser(user);
-
+                task.setTaskId(resultSet.getInt("pk_task_id"));
+                task.setTeam_id(resultSet.getInt("fk_team_id"));
                 BasicFunctionLibrary.getEntryFromLinkedList(Server.teams,
                         new Team(resultSet.getInt("fk_team_id")))
                         .tasks.add(task);

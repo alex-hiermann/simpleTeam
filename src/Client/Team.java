@@ -11,7 +11,7 @@ public class Team {
 
     String name;
     String description;
-    private User admin;
+    private User admin = new User("tempUser");
     private int id = 0;
     private Chatroom chatroom = new Chatroom(this);
     public LinkedHashSet<User> members = new LinkedHashSet<>();

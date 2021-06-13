@@ -1,6 +1,7 @@
 package Client;
 
 import Client.Chat.Message;
+import Server.Server;
 import UI.TaskUI;
 import Utils.BasicFunctionLibrary;
 import Utils.Configuration;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 import static Utils.BasicFunctionLibrary.*;
 
@@ -143,13 +145,14 @@ public class Client implements Runnable {
                                 Integer.parseInt(findValueFromArgs("teamId", args)),
                                 new User(findValueFromArgs("adminEmail", args)));
                         user.myTeams.add(team);
+                        sendSTRequest("requestUsers:teamId=ꠦ" + team.getId() + "ꠦ");
                         ClientMain.mainWindow.initialize();
+                        sendSTRequest("fetchTasks:teamId=ꠦ" + team.getId() + "ꠦ");
                     }
                     //Force refresh teams
                     case "requestTeams" -> sendSTRequest("getTeams:" + user);
                     //Fetches a single Message
                     case "fetchMessage" -> {
-                        System.out.println("args = " + Arrays.toString(args));
                         Team team = user.myTeams.get(user.myTeams.indexOf(new Team(Integer.parseInt(BasicFunctionLibrary
                                 .findValueFromArgs("teamId", args)))));
                         team.getChatroom().addMessage(new Message(new User(BasicFunctionLibrary.findValueFromArgs("email", args)),
@@ -166,7 +169,6 @@ public class Client implements Runnable {
                     }
                     //Fetches a single User
                     case "fetchedUser" -> {
-                        System.out.println("finalArgs = " + Arrays.toString(args));
                         user.myTeams.get(user.myTeams.indexOf(
                                 new Team(Integer.parseInt(findValueFromArgs("teamId", args)))))
                                 .members.add(extractUserFromArgs(args));
@@ -225,6 +227,36 @@ public class Client implements Runnable {
                                 alert.showAndWait();
                             }
                     );
+
+                    case "fetchTask" -> {
+                        System.out.println("args = " + Arrays.toString(args));
+                        Task tempTask = new Task(findValueFromArgs("taskName", args),
+                                findValueFromArgs("taskDescription", args),
+                                LocalDate.parse(findValueFromArgs("taskDue", args)),
+                                extractTaskTypeFromText(findValueFromArgs("taskType", args)),
+                                extractTaskDifficultyFromText(findValueFromArgs("taskDifficulty", args)));
+                        int teamId = Integer.parseInt(findValueFromArgs("teamId", args));
+                        tempTask.setTeam_id(teamId);
+                        LinkedList<User> users = new LinkedList<>(user.myTeams.get(user.myTeams.indexOf(new Team(teamId))).members);
+                        tempTask.setUser(getEntryFromLinkedList(users, new User(BasicFunctionLibrary.findValueFromArgs("email", args))));
+                        tempTask.setTaskId(Integer.parseInt(findValueFromArgs("taskId", args)));
+                        user.myTeams.get(user.myTeams.indexOf(new Team(teamId))).tasks.add(tempTask);
+                        Platform.runLater(() -> {
+                                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/TaskUI.fxml"));
+                                    fxmlLoader.setControllerFactory(l -> new TaskUI(BasicFunctionLibrary.
+                                            getEntryFromLinkedList(getEntryFromLinkedList(user.myTeams,
+                                                    new Team(teamId)).tasks, tempTask)));
+                                    try {
+                                        ClientMain.mainWindow.controller.tasks.getChildren().add(fxmlLoader.load());
+                                    } catch (IOException ignored) {
+                                        System.out.println("Tasks not loaded yet");
+                                    }
+                                }
+                        );
+
+                        user.myTeams.forEach(l -> System.out.println(l.tasks));
+
+                    }
 
                     case "" -> {
 

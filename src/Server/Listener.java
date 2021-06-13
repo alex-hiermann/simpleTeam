@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Map;
 
 import static Utils.BasicFunctionLibrary.extractTaskDifficultyFromText;
@@ -180,6 +181,13 @@ public class Listener implements Runnable {
 
                             Server.listeners.get(tempTask.getUser()).sendSTRequestToClient("newTaskAssigned");
 
+                            for (User teamUser : getEntryFromLinkedList(Server.teams, new Team(teamId)).members) {
+                                if (!teamUser.equals(tempTask.getUser())) {
+                                    Server.listeners.get(teamUser).sendSTRequestToClient("fetchTask:" + tempTask + ",taskId=ꠦ" + tempTask.getTaskId() + "ꠦ");
+                                }
+                            }
+
+
                             SQLiteHandler.addNewTaskToDatabase(tempTask);
                         } else {
                             sendSTRequestToClient("taskAddFail");
@@ -199,6 +207,20 @@ public class Listener implements Runnable {
                         Task task = new Task(Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("taskId", args)));
                         int teamId = Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args));
                         BasicFunctionLibrary.getEntryFromLinkedList(getEntryFromLinkedList(Server.teams, new Team(teamId)).tasks, task).setState(newTaskState);
+                    }
+
+                    case "fetchTasks" -> {
+                        SQLiteHandler.getAllTasks();
+                        Team team = new Team(Integer.parseInt(findValueFromArgs("teamId", args)));
+                        try {
+                            Team team1 = Server.teams.get(Server.teams.indexOf(team));
+                            LinkedList<Task> tasks = team1.tasks;
+                            for (Task task : tasks) {
+                                sendSTRequestToClient("fetchTask:" + task + ",taskId=ꠦ" + task.getTaskId() + "ꠦ");
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
