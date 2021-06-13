@@ -13,6 +13,7 @@ import java.net.Socket;
 import java.time.LocalDate;
 import java.util.Arrays;
 
+import static Utils.BasicFunctionLibrary.findValueFromArgs;
 import static Utils.BasicFunctionLibrary.getEntryFromLinkedList;
 
 /**
@@ -135,17 +136,12 @@ public class Client implements Runnable {
                             }
                     );
                     //Fetch the teams from the server
-                    case "userTeams" -> {
-                        String[] teamRequests = data.split(":")[1].split(";");
-                        user.myTeams.clear();
-                        for (String team : teamRequests) {
-                            String[] tempArgs = team.split(",");
-                            Team team1 = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", tempArgs),
-                                    BasicFunctionLibrary.findValueFromArgs("teamdesc", tempArgs),
-                                    Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)));
-                            team1.setAdmin(new User(BasicFunctionLibrary.findValueFromArgs("adminEmail", tempArgs)));
-                            user.myTeams.add(team1);
-                        }
+                    case "fetchTeam" -> {
+                        Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args),
+                                findValueFromArgs("teamdesc", args),
+                                Integer.parseInt(findValueFromArgs("teamId", args)),
+                                new User(findValueFromArgs("adminEamil", args)));
+                        user.myTeams.add(team);
                         ClientMain.mainWindow.initialize();
                     }
                     //Force refresh teams

@@ -15,6 +15,8 @@ public class Configuration {
      */
     public static final String CHECK_EMAIL_REGEX = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 
+    public static final String CHECK_IP_AND_PORT_REGEX = "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):\\d+";
+
     /*
      * Variables used for the database structure following
      */

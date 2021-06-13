@@ -53,7 +53,7 @@ public class SQLiteHandler {
     public static void createDefaultTables() {
         // SQL statement for creating a new table
         String sql = """
-                
+                                
                 /* SQLite for the Users */
                 CREATE TABLE IF NOT EXISTS User (
                 	pk_user_id INT PRIMARY KEY NOT NULL,
@@ -121,11 +121,6 @@ public class SQLiteHandler {
             }
 
         }
-
-    }
-
-    public static void dropDatabase() {
-        
     }
 
     public static int retrieveUserID() {
@@ -398,7 +393,6 @@ public class SQLiteHandler {
     }
 
 
-
     public static void addNewMessageToDatabase(Message message, int teamId) {
         Connection.connectIfAbsent();
         String sql = "INSERT INTO Message(text, date, fk_pk_user_id, fk_pk_team) VALUES (?,?,?,?)";
@@ -505,15 +499,15 @@ public class SQLiteHandler {
         }
     }
 
-    public static void updateTaskState(int taskId) {
+    public static void updateTaskState(int taskId, Task.E_TASK_STATE newState) {
         Connection.connectIfAbsent();
-        String sql = "";
+        String sql = "UPDATE Task SET state = ? WHERE pk_task_id = ?";
         try {
             java.sql.Connection connection = Connection.connection;
             PreparedStatement statement = connection.prepareStatement(sql);
 
-//            statement.setString(1, );
-
+            statement.setString(1, newState.toString());
+            statement.setInt(2, taskId);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

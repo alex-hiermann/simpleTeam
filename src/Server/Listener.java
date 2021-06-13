@@ -71,19 +71,16 @@ public class Listener implements Runnable {
                         SQLiteHandler.getAllUsers();
 
                         User serverUser = Server.users.get(Server.users.indexOf(extractUserFromArgs(args)));
-                        StringBuilder request = new StringBuilder();
                         ArrayList<Team> userTeams = new ArrayList<>();
 
                         for (Team team : Server.teams) {
                             if (team.members.contains(serverUser)) {
-                                request.append(team).append(";");
+                                sendSTRequestToClient("fetchTeam:" + team);
                                 userTeams.add(team);
                             }
                         }
 
-                        String clientRequest = request.toString();
                         try {
-                            sendSTRequestToClient("userTeams:" + clientRequest.substring(0, clientRequest.length() - 1));
                             for (Team userTeam : userTeams) {
                                 ArrayList<String> strings = userTeam.getChatroom().generateMessages();
                                 for (String msgRequest : strings) {
@@ -92,6 +89,7 @@ public class Listener implements Runnable {
                             }
                         } catch (StringIndexOutOfBoundsException ignored) {
                         }
+
 
                     }
                     // registerUser:email='email',username='username',password='password',name='name',lastname='lastname',birth='age'
