@@ -78,7 +78,6 @@ public class AddNewTaskWindow {
 
     }
 
-
     @FXML
     public void initialize() {
         list.clear();

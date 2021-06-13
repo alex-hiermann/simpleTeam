@@ -3,20 +3,16 @@ package UI;
 import Client.Client;
 import Client.ClientMain;
 import Client.Team;
-import com.sun.javafx.fxml.FXMLLoaderHelper;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -28,7 +24,6 @@ public class MainWindow {
     public static Button addTeamButton;
 
     @FXML
-    public AnchorPane pane;
     public MenuBar menubar;
 
     public Team selectedTeam;
@@ -42,6 +37,7 @@ public class MainWindow {
         if (Client.user.myTeams.size() > 0) {
             selectedTeam = Client.user.myTeams.getFirst();
             for (Team team : Client.user.myTeams) {
+                System.out.println("team = " + team);
                 addTeam(team);
             }
         }
@@ -63,22 +59,21 @@ public class MainWindow {
     public void addTeam(Team team) {
         Platform.runLater(() -> {
             Tab teamTab = new Tab();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/TabInput.fxml"));
-            Parent loadedPane = null;
+            Pane loadedPane = new Pane();
             try {
-                loadedPane = loader.load();
-            } catch (IOException ignored) {
+                loadedPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/UI/TabInput.fxml")));
+            } catch (IOException exception) {
+                exception.printStackTrace();
             }
-            TabInput tabInput = loader.getController();
-
             teamTab.setClosable(true);
             teamTab.setText(team.getName());
+            System.out.println(team.getId());
             teamTab.setId(Integer.toString(team.getId()));
 
             teamTab.setContent(loadedPane);
             teamTab.setOnSelectionChanged(event -> {
-                tabInput.selectedTeam = team;
-                tabInput.initialize();
+                System.out.println("teamID = " + team.getId());
+                System.out.println("teamTabID = " + teamTab.getId());
             });
             tabPane.getTabs().add(teamTab);
         });

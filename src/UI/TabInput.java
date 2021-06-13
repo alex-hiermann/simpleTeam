@@ -34,24 +34,24 @@ public class TabInput {
             printMessages(selectedTeam.getChatroom());
         }
 
-        switch (teamName.getText().length()) {
-            case 2 -> teamName.setText(selectedTeam.getName().substring(0, 2));
-            case 1 -> teamName.setText(selectedTeam.getName().substring(0, 1));
-            default -> teamName.setText(selectedTeam.getName().substring(0, 3));
-        }
-
-        messageField.setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.ENTER) {
-                sendMessage(new ActionEvent());
-            }
-        });
-
         addTaskButton.setOnAction(l -> {
             try {
                 Client.sendSTRequest("requestUsers:teamId=ꠦ" + selectedTeam.getId() + "ꠦ");
                 new ClientMain().showAddNewTaskWindow(selectedTeam, selectedTeam.getAdmin().equals(Client.user));
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        });
+
+        switch (teamName.getText().length()) {
+            case 2 -> teamName.setText(selectedTeam.getName().substring(0, 2).toUpperCase());
+            case 1 -> teamName.setText(selectedTeam.getName().substring(0, 1).toUpperCase());
+            default -> teamName.setText(selectedTeam.getName().substring(0, 3).toUpperCase());
+        }
+
+        messageField.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                sendMessage(new ActionEvent());
             }
         });
     }
