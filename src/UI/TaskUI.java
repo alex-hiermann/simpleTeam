@@ -6,7 +6,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-
+import Client.Client;
 import java.util.Objects;
 
 public class TaskUI {
@@ -25,10 +25,16 @@ public class TaskUI {
         prio.setText(task.getDifficulty().toString());
         dueDate.setText("Due to: " + task.getTill().toString());
 
+        if (!task.getUser().equals(Client.user)) {
+            started.setDisable(true);
+            finished.setDisable(true);
+        }
+
         started.setOnAction(actionEvent -> {
             task.setState(Task.E_TASK_STATE.STARTED);
             finished.setDisable(!finished.isDisabled());
         });
+
         finished.setOnAction(actionEvent -> {
             task.setState(Task.E_TASK_STATE.FINISHED);
             started.setDisable(!started.isDisabled());
