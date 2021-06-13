@@ -14,16 +14,16 @@ import java.util.Objects;
 public class TaskUI {
     public ImageView prioImg;
     public TitledPane type;
-    public CheckBox taskButton;
     public Text prio;
     public Task task;
     public RadioButton started;
     public RadioButton finished;
     public Text dueDate;
+    public Text taskNote;
 
     public void initialize() {
         type.setText(task.getType().toString() + ": " + task.getName());
-        taskButton.setText(task.getNote());
+        taskNote.setText(task.getNote());
         prio.setText(task.getDifficulty().toString());
         dueDate.setText("Due to: " + task.getTill().toString());
 

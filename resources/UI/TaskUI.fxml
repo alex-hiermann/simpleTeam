@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
@@ -11,45 +10,40 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<TitledPane fx:id="type" prefHeight="60.0" prefWidth="339.0" text="Type" xmlns="http://javafx.com/javafx/16"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.TaskUI">
-    <AnchorPane prefHeight="38.0" prefWidth="337.0">
-        <HBox layoutY="-1.0" prefHeight="34.0" prefWidth="337.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0">
-            <padding>
-                <Insets top="10.0"/>
-            </padding>
-            <CheckBox fx:id="taskButton" mnemonicParsing="false" prefHeight="17.0" prefWidth="288.0"
-                      text="   Taskname">
-                <opaqueInsets>
-                    <Insets/>
-                </opaqueInsets>
-                <padding>
-                    <Insets left="10.0"/>
-                </padding>
-            </CheckBox>
-            <ImageView fx:id="prioImg" fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../images/difficulty/easy.png"/>
-            </ImageView>
-            <Text fx:id="prio" strokeType="OUTSIDE" strokeWidth="0.0" text="Priority">
-                <HBox.margin>
-                    <Insets right="10.0"/>
-                </HBox.margin>
-            </Text>
-            <VBox prefHeight="27.0" prefWidth="198.0">
-                <RadioButton fx:id="started" mnemonicParsing="false" prefHeight="10.0" prefWidth="82.0"
-                             text="Started">
-                    <padding>
-                        <Insets top="-7.0"/>
-                    </padding>
-                </RadioButton>
-                <RadioButton fx:id="finished" mnemonicParsing="false" prefHeight="17.0" prefWidth="67.0"
-                             text="Finished"/>
-            </VBox>
-            <Text fx:id="dueDate" strokeType="OUTSIDE" strokeWidth="0.0" text="Due to: "/>
-        </HBox>
-        <padding>
-            <Insets bottom="2.0" top="1.0"/>
-        </padding>
-    </AnchorPane>
+<TitledPane fx:id="type" prefHeight="60.0" prefWidth="339.0" text="Type" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.TaskUI">
+   <AnchorPane prefHeight="38.0" prefWidth="337.0">
+       <HBox layoutY="-1.0" prefHeight="34.0" prefWidth="337.0" AnchorPane.leftAnchor="0.0"
+             AnchorPane.rightAnchor="0.0">
+           <padding>
+               <Insets top="10.0"/>
+           </padding>
+           <Text fx:id="taskNote" strokeType="OUTSIDE" strokeWidth="0.0" text="Taskname">
+              <HBox.margin>
+                  <Insets left="10.0" right="10.0"/>
+              </HBox.margin>
+           </Text>
+           <ImageView fx:id="prioImg" fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+              <Image url="@../images/difficulty/easy.png"/>
+           </ImageView>
+           <Text fx:id="prio" strokeType="OUTSIDE" strokeWidth="0.0" text="Priority">
+              <HBox.margin>
+                  <Insets left="5.0" right="10.0"/>
+              </HBox.margin>
+           </Text>
+           <VBox prefHeight="27.0" prefWidth="198.0">
+               <RadioButton fx:id="started" mnemonicParsing="false" prefHeight="10.0" prefWidth="82.0"
+                            text="Started">
+                   <padding>
+                       <Insets top="-7.0"/>
+                   </padding>
+               </RadioButton>
+               <RadioButton fx:id="finished" mnemonicParsing="false" prefHeight="17.0" prefWidth="67.0"
+                            text="Finished"/>
+           </VBox>
+           <Text fx:id="dueDate" strokeType="OUTSIDE" strokeWidth="0.0" text="Due to: "/>
+       </HBox>
+      <padding>
+         <Insets bottom="2.0" top="1.0" />
+      </padding>
+   </AnchorPane>
 </TitledPane>
