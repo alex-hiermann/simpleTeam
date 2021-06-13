@@ -126,7 +126,7 @@ public class Task {
     /**
      * Task state
      */
-    private E_TASK_STATE state;
+    private E_TASK_STATE state = E_TASK_STATE.OPEN;
     /**
      * Task difficulty
      */
@@ -174,7 +174,7 @@ public class Task {
         return "taskName=ꠦ" + name + "ꠦ" +
                 ",taskDescription=ꠦ" + description + "ꠦ" +
                 ",taskDue=ꠦ" + till +
-                "ꠦ,TaskType=ꠦ" + type +
+                "ꠦ,taskType=ꠦ" + type +
                 "ꠦ,taskState=ꠦ" + state +
                 "ꠦ,taskDifficulty=ꠦ" + difficulty +
                 "ꠦ,teamId=ꠦ" + team_id +

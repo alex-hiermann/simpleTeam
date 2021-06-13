@@ -76,9 +76,9 @@ public class Server implements Runnable {
 
         //Retrieve data
         SQLiteHandler.getAllUsers();
-        SQLiteHandler.getAllTasks();
-        SQLiteHandler.getAllMessages();
         SQLiteHandler.getAllTeams();
+        SQLiteHandler.getAllMessages();
+        SQLiteHandler.getAllTasks();
 
         Thread thread = new Thread(new Server());
         thread.start();

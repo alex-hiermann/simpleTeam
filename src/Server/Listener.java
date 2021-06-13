@@ -162,6 +162,7 @@ public class Listener implements Runnable {
                         SQLiteHandler.addUserToTeam(invitedUser, team);
                     }
                     case "addTask" -> {
+                        System.out.println("args = " + Arrays.toString(args));
                         Task tempTask = new Task(findValueFromArgs("taskName", args),
                                 findValueFromArgs("taskDescription", args),
                                 LocalDate.parse(findValueFromArgs("taskDue", args)),
@@ -169,7 +170,8 @@ public class Listener implements Runnable {
                                 extractTaskDifficultyFromText(findValueFromArgs("taskDifficulty", args)));
                         int teamId = Integer.parseInt(findValueFromArgs("teamId", args));
                         tempTask.setTeam_id(teamId);
-                        tempTask.setUser(new User(BasicFunctionLibrary.findValueFromArgs("email", args)));
+                        tempTask.setUser(getEntryFromLinkedList(Server.users, new User(BasicFunctionLibrary.findValueFromArgs("email", args))));
+                        Configuration.taskId = SQLiteHandler.retrieveTaskId();
                         tempTask.setTaskId(++Configuration.taskId);
                         if (getEntryFromLinkedList(Server.teams, new Team(teamId))
                                 .tasks.add(tempTask)) {

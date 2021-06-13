@@ -97,8 +97,10 @@ public class SQLiteHandler {
                     type CHAR(32) NOT NULL,
                     state CHAR(32) NOT NULL,
                     difficulty CHAR(32) NOT NULL,
+                    fk_user_id INT,
                     fk_team_id INT,
-                    FOREIGN KEY (fk_team_id) REFERENCES Team (pk_team_id)
+                    FOREIGN KEY (fk_team_id) REFERENCES Team (pk_team_id),
+                    FOREIGN KEY (fk_user_id) REFERENCES User (pk_user_id)
                 );
                 """;
 
@@ -479,7 +481,6 @@ public class SQLiteHandler {
             Server.teams.forEach(l -> l.tasks.clear());
 
             while (resultSet.next()) {
-
                 User user = retrieveUser(resultSet.getInt("fk_user_id"));
 
                 Task task = new Task(
@@ -500,5 +501,20 @@ public class SQLiteHandler {
             throwables.printStackTrace();
         }
     }
+
+    public static void updateTaskState(int taskId) {
+        Connection.connectIfAbsent();
+        String sql = "";
+        try {
+            java.sql.Connection connection = Connection.connection;
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+//            statement.setString(1, );
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
 
 }
