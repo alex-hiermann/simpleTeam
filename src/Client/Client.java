@@ -2,9 +2,11 @@ package Client;
 
 import Client.Chat.Message;
 import UI.TabInput;
+import UI.TaskUI;
 import Utils.BasicFunctionLibrary;
 import Utils.Configuration;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 
 import java.io.DataInputStream;
@@ -180,6 +182,20 @@ public class Client implements Runnable {
                         BasicFunctionLibrary.getEntryFromLinkedList(getEntryFromLinkedList(user.myTeams,
                                 new Team(teamId)).tasks, tempTask).setTaskId(newTaskId);
                         tempTask.setTaskId(newTaskId);
+
+                        Platform.runLater(() -> {
+                                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/TaskUI.fxml"));
+                                    fxmlLoader.setControllerFactory(l -> new TaskUI(BasicFunctionLibrary.
+                                            getEntryFromLinkedList(getEntryFromLinkedList(user.myTeams,
+                                                    new Team(teamId)).tasks, tempTask)));
+                                    try {
+                                        ClientMain.mainWindow.controller.tasks.getChildren().add(fxmlLoader.load());
+                                    } catch (IOException ioException) {
+                                        ioException.printStackTrace();
+                                    }
+                                }
+                        );
+
                         Platform.runLater(() -> {
                                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                     alert.setTitle("Success");
@@ -216,7 +232,6 @@ public class Client implements Runnable {
                     }
                 }
             }
-        } catch (IOException ignored) {
         } catch (Exception e) {
             e.printStackTrace();
         }

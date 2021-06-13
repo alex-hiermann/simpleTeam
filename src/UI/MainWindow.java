@@ -76,17 +76,11 @@ public class MainWindow {
             teamTab.setText(team.getName());
             teamTab.setId(Integer.toString(team.getId()));
 
-            controller = fxmlLoader.getController();
-//            teamTab.setOnSelectionChanged(event -> {
-//                if (teamTab.isSelected()) {
-//                    selectedTeam;
-//                    controller.selectedTeam = selectedTeam;
-//
-//                    controller.changeTeamText(controller.teamName, selectedTeam);
-//                    controller.printMessages(selectedTeam.getChatroom());
-//                }
-//
-//            });
+            teamTab.setOnSelectionChanged(event -> {
+                if (teamTab.isSelected()) {
+                    controller = fxmlLoader.getController();
+                }
+            });
             tabPane.getTabs().add(teamTab);
         });
     }
