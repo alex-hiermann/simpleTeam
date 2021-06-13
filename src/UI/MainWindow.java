@@ -41,6 +41,7 @@ public class MainWindow {
             for (Team team : Client.user.myTeams) {
                 addTeam(team);
             }
+            System.out.println();
         }
     }
 
@@ -75,7 +76,9 @@ public class MainWindow {
 
             teamTab.setContent(loadedPane);
             teamTab.setOnSelectionChanged(event -> {
+                System.out.println("team = " + team);
                 TabInput tabInput = fxmlLoader.getController();
+                System.out.println("tabInput.selectedTeam before = " + tabInput.selectedTeam);
                 tabInput.selectedTeam = team;
                 tabInput.initialize();
             });

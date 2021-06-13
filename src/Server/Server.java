@@ -89,7 +89,7 @@ public class Server implements Runnable {
                 Socket s = serverSocket.accept();
                 new Thread(new Listener(s)).start();
                 clients.add(s);
-                System.out.println(Configuration.CTR_BEFORE + Configuration.ANSI_RED + "New client connected: " + s.toString() + Configuration.ANSI_RESET + Configuration.CTR_AFTER);
+                System.out.println(Configuration.CTR_BEFORE + Configuration.ANSI_RED + "New client connected: " + s.toString() + "\n" + Configuration.ANSI_RESET + Configuration.CTR_AFTER);
             }
         } catch (IOException e) {
             e.printStackTrace();
