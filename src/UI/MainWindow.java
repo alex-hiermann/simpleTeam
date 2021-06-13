@@ -34,6 +34,7 @@ public class MainWindow {
     public Button refreshButton;
     public TabPane tabPane;
     public Tab homeTab;
+    public TabInput controller;
 
     public void initialize() {
         Platform.runLater(() -> tabPane.getTabs().removeAll(tabPane.getTabs().stream().filter(tab -> tab != homeTab).collect(Collectors.toList())));
@@ -73,11 +74,14 @@ public class MainWindow {
             teamTab.setText(team.getName());
             teamTab.setId(Integer.toString(team.getId()));
 
-            TabInput controller = fxmlLoader.getController();
+            controller = fxmlLoader.getController();
             teamTab.setOnSelectionChanged(event -> {
                 selectedTeam = team;
                 controller.selectedTeam = selectedTeam;
-                controller.teamName.setText(selectedTeam.getName());
+
+                controller.changeTeamText(controller.teamName, selectedTeam);
+                controller.printMessages(selectedTeam.getChatroom());
+
                 System.out.println(controller.selectedTeam);
             });
             tabPane.getTabs().add(teamTab);
