@@ -1,10 +1,7 @@
 package Client;
 
 import Client.Chat.Message;
-import Server.Server;
-import UI.TabInput;
 import Utils.BasicFunctionLibrary;
-import Utils.Configuration;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 
@@ -14,7 +11,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import static Utils.BasicFunctionLibrary.getEntryFromLinkedList;
 
@@ -68,7 +64,7 @@ public class Client implements Runnable {
                 String command = data.split(":")[0];
                 String[] args = new String[0];
                 try {
-                    args = BasicFunctionLibrary.getArgs(data, args);
+                    args = BasicFunctionLibrary.getArgs(data);
                 } catch (Exception ignored) {
                 }
                 switch (command) {

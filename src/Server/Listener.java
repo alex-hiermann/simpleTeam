@@ -40,7 +40,7 @@ public class Listener implements Runnable {
                 String command = data.split(":")[0];
                 String[] args = new String[0];
                 try {
-                    args = BasicFunctionLibrary.getArgs(data, args);
+                    args = BasicFunctionLibrary.getArgs(data);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

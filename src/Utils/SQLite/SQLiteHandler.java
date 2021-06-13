@@ -152,6 +152,21 @@ public class SQLiteHandler {
         return 0;
     }
 
+    public static int retrieveTaskId() {
+        Connection.connectIfAbsent();
+        String sql = "SELECT MAX(pk_task_id) AS 'TASKID' FROM Task";
+
+        try {
+            java.sql.Connection conn = Connection.connection;
+            ResultSet rs = conn.createStatement().executeQuery(sql);
+
+            return rs.getInt("TASKID");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 
     public static void closeConnection() {
         try {
@@ -347,7 +362,7 @@ public class SQLiteHandler {
                 List<User> users = Objects.requireNonNull(retrieveUsersForTeam(
                         resultSet.getInt("pk_team_id")))
                         .stream()
-                        .map(SQLiteHandler::retrieveUserForTeamId)
+                        .map(SQLiteHandler::retrieveUser)
                         .collect(Collectors.toList());
                 System.out.println(users);
                 team.members.addAll(users);
@@ -378,27 +393,6 @@ public class SQLiteHandler {
         return null;
     }
 
-    public static User retrieveUserForTeamId(int userId) {
-        Connection.connectIfAbsent();
-        String sql = "SELECT * FROM User WHERE pk_user_id = ?";
-        try {
-            java.sql.Connection connection = Connection.connection;
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
-            return new User(
-                    rs.getString("username"),
-                    rs.getString("name"),
-                    rs.getString("lastname"),
-                    rs.getString("email"),
-                    rs.getDate("birth").toLocalDate(),
-                    rs.getString("password"),
-                    rs.getInt("pk_user_id"));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
-    }
 
 
     public static void addNewMessageToDatabase(Message message, int teamId) {
