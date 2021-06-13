@@ -17,7 +17,6 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Map;
 
 import static Utils.BasicFunctionLibrary.extractTaskDifficultyFromText;
@@ -49,14 +48,21 @@ public class Listener implements Runnable {
                     case "createTeam" -> {
                         System.out.println("Teamargs = " + Arrays.toString(args));
                         Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args),
-                                BasicFunctionLibrary.findValueFromArgs("teamdesc", args));
+                                BasicFunctionLibrary.findValueFromArgs("teamdesc", args),
+                                new User(BasicFunctionLibrary.findValueFromArgs("adminEmail", args)));
+
                         Configuration.teamId = SQLiteHandler.retrieveTeamId();
                         team.setId(++Configuration.teamId);
-                        User serverUser = Server.users.get(Server.users.indexOf(new User(findValueFromArgs("email", args))));
+                        System.out.println("TEAMID" + team.getId());
+
+                        User serverUser = Server.users.get(Server.users.indexOf(
+                                new User(findValueFromArgs("email", args))));
                         team.members.add(serverUser);   //Add user to team
                         serverUser.myTeams.add(team);   //Add the team to user
+
                         team.setAdmin(serverUser);      //Make him an admin, because he created the team
                         Server.teams.add(team);         //Finally add the team to the server
+
                         sendSTRequestToClient("createTeam:" + team + ",teamId=ꠦ" + team.getId() + "ꠦ");
                         SQLiteHandler.addNewTeamToDatabase(team);
                         SQLiteHandler.addUserToTeam(serverUser, team);
@@ -65,15 +71,18 @@ public class Listener implements Runnable {
                         SQLiteHandler.getAllTeams();
                         SQLiteHandler.getAllMessages();
                         SQLiteHandler.getAllUsers();
+
                         User serverUser = Server.users.get(Server.users.indexOf(extractUserFromArgs(args)));
                         StringBuilder request = new StringBuilder();
                         ArrayList<Team> userTeams = new ArrayList<>();
+
                         for (Team team : Server.teams) {
                             if (team.members.contains(serverUser)) {
                                 request.append(team).append(";");
                                 userTeams.add(team);
                             }
                         }
+
                         String clientRequest = request.toString();
                         try {
                             sendSTRequestToClient("userTeams:" + clientRequest.substring(0, clientRequest.length() - 1));

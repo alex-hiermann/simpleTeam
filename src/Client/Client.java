@@ -74,11 +74,14 @@ public class Client implements Runnable {
                 switch (command) {
                     //Called when the server created your team
                     case "createTeam" -> {
+                        System.out.println("args = " + Arrays.toString(args));
+                        System.out.println(BasicFunctionLibrary.findValueFromArgs("teamId", args));
                         Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args),
                                 BasicFunctionLibrary.findValueFromArgs("teamdesc", args),
                                 Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)));
                         team.setAdmin(user);
                         team.members.add(user);
+                        System.out.println("CLIENT TEAM" + team);
                         user.myTeams.add(team);
                         ClientMain.mainWindow.initialize();
                     }
@@ -161,7 +164,7 @@ public class Client implements Runnable {
                                 BasicFunctionLibrary.findValueFromArgs("messageText", args),
                                 Message.dateFormat.parse(BasicFunctionLibrary.findValueFromArgs("date", args))));
                         if (ClientMain.mainWindow.selectedTeam.equals(team)) {
-                            new TabInput().printMessages(team.getChatroom());
+//                            printMessages(team.getChatroom());
                         }
                     }
                     //Fetches a single User

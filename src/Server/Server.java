@@ -14,7 +14,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -47,6 +46,7 @@ public class Server implements Runnable {
             }
         } catch (Exception ignored) {
         }
+
         try {
             if (args[0].equalsIgnoreCase("-path")) {
                 try {
@@ -60,17 +60,6 @@ public class Server implements Runnable {
             }
         } catch (Exception ignored) {
         }
-        //TODO Create TestFile with these Users, so that u dont need to delete them :) (just adopt them into another file)
-        users.add(new User("a", "a", "a", "a", LocalDate.MIN, "0CC175B9C0F1B6A831C399E269772661", 1));
-        User coolUser = new User("a", "a", "a", "aa@aa.at", LocalDate.MIN, "0CC175B9C0F1B6A831C399E269772661", 2);
-        users.add(coolUser);
-        users.add(new User("b", "b", "b", "bb@bb.at", LocalDate.MAX, "92EB5FFEE6AE2FEC3AD71C777531578F", 3));
-
-        Team team = new Team("Testteam", "Team for testing", 1);
-        team.setAdmin(coolUser);
-        team.members.add(coolUser);
-        teams.add(team);
-
         System.out.println(Configuration.ANSI_RED + "Starting Server" + Configuration.ANSI_RESET);
 
         //Create simpleTeam Server file structure
@@ -95,7 +84,6 @@ public class Server implements Runnable {
         thread.start();
         try {
             port = ((port == 0) ? Configuration.DEFAULT_PORT : port);
-
             ServerSocket serverSocket = new ServerSocket(Configuration.DEFAULT_PORT);
             while (true) {
                 Socket s = serverSocket.accept();

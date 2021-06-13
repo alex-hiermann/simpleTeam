@@ -17,8 +17,9 @@ public class Team {
     public LinkedHashSet<User> members = new LinkedHashSet<>();
     public LinkedList<Task> tasks = new LinkedList<>();
 
-    public void setId(int id) {
-        this.id = id;
+    public Team(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 
     public Team(String name, String description, int id) {
@@ -27,10 +28,23 @@ public class Team {
         this.id = id;
     }
 
-    public Team(String name, String description) {
+    public Team(String name, String description, User admin) {
         this.name = name;
         this.description = description;
+        this.admin = admin;
     }
+
+    public Team(String name, String description, int id, User admin) {
+        this.name = name;
+        this.description = description;
+        this.id = id;
+        this.admin = admin;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 
     public int getId() {
         return id;
