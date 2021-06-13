@@ -124,6 +124,10 @@ public class SQLiteHandler {
 
     }
 
+    public static void dropDatabase() {
+        
+    }
+
     public static int retrieveUserID() {
         Connection.connectIfAbsent();
         String sql = "SELECT MAX(pk_user_id) AS 'USERID' FROM User";
@@ -220,12 +224,10 @@ public class SQLiteHandler {
 
     public static User retrieveUser(int userId) {
         Connection.connectIfAbsent();
-        String sql = "SELECT * FROM User WHERE pk_user_id = ?";
+        String sql = "SELECT * FROM User WHERE pk_user_id = " + userId;
         try {
             java.sql.Connection connection = Connection.connection;
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
+            ResultSet rs = connection.createStatement().executeQuery(sql);
             return new User(
                     rs.getString("username"),
                     rs.getString("name"),
@@ -450,7 +452,7 @@ public class SQLiteHandler {
                 "type, " +
                 "state, " +
                 "difficulty, " +
-                "fk_team_id, " +
+                "fk_user_id, " +
                 "fk_team_id) " +
                 "VALUES (?,?,?,?,?,?,?,?,?)";
         try {
@@ -463,7 +465,8 @@ public class SQLiteHandler {
             stmt.setString(5, task.getType().toString());
             stmt.setString(6, task.getState().toString());
             stmt.setString(7, task.getDifficulty().toString());
-            stmt.setInt(8, task.getTeam_id());
+            stmt.setInt(8, task.getUser().getId());
+            stmt.setInt(9, task.getTeam_id());
             stmt.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
