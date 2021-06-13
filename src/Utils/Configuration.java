@@ -21,12 +21,12 @@ public class Configuration {
     /**
      * Path used to define the path for the database on the server
      */
-    public static final Path SERVER_DB_PATH = Paths.get("./simpleTeam/data.db");
+    public static Path SERVER_DB_PATH = Paths.get("C:\\ProgramData\\simpleTeam\\db\\simpleTeam.db");
 
     /**
      * URL used to define the path for the database
      */
-    public static final String DATABASE_URL = "jdbc:sqlite:C:\\ProgramData\\simpleTeam\\db\\simpleTeam.db";
+    public static final String DATABASE_URL = "jdbc:sqlite:" + SERVER_DB_PATH;
 
     /**
      * This path defines the directory path in general, where different things are saved

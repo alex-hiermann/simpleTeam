@@ -30,7 +30,6 @@ public class Server implements Runnable {
 
     public static LinkedList<Team> teams = new LinkedList<>();
 
-    public static Path path = Configuration.SERVER_DB_PATH;
 
     public static void main(String[] args) {
         try {
@@ -50,7 +49,8 @@ public class Server implements Runnable {
         try {
             if (args[0].equalsIgnoreCase("-path")) {
                 try {
-                    path = Paths.get(args[1]);
+                    Configuration.SERVER_DB_PATH = Paths.get(args[1]);
+                    System.out.println(Configuration.ANSI_CYAN + "Successfully set the DB path to: " + Configuration.SERVER_DB_PATH + Configuration.ANSI_RESET);
                 } catch (Exception e) {
                     System.err.println(Configuration.ANSI_RED + e.getMessage() + Configuration.ANSI_RESET);
                     System.err.println(Configuration.ANSI_RED + "Invalid path input!" + Configuration.ANSI_RESET);
