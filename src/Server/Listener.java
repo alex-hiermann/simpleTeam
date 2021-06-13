@@ -129,7 +129,7 @@ public class Listener implements Runnable {
                     }
                     case "sendMessage" -> {
                         User user = new User(BasicFunctionLibrary.findValueFromArgs("email", args));
-                        Message message = new Message(user, BasicFunctionLibrary.findValueFromArgs("messageText", args),
+                        Message message = new Message(getEntryFromLinkedList(Server.users, user), BasicFunctionLibrary.findValueFromArgs("messageText", args),
                                 Message.dateFormat.parse(BasicFunctionLibrary.findValueFromArgs("date", args)));
                         Team team = new Team(Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamid", args)));
                         Team serverTeam = Server.teams.get(Server.teams.indexOf(team));
