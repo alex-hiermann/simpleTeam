@@ -236,6 +236,7 @@ public class Client implements Runnable {
                                 extractTaskDifficultyFromText(findValueFromArgs("taskDifficulty", args)));
                         int teamId = Integer.parseInt(findValueFromArgs("teamId", args));
                         tempTask.setTeam_id(teamId);
+                        tempTask.setState(extractTaskStateFromText(findValueFromArgs("taskState", args)));
                         LinkedList<User> users = new LinkedList<>(user.myTeams.get(user.myTeams.indexOf(new Team(teamId))).members);
                         tempTask.setUser(getEntryFromLinkedList(users, new User(BasicFunctionLibrary.findValueFromArgs("email", args))));
                         tempTask.setTaskId(Integer.parseInt(findValueFromArgs("taskId", args)));

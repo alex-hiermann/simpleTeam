@@ -208,6 +208,9 @@ public class Listener implements Runnable {
                         Task task = new Task(Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("taskId", args)));
                         int teamId = Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args));
                         BasicFunctionLibrary.getEntryFromLinkedList(getEntryFromLinkedList(Server.teams, new Team(teamId)).tasks, task).setState(newTaskState);
+                        System.out.println(task.getTaskId());
+                        System.out.println(newTaskState);
+                        SQLiteHandler.updateTaskState(task.getTaskId(), newTaskState);
                     }
 
                     case "fetchTasks" -> {

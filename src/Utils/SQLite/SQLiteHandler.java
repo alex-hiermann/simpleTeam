@@ -485,6 +485,7 @@ public class SQLiteHandler {
                         BasicFunctionLibrary.extractTaskDifficultyFromText(resultSet.getString("difficulty"))
                 );
 
+                task.setState(BasicFunctionLibrary.extractTaskStateFromText(resultSet.getString("state")));
                 task.setUser(user);
                 task.setTaskId(resultSet.getInt("pk_task_id"));
                 task.setTeam_id(resultSet.getInt("fk_team_id"));
@@ -506,6 +507,7 @@ public class SQLiteHandler {
 
             statement.setString(1, newState.toString());
             statement.setInt(2, taskId);
+            statement.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

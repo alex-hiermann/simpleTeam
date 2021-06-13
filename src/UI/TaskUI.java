@@ -20,10 +20,23 @@ public class TaskUI {
     public Text taskNote;
 
     public void initialize() {
-        type.setText(task.getType().toString() + ": " + task.getName());
+        type.setText(task.getType().toString() + ": " + task.getName() + "     -     " + task.getState());
         taskNote.setText(task.getNote());
         prio.setText(task.getDifficulty().toString());
         dueDate.setText("Due to: " + task.getTill().toString());
+
+        if (task.getState().toString().equalsIgnoreCase("started")) {
+            started.setSelected(true);
+            finished.setDisable(true);
+            started.setDisable(false);
+        }
+
+        if (task.getState().toString().equalsIgnoreCase("finished")) {
+            finished.setSelected(true);
+            finished.setDisable(false);
+            started.setDisable(true);
+        }
+
 
         if (!task.getUser().equals(Client.user)) {
             started.setDisable(true);
@@ -33,11 +46,15 @@ public class TaskUI {
         started.setOnAction(actionEvent -> {
             task.setState(Task.E_TASK_STATE.STARTED);
             finished.setDisable(!finished.isDisabled());
+            Client.sendSTRequest("changeTaskState:newTaskState=ꠦSTARTEDꠦ,taskId=ꠦ" + task.getTaskId() + "ꠦ,teamId=ꠦ" + task.getTeam_id() + "ꠦ");
+            initialize();
         });
 
         finished.setOnAction(actionEvent -> {
             task.setState(Task.E_TASK_STATE.FINISHED);
             started.setDisable(!started.isDisabled());
+            Client.sendSTRequest("changeTaskState:newTaskState=ꠦFINISHEDꠦ,taskId=ꠦ" + task.getTaskId() + "ꠦ,teamId=ꠦ" + task.getTeam_id() + "ꠦ");
+            initialize();
         });
 
         switch (task.getDifficulty().toString().toUpperCase()) {
