@@ -14,8 +14,7 @@ import java.net.Socket;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-import static Utils.BasicFunctionLibrary.findValueFromArgs;
-import static Utils.BasicFunctionLibrary.getEntryFromLinkedList;
+import static Utils.BasicFunctionLibrary.*;
 
 /**
  * Client class which receives and handles STRequest sent from the server
@@ -160,8 +159,11 @@ public class Client implements Runnable {
                     }
                     //Fetches a single User
                     case "fetchedUser" -> {
-                        BasicFunctionLibrary.getEntryFromLinkedList(user.myTeams, new Team(Integer.parseInt(
-                                BasicFunctionLibrary.findValueFromArgs("teamId", args)))).members.add(BasicFunctionLibrary.extractUserFromArgs(args));
+                        System.out.println("finalArgs = " + Arrays.toString(args));
+                        user.myTeams.get(user.myTeams.indexOf(
+                                new Team(Integer.parseInt(findValueFromArgs("teamId", args)))))
+                                .members.add(extractUserFromArgs(args));
+                        user.myTeams.forEach(l -> System.out.println(l.members));
                     }
                     //Alerts the user about a successful task creation and sets the server parameters
                     case "taskAddSuccess" -> {

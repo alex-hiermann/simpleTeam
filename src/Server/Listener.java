@@ -150,7 +150,8 @@ public class Listener implements Runnable {
                         Server.teams.get(Server.teams.indexOf(team)).members
                                 .add(Server.users.get(Server.users.indexOf(invitedUser)));
                         try {
-                            Server.listeners.get(invitedUser).sendSTRequestToClient("requestTeams");
+                            Server.listeners.get(invitedUser).sendSTRequestToClient("fetchTeam:" + getEntryFromLinkedList(Server.teams, team));
+
                         } catch (NullPointerException ignored) {
                             System.err.println("No Listener Found");
                             //When the user isn't online we are ignoring the request

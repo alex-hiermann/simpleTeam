@@ -38,7 +38,7 @@
             <Font name="Trebuchet MS" size="18.0" />
          </font>
       </PasswordField>
-      <TextField fx:id="server" maxWidth="500.0" prefWidth="500.0" promptText="Server IP and PORT (example: localhost:7274)" text="84.113.55.115:7274">
+      <TextField fx:id="server" maxWidth="500.0" prefWidth="500.0" promptText="Server IP and PORT (example: localhost:7274)" text="localhost:7274">
          <font>
             <Font name="Trebuchet MS" size="18.0" />
          </font></TextField>
