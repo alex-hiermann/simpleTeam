@@ -148,13 +148,19 @@ public class Client implements Runnable {
                     case "requestTeams" -> sendSTRequest("getTeams:" + user);
                     //Fetches a single Message
                     case "fetchMessage" -> {
+                        System.out.println("args = " + Arrays.toString(args));
                         Team team = user.myTeams.get(user.myTeams.indexOf(new Team(Integer.parseInt(BasicFunctionLibrary
                                 .findValueFromArgs("teamId", args)))));
                         team.getChatroom().addMessage(new Message(new User(BasicFunctionLibrary.findValueFromArgs("email", args)),
                                 BasicFunctionLibrary.findValueFromArgs("messageText", args),
                                 Message.dateFormat.parse(BasicFunctionLibrary.findValueFromArgs("date", args))));
-                        if (ClientMain.mainWindow.selectedTeam.equals(team)) {
-                            ClientMain.mainWindow.controller.printMessages(team.getChatroom());
+                        try {
+                            if (ClientMain.mainWindow.selectedTeam.equals(team)) {
+                                ClientMain.mainWindow.controller.printMessages(team.getChatroom());
+                            }
+
+                        } catch (NullPointerException e) {
+                            System.out.println("Chat not loaded yet");
                         }
                     }
                     //Fetches a single User

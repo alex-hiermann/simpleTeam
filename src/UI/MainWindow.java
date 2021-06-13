@@ -41,6 +41,8 @@ public class MainWindow {
         if (Client.user.myTeams.size() > 0) {
             selectedTeam = Client.user.myTeams.getFirst();
             for (Team team : Client.user.myTeams) {
+                System.out.println(team);
+                team.getChatroom().getMessages().forEach(System.out::println);
                 addTeam(team);
             }
         }
@@ -64,7 +66,7 @@ public class MainWindow {
             System.out.println(Configuration.ANSI_PURPLE + "#Adding team " + team.getName() + " [" + team.getId() + "]#" + Configuration.ANSI_RESET);
             Tab teamTab = new Tab();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/TabInput.fxml"));
-
+            fxmlLoader.setControllerFactory(l -> new TabInput(team));
             try {
                 teamTab.setContent(fxmlLoader.load());
             } catch (IOException exception) {
@@ -75,15 +77,16 @@ public class MainWindow {
             teamTab.setId(Integer.toString(team.getId()));
 
             controller = fxmlLoader.getController();
-            teamTab.setOnSelectionChanged(event -> {
-                selectedTeam = team;
-                controller.selectedTeam = selectedTeam;
-
-                controller.changeTeamText(controller.teamName, selectedTeam);
-                controller.printMessages(selectedTeam.getChatroom());
-
-                System.out.println(controller.selectedTeam);
-            });
+//            teamTab.setOnSelectionChanged(event -> {
+//                if (teamTab.isSelected()) {
+//                    selectedTeam;
+//                    controller.selectedTeam = selectedTeam;
+//
+//                    controller.changeTeamText(controller.teamName, selectedTeam);
+//                    controller.printMessages(selectedTeam.getChatroom());
+//                }
+//
+//            });
             tabPane.getTabs().add(teamTab);
         });
     }

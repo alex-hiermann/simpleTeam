@@ -29,10 +29,7 @@ public class TabInput {
     public VBox tasks;
 
     public void initialize() {
-        selectedTeam = Client.user.myTeams.getFirst();
-        if (selectedTeam.getChatroom().getMessages().size() > 0) {
-            printMessages(selectedTeam.getChatroom());
-        }
+        printMessages(selectedTeam.getChatroom());
 
         addTaskButton.setOnAction(l -> {
             try {
@@ -50,6 +47,10 @@ public class TabInput {
                 sendMessage(new ActionEvent());
             }
         });
+    }
+
+    public TabInput(Team selectedTeam) {
+        this.selectedTeam = selectedTeam;
     }
 
     @FXML
@@ -85,11 +86,7 @@ public class TabInput {
         Platform.runLater(() -> {
             try {
                 chat.getChildren().clear();
-                System.out.println("chatroom.getTeam() = " + chatroom.getTeam());
-
                 for (Message message : chatroom.getMessages()) {
-                    System.out.println("message.getText() = " + message.getText());
-                    System.out.println("message.getUser().getName() = " + message.getUser().getName());
                     chat.getChildren().add(new Text(message.getUser().getUsername() + ": " + message.getText()));
                 }
             } catch (NullPointerException e) {

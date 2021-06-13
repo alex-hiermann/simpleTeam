@@ -87,7 +87,8 @@ public class Listener implements Runnable {
                                     sendSTRequestToClient("fetchMessage:" + msgRequest);
                                 }
                             }
-                        } catch (StringIndexOutOfBoundsException ignored) {
+                        } catch (StringIndexOutOfBoundsException e) {
+                            e.printStackTrace();
                         }
 
 
