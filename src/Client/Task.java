@@ -11,62 +11,6 @@ import java.util.Objects;
 public class Task {
 
     /**
-     * @param taskId Task Id
-     */
-    public Task(int taskId) {
-        this.taskId = taskId;
-    }
-
-    /**
-     * @param o Other
-     * @return Whether or not the taskId equals o.taskid
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Task task = (Task) o;
-        return taskId == task.taskId;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(taskId);
-    }
-
-    /**
-     * Set the team Id
-     *
-     * @param teamId unique team Id. Usually received from the server
-     */
-    public void setTeam_id(int teamId) {
-        this.team_id = teamId;
-    }
-
-    /**
-     * Setting the assigned user
-     *
-     * @param user User Object
-     */
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    /**
-     * @return Unique teamId
-     */
-    public int getTeam_id() {
-        return team_id;
-    }
-
-    /**
-     * @return Assigned User
-     */
-    public User getUser() {
-        return user;
-    }
-
-    /**
      * Enum storing the available task types
      */
     public enum E_TASK_TYPE {
@@ -77,21 +21,6 @@ public class Task {
      * Task identifier
      */
     private int taskId = Configuration.taskId;
-
-    /**
-     * @return Task id
-     */
-    public int getTaskId() {
-        return taskId;
-    }
-
-    /**
-     * Setting the new task id
-     * @param taskId new Id
-     */
-    public void setTaskId(int taskId) {
-        this.taskId = taskId;
-    }
 
     /**
      * Enum storing the available task states
@@ -182,6 +111,22 @@ public class Task {
     }
 
     /**
+     * @return Task id
+     */
+    public int getTaskId() {
+        return taskId;
+    }
+
+    /**
+     * Setting the new task id
+     *
+     * @param taskId new Id
+     */
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
+    }
+
+    /**
      * Set the new task name
      *
      * @param name New Name
@@ -261,5 +206,61 @@ public class Task {
      */
     public void setDifficulty(E_TASK_DIFFICULTY difficulty) {
         this.difficulty = difficulty;
+    }
+
+    /**
+     * @param taskId Task Id
+     */
+    public Task(int taskId) {
+        this.taskId = taskId;
+    }
+
+    /**
+     * @param o Other
+     * @return Whether or not the taskId equals o.taskid
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return taskId == task.taskId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(taskId);
+    }
+
+    /**
+     * Set the team Id
+     *
+     * @param teamId unique team Id. Usually received from the server
+     */
+    public void setTeam_id(int teamId) {
+        this.team_id = teamId;
+    }
+
+    /**
+     * Setting the assigned user
+     *
+     * @param user User Object
+     */
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    /**
+     * @return Unique teamId
+     */
+    public int getTeam_id() {
+        return team_id;
+    }
+
+    /**
+     * @return Assigned User
+     */
+    public User getUser() {
+        return user;
     }
 }

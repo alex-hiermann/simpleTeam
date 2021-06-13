@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="UI.TaskUI"
-            prefHeight="400.0" prefWidth="600.0">
 
-</AnchorPane>
+<TitledPane fx:id="type" prefHeight="0.0" prefWidth="0.0" text="Type" xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.TaskUI">
+   <AnchorPane prefHeight="0.0" prefWidth="642.0">
+      <CheckBox fx:id="taskButton" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" prefHeight="17.0"
+                prefWidth="206.0" text="   Taskname">
+         <opaqueInsets>
+            <Insets/>
+         </opaqueInsets>
+         <padding>
+            <Insets left="10.0"/>
+         </padding>
+      </CheckBox>
+      <Text fx:id="prio" layoutX="353.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Priority"/>
+      <ImageView fx:id="prioImg" fitHeight="17.0" fitWidth="17.0" layoutX="327.0" layoutY="17.0" pickOnBounds="true"
+                 preserveRatio="true">
+         <Image url="@../images/difficulty/easy.png"/>
+      </ImageView>
+   </AnchorPane>
+</TitledPane>
