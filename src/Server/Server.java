@@ -116,7 +116,8 @@ public class Server implements Runnable {
                     case "refresh" -> System.out.println(Configuration.ANSI_RED + "Refreshed" + Configuration.ANSI_RESET);
                     case "getteams" -> {
                         System.out.println(Configuration.ANSI_RED + "Teams:{");
-                        for (int i = 0; i < teams.size(); i++) {
+                        for (Team team : teams) {
+                            System.out.print(team);
                             System.out.println(", ");
                         }
                         System.out.println("};" + Configuration.ANSI_RESET);

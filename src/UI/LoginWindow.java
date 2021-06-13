@@ -49,7 +49,6 @@ public class LoginWindow {
     }
 
     public void extracted() {
-        //        button.setDisable(true);
         Matcher matcher = Pattern.compile(Configuration.CHECK_IP_AND_PORT_REGEX).matcher(server.getText());
         Matcher emailMatcher = Pattern.compile(Configuration.CHECK_EMAIL_REGEX).matcher(email.getText());
         if (!matcher.matches()) {
@@ -76,7 +75,6 @@ public class LoginWindow {
         Client client = new Client(temp, new User("tempUser05070201"));
         new Thread(client).start();
         Client.sendSTRequest("login:email=ꠦ" + email.getText() + "ꠦ,password=ꠦ" + BasicFunctionLibrary.hashPassword(password.getText()) + "ꠦ");
-//            service.start();
     }
 
     public void registerAction(ActionEvent actionEvent) {
@@ -87,36 +85,4 @@ public class LoginWindow {
             e.printStackTrace();
         }
     }
-
-//    Service<Void> service = new Service<Void>() {
-//        @Override
-//        protected Task<Void> createTask() {
-//            return new Task<Void>() {
-//                @Override
-//                protected Void call() throws Exception {
-//                    final CountDownLatch countDownLatch = new CountDownLatch(1);
-//                    Platform.runLater(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            try {
-//                                for (int i = 0; i <= 100; i += 20) {
-//                                    try {
-//                                        progressBar.setProgress(i);
-//                                        Thread.sleep(ThreadLocalRandom.current().nextInt(500, 1250));
-//                                    } catch (Exception e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                    System.out.println("Value is set to: " + i);
-//                                }
-//                            } finally {
-//                                countDownLatch.countDown();
-//                            }
-//                        }
-//                    });
-//                    countDownLatch.await();
-//                    return null;
-//                }
-//            };
-//        }
-//    };
 }
