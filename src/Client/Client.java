@@ -163,8 +163,7 @@ public class Client implements Runnable {
                                 ClientMain.mainWindow.controller.printMessages(team.getChatroom());
                             }
 
-                        } catch (NullPointerException e) {
-                            System.out.println("Chat not loaded yet");
+                        } catch (NullPointerException ignored) {
                         }
                     }
                     //Fetches a single User
@@ -172,7 +171,6 @@ public class Client implements Runnable {
                         user.myTeams.get(user.myTeams.indexOf(
                                 new Team(Integer.parseInt(findValueFromArgs("teamId", args)))))
                                 .members.add(extractUserFromArgs(args));
-                        user.myTeams.forEach(l -> System.out.println(l.members));
                     }
                     //Alerts the user about a successful task creation and sets the server parameters
                     case "taskAddSuccess" -> {
@@ -249,13 +247,9 @@ public class Client implements Runnable {
                                     try {
                                         ClientMain.mainWindow.controller.tasks.getChildren().add(fxmlLoader.load());
                                     } catch (Exception ignored) {
-                                        System.out.println("Tasks not loaded yet");
                                     }
                                 }
                         );
-
-                        user.myTeams.forEach(l -> System.out.println(l.tasks));
-
                     }
 
                     case "" -> {

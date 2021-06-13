@@ -37,8 +37,7 @@ public class MainWindow {
         if (Client.user.myTeams.size() > 0) {
             selectedTeam = Client.user.myTeams.getFirst();
             for (Team team : Client.user.myTeams) {
-                System.out.println(team);
-                team.getChatroom().getMessages().forEach(System.out::println);
+
                 addTeam(team);
             }
         }
@@ -59,7 +58,6 @@ public class MainWindow {
     @FXML
     public void addTeam(Team team) {
         Platform.runLater(() -> {
-            System.out.println(Configuration.ANSI_PURPLE + "#Adding team " + team.getName() + " [" + team.getId() + "]#" + Configuration.ANSI_RESET);
             Tab teamTab = new Tab();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/TabInput.fxml"));
             fxmlLoader.setControllerFactory(l -> new TabInput(team));

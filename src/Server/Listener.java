@@ -144,7 +144,6 @@ public class Listener implements Runnable {
                         SQLiteHandler.addNewMessageToDatabase(message, team.getId());
                     }
                     case "addUserToTeam" -> {
-                        System.out.println("args = " + Arrays.toString(args));
                         User invitedUser = new User(BasicFunctionLibrary.findValueFromArgs("email", args));
                         Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args),
                                 BasicFunctionLibrary.findValueFromArgs("teamdesc", args),
@@ -208,8 +207,6 @@ public class Listener implements Runnable {
                         Task task = new Task(Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("taskId", args)));
                         int teamId = Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args));
                         BasicFunctionLibrary.getEntryFromLinkedList(getEntryFromLinkedList(Server.teams, new Team(teamId)).tasks, task).setState(newTaskState);
-                        System.out.println(task.getTaskId());
-                        System.out.println(newTaskState);
                         SQLiteHandler.updateTaskState(task.getTaskId(), newTaskState);
                     }
 
