@@ -1,6 +1,7 @@
 package Client;
 
 import Client.Chat.Message;
+import UI.TabInput;
 import Utils.BasicFunctionLibrary;
 import Utils.Configuration;
 import javafx.application.Platform;
@@ -154,7 +155,7 @@ public class Client implements Runnable {
                                 BasicFunctionLibrary.findValueFromArgs("messageText", args),
                                 Message.dateFormat.parse(BasicFunctionLibrary.findValueFromArgs("date", args))));
                         if (ClientMain.mainWindow.selectedTeam.equals(team)) {
-//                            printMessages(team.getChatroom());
+                            new TabInput().printMessages(team.getChatroom());
                         }
                     }
                     //Fetches a single User
