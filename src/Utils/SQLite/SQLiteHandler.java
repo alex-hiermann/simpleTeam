@@ -114,7 +114,6 @@ public class SQLiteHandler {
             try {
                 java.sql.Connection conn = DriverManager.getConnection(Configuration.DATABASE_URL);
                 conn.createStatement().executeUpdate(statement);
-                conn.close();
             } catch (SQLException e) {
                 System.err.println("An error occurred during ");
                 e.printStackTrace();
@@ -262,7 +261,6 @@ public class SQLiteHandler {
                         .map(SQLiteHandler::retrieveTeam)
                         .collect(Collectors.toList());
                 user.myTeams.addAll(teams);
-
                 Server.users.add(user);
             }
         } catch (SQLException throwables) {
@@ -363,7 +361,6 @@ public class SQLiteHandler {
                         .stream()
                         .map(SQLiteHandler::retrieveUser)
                         .collect(Collectors.toList());
-                System.out.println(users);
                 team.members.addAll(users);
 
                 Server.teams.add(team);
@@ -410,11 +407,11 @@ public class SQLiteHandler {
     }
 
     public static void getAllMessages() {
-        Connection.connectIfAbsent();
         String sql = "SELECT * FROM Message";
 
         try {
 
+            Connection.connectIfAbsent();
             java.sql.Connection connection = Connection.connection;
             ResultSet resultSet = connection.createStatement().executeQuery(sql);
             Server.teams.forEach(l -> l.getChatroom().messages.clear());

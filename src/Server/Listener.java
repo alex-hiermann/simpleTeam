@@ -66,9 +66,9 @@ public class Listener implements Runnable {
                         SQLiteHandler.addUserToTeam(serverUser, team);
                     }
                     case "getTeams" -> {
+                        SQLiteHandler.getAllUsers();
                         SQLiteHandler.getAllTeams();
                         SQLiteHandler.getAllMessages();
-                        SQLiteHandler.getAllUsers();
 
                         User serverUser = Server.users.get(Server.users.indexOf(extractUserFromArgs(args)));
                         ArrayList<Team> userTeams = new ArrayList<>();
@@ -142,18 +142,21 @@ public class Listener implements Runnable {
                         SQLiteHandler.addNewMessageToDatabase(message, team.getId());
                     }
                     case "addUserToTeam" -> {
+                        System.out.println("args = " + Arrays.toString(args));
                         User invitedUser = new User(BasicFunctionLibrary.findValueFromArgs("email", args));
                         Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args),
                                 BasicFunctionLibrary.findValueFromArgs("teamdesc", args),
                                 Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args)));
-                        Server.teams.get(Server.teams.indexOf(team)).members.add(Server.users.get(Server.users.indexOf(invitedUser)));
+                        Server.teams.get(Server.teams.indexOf(team)).members
+                                .add(Server.users.get(Server.users.indexOf(invitedUser)));
                         try {
                             Server.listeners.get(invitedUser).sendSTRequestToClient("requestTeams");
                         } catch (NullPointerException ignored) {
                             System.err.println("No Listener Found");
                             //When the user isn't online we are ignoring the request
                         }
-                        SQLiteHandler.addUserToTeam(invitedUser, team);
+                        SQLiteHandler.addUserToTeam(getEntryFromLinkedList(Server.users, invitedUser),
+                                getEntryFromLinkedList(Server.teams, team));
                     }
                     case "addTask" -> {
                         Task tempTask = new Task(findValueFromArgs("taskName", args),
@@ -172,6 +175,9 @@ public class Listener implements Runnable {
                             sendSTRequestToClient("taskAddSuccess:taskId=ꠦ" + tempTask.getTaskId() + "ꠦ,teamId=ꠦ" +
                                     teamId + "ꠦ,clientTaskId=ꠦ" +
                                     clientTaskId + "ꠦ");
+
+                            Server.listeners.get(tempTask.getUser()).sendSTRequestToClient("newTaskAssigned");
+
                             SQLiteHandler.addNewTaskToDatabase(tempTask);
                         } else {
                             sendSTRequestToClient("taskAddFail");

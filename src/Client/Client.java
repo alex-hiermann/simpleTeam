@@ -180,6 +180,18 @@ public class Client implements Runnable {
                                 }
                         );
                     }
+
+                    case "newTaskAssigned" -> {
+                        Platform.runLater(() -> {
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setTitle("Alert");
+                                    alert.setHeaderText("A new task has been assigned to you!");
+                                    alert.setContentText("Check your teams and see what your new tasks are!");
+                                    alert.showAndWait();
+                                }
+                        );
+                    }
+
                     //Alerts the user that the task creation failed
                     case "taskAddFail" -> Platform.runLater(() -> {
                                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
