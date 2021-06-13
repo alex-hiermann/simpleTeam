@@ -2,6 +2,7 @@ package UI;
 
 
 import Client.Chat.Chatroom;
+import Client.User;
 import Client.Chat.Message;
 import Client.Client;
 import Client.ClientMain;
@@ -20,6 +21,8 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 import static Utils.BasicFunctionLibrary.getEntryFromLinkedList;
@@ -95,7 +98,9 @@ public class TabInput {
             try {
                 chat.getChildren().clear();
                 for (Message message : chatroom.getMessages()) {
-                    chat.getChildren().add(new Text(message.getUser().getUsername() + ": " + message.getText()));
+                    LinkedHashSet<User> members = getEntryFromLinkedList(Client.user.myTeams, selectedTeam).members;
+                    LinkedList<User> users = new LinkedList<>(members);
+                    chat.getChildren().add(new Text(getEntryFromLinkedList(users, message.getUser()).getUsername() + ": " + message.getText()));
                 }
             } catch (NullPointerException e) {
                 e.printStackTrace();
