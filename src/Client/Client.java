@@ -140,7 +140,7 @@ public class Client implements Runnable {
                         Team team = new Team(BasicFunctionLibrary.findValueFromArgs("teamname", args),
                                 findValueFromArgs("teamdesc", args),
                                 Integer.parseInt(findValueFromArgs("teamId", args)),
-                                new User(findValueFromArgs("adminEamil", args)));
+                                new User(findValueFromArgs("adminEmail", args)));
                         user.myTeams.add(team);
                         ClientMain.mainWindow.initialize();
                     }
