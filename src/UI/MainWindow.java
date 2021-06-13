@@ -74,6 +74,7 @@ public class MainWindow {
 
             teamTab.setOnSelectionChanged(event -> {
                 if (teamTab.isSelected()) {
+                    selectedTeam = team;
                     controller = fxmlLoader.getController();
                 }
             });

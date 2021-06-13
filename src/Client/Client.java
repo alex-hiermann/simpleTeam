@@ -229,7 +229,6 @@ public class Client implements Runnable {
                     );
 
                     case "fetchTask" -> {
-                        System.out.println("args = " + Arrays.toString(args));
                         Task tempTask = new Task(findValueFromArgs("taskName", args),
                                 findValueFromArgs("taskDescription", args),
                                 LocalDate.parse(findValueFromArgs("taskDue", args)),
@@ -248,7 +247,7 @@ public class Client implements Runnable {
                                                     new Team(teamId)).tasks, tempTask)));
                                     try {
                                         ClientMain.mainWindow.controller.tasks.getChildren().add(fxmlLoader.load());
-                                    } catch (IOException ignored) {
+                                    } catch (Exception ignored) {
                                         System.out.println("Tasks not loaded yet");
                                     }
                                 }
