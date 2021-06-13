@@ -182,8 +182,9 @@ public class Listener implements Runnable {
                             Server.listeners.get(tempTask.getUser()).sendSTRequestToClient("newTaskAssigned");
 
                             for (User teamUser : getEntryFromLinkedList(Server.teams, new Team(teamId)).members) {
-                                if (!teamUser.equals(tempTask.getUser())) {
+                                try {
                                     Server.listeners.get(teamUser).sendSTRequestToClient("fetchTask:" + tempTask + ",taskId=ꠦ" + tempTask.getTaskId() + "ꠦ");
+                                } catch (NullPointerException ignored) {
                                 }
                             }
 
@@ -224,15 +225,18 @@ public class Listener implements Runnable {
                     }
                 }
             }
-        } catch (SocketException e) {
+        } catch (
+                SocketException e) {
             for (Map.Entry<User, Listener> entry : Server.listeners.entrySet()) {
                 if (entry.getValue().equals(this)) {
                     Server.listeners.remove(entry.getKey(), entry.getValue());
                 }
             }
-        } catch (ParseException | IOException e) {
+        } catch (ParseException |
+                IOException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
