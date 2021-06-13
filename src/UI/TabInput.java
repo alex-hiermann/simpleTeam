@@ -74,7 +74,6 @@ public class TabInput {
         if (selectedTeam == null) return;
         Message message = new Message(Client.user, messageField.getText(), new Date());
         messageField.clear();
-        System.out.println("selectedTeam = " + selectedTeam);
         selectedTeam.getChatroom().addMessage(message);
         printMessages(selectedTeam.getChatroom());
         String request = "sendMessage:" + message + ",teamid=ꠦ" + selectedTeam.getId() + "ꠦ";
@@ -86,10 +85,15 @@ public class TabInput {
         Platform.runLater(() -> {
             try {
                 chat.getChildren().clear();
+                System.out.println("chatroom.getTeam() = " + chatroom.getTeam());
+
                 for (Message message : chatroom.getMessages()) {
+                    System.out.println("message.getText() = " + message.getText());
+                    System.out.println("message.getUser().getName() = " + message.getUser().getName());
                     chat.getChildren().add(new Text(message.getUser().getUsername() + ": " + message.getText()));
                 }
-            } catch (NullPointerException ignored) {
+            } catch (NullPointerException e) {
+                e.printStackTrace();
             }
         });
     }
