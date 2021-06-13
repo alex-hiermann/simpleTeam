@@ -13,12 +13,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
-import java.util.Objects;
-import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class MainWindow {

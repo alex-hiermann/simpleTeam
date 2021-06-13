@@ -1,8 +1,6 @@
 package UI;
 
 import Client.Task;
-import javafx.event.ActionEvent;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;

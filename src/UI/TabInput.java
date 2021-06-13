@@ -1,13 +1,17 @@
 package UI;
 
+
 import Client.Chat.Chatroom;
 import Client.Chat.Message;
 import Client.Client;
 import Client.ClientMain;
+import Client.Task;
 import Client.Team;
+import Utils.BasicFunctionLibrary;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -16,6 +20,9 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
+
+import static Utils.BasicFunctionLibrary.getEntryFromLinkedList;
 
 public class TabInput {
 
@@ -30,6 +37,7 @@ public class TabInput {
 
     public void initialize() {
         printMessages(selectedTeam.getChatroom());
+        loadTasks();
 
         addTaskButton.setOnAction(l -> {
             try {
@@ -101,5 +109,23 @@ public class TabInput {
             case 1 -> text.setText(team.getName().substring(0, 1).toUpperCase());
             default -> text.setText(team.getName().substring(0, 3).toUpperCase());
         }
+    }
+
+    public void loadTasks() {
+        Platform.runLater(() -> {
+            try {
+                tasks.getChildren().clear();
+                for (Task task : getEntryFromLinkedList(Client.user.myTeams, new Team(selectedTeam.getId())).tasks) {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/TaskUI.fxml"));
+                    fxmlLoader.setControllerFactory(l -> new TaskUI(getEntryFromLinkedList(
+                            getEntryFromLinkedList(Client.user.myTeams,
+                                    new Team(selectedTeam.getId())).tasks, task)));
+
+                    tasks.getChildren().add(fxmlLoader.load());
+                }
+            } catch (NullPointerException | IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
