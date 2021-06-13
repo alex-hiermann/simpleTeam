@@ -18,6 +18,7 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class MainWindow {
@@ -61,9 +62,10 @@ public class MainWindow {
         Platform.runLater(() -> {
             System.out.print(Configuration.ANSI_PURPLE + "{Adding team " + team.getName() + " [" + team.getId() + "];}" + Configuration.ANSI_RESET);
             Tab teamTab = new Tab();
-            Pane loadedPane = new Pane();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/TabInput.fxml"));
+
             try {
-                loadedPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/UI/TabInput.fxml")));
+                teamTab.setContent(fxmlLoader.load());
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
@@ -71,14 +73,12 @@ public class MainWindow {
             teamTab.setText(team.getName());
             teamTab.setId(Integer.toString(team.getId()));
 
-            teamTab.setContent(loadedPane);
-            Pane finalLoadedPane = loadedPane;
+            TabInput controller = fxmlLoader.getController();
             teamTab.setOnSelectionChanged(event -> {
-                Text text = (Text) finalLoadedPane.lookup("#teamName");
-                new TabInput().changeTeamText(text, team);
-
-                System.out.println("finalLoadedPane.lookupAll(\"#selectedTeam\") = " + finalLoadedPane.lookupAll("#selectedTeam"));
-                System.out.println("finalLoadedPane.lookupAll(\"#selectedTeam\") = " + finalLoadedPane.lookupAll("#teamName"));
+                selectedTeam = team;
+                controller.selectedTeam = selectedTeam;
+                controller.teamName.setText(selectedTeam.getName());
+                System.out.println(controller.selectedTeam);
             });
             tabPane.getTabs().add(teamTab);
         });
