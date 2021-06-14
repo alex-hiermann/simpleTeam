@@ -51,6 +51,7 @@ public class Server implements Runnable {
 
 
     /**
+     * Init server
      * @param args arguments. [-port %PORTNUMBER%] [-path %PATH TO DB%]
      */
     public static void main(String[] args) {
