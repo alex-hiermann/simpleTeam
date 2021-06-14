@@ -21,18 +21,62 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Used for the add new task fxml window which is used to create a new task
+ * <p>
+ * Created and modified by Burger Maximilian and Hiermann Alexander.
+ * Please consider correct usage of the LICENSE.
+ */
 public class AddNewTaskWindow {
+
+    /**
+     * TextField for the name
+     */
     public TextField name;
+
+    /**
+     * TextArea for the description
+     */
     public TextArea description;
+
+    /**
+     * DatePicker for the due
+     */
     public DatePicker due;
+
+    /**
+     * ChoiceBox with String-inputs for the type
+     */
     public ChoiceBox<String> type;
+
+    /**
+     * Team for the team
+     */
     public static Team team;
+
+    /**
+     * If the user is the task-admin or not
+     */
     public static boolean admin;
+
+    /**
+     * ChoiceBox with String-inputs for the difficulty
+     */
     public ChoiceBox<String> difficulty;
+
+    /**
+     * ChoiceBox with String-inputs for the users
+     */
     public ChoiceBox<String> users;
 
+    /**
+     * ObservableList with String-inputs for the users tasks
+     */
     ObservableList<String> list = FXCollections.observableArrayList();
 
+    /**
+     * adds a new task using STRequests and alerts
+     */
     @FXML
     public void addTask() {
         Pattern pattern = Pattern.compile(Configuration.CHECK_EMAIL_REGEX);
@@ -59,6 +103,7 @@ public class AddNewTaskWindow {
                     }
             );
         }
+
         if (!admin) {
             if (!type.getValue().equalsIgnoreCase("Reminder")) {
                 Platform.runLater(() -> {
@@ -75,9 +120,11 @@ public class AddNewTaskWindow {
         } else {
             sendRequest();
         }
-
     }
 
+    /**
+     * initialize method called to create a textfield-keylistener
+     */
     @FXML
     public void initialize() {
         list.clear();
@@ -93,6 +140,9 @@ public class AddNewTaskWindow {
         });
     }
 
+    /**
+     * sends a STRequest for the tasks
+     */
     private void sendRequest() {
         Task tempTask = new Task(name.getText(), description.getText(), due.getValue(),
                 BasicFunctionLibrary.extractTaskTypeFromText(type.getValue()),
