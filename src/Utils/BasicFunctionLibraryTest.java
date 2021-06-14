@@ -3,6 +3,8 @@ package Utils;
 import Client.Task;
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -65,5 +67,24 @@ class BasicFunctionLibraryTest {
         assertEquals(Task.E_TASK_DIFFICULTY.MEDIUM, BasicFunctionLibrary.extractTaskDifficultyFromText("MEDIUM"));
         assertEquals(Task.E_TASK_DIFFICULTY.HARD, BasicFunctionLibrary.extractTaskDifficultyFromText("HARD"));
         assertEquals(Task.E_TASK_DIFFICULTY.EXTREME, BasicFunctionLibrary.extractTaskDifficultyFromText("EXTREME"));
+    }
+
+
+    /**
+     * Test the generic method
+     */
+    @Test
+    void getEntryFromLinkedList() {
+        LinkedList<String> linkedList = new LinkedList<>();
+        linkedList.add("ABC");
+        linkedList.add("DEF");
+        linkedList.add("GHI");
+        linkedList.add("JKL");
+
+        assertEquals("ABC", BasicFunctionLibrary.getEntryFromLinkedList(linkedList, "ABC"));
+        assertEquals("DEF", BasicFunctionLibrary.getEntryFromLinkedList(linkedList, "DEF"));
+        assertEquals("GHI", BasicFunctionLibrary.getEntryFromLinkedList(linkedList, "GHI"));
+        assertEquals("JKL", BasicFunctionLibrary.getEntryFromLinkedList(linkedList, "JKL"));
+
     }
 }
