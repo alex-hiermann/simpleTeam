@@ -6,7 +6,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Last updated by Alexander Hiermann on 06/01/2021
+ * Created and modified by Burger Maximilian and Hiermann Alexander.
+ * Please consider correct usage of the LICENSE.
+ * <p>
  * different templates used from sqlitetutorial.net
  */
 public class Connection {
@@ -29,15 +31,22 @@ public class Connection {
             System.out.println(Configuration.ANSI_BLUE + "Connection to SQLite has been established." + Configuration.ANSI_RESET);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-       }
+        }
     }
 
+    /**
+     * used to close the connection
+     * @throws SQLException If database access error occurs
+     */
     public static void close() throws SQLException {
         connection.close();
         connection = null;
         System.err.println(Configuration.ANSI_BLUE + "Connection to SQLite has been closed." + Configuration.ANSI_RESET);
     }
 
+    /**
+     * used to force-connect
+     */
     public static void connectIfAbsent() {
         if (getConnection() == null) {
             connect();
@@ -45,10 +54,18 @@ public class Connection {
         }
     }
 
+    /**
+     * @return the connection
+     */
     public static java.sql.Connection getConnection() {
         return connection;
     }
 
+    /**
+     * sets the connection
+     *
+     * @param connection connection
+     */
     public static void setConnection(java.sql.Connection connection) {
         Connection.connection = connection;
     }
