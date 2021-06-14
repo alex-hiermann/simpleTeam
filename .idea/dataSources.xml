@@ -22,5 +22,12 @@
       <jdbc-url>jdbc:sqlite:F:\Programmieren\SimpleTeam\identifier.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="identifier [3]" uuid="3f9f9156-628d-43a2-a187-4601ab33e5f1">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\mabug\IdeaProjects\projekt03_simpleteam\identifier.sqlite</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

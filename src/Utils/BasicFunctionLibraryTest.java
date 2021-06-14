@@ -1,5 +1,6 @@
 package Utils;
 
+import Client.Task;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,13 +27,24 @@ class BasicFunctionLibraryTest {
 
     @Test
     void extractTaskTypeFromText() {
+        assertEquals(Task.E_TASK_TYPE.TASK, BasicFunctionLibrary.extractTaskTypeFromText("TASK"));
+        assertEquals(Task.E_TASK_TYPE.REMINDER, BasicFunctionLibrary.extractTaskTypeFromText("REMINDER"));
+        assertEquals(Task.E_TASK_TYPE.MILESTONE, BasicFunctionLibrary.extractTaskTypeFromText("MILESTONE"));
     }
 
     @Test
     void extractTaskStateFromText() {
+        assertEquals(Task.E_TASK_STATE.OPEN, BasicFunctionLibrary.extractTaskStateFromText("OPEN"));
+        assertEquals(Task.E_TASK_STATE.STARTED, BasicFunctionLibrary.extractTaskStateFromText("STARTED"));
+        assertEquals(Task.E_TASK_STATE.DUE, BasicFunctionLibrary.extractTaskStateFromText("DUE"));
+        assertEquals(Task.E_TASK_STATE.FINISHED, BasicFunctionLibrary.extractTaskStateFromText("FINISHED"));
     }
 
     @Test
     void extractTaskDifficultyFromText() {
+        assertEquals(Task.E_TASK_DIFFICULTY.EASY, BasicFunctionLibrary.extractTaskDifficultyFromText("EASY"));
+        assertEquals(Task.E_TASK_DIFFICULTY.MEDIUM, BasicFunctionLibrary.extractTaskDifficultyFromText("MEDIUM"));
+        assertEquals(Task.E_TASK_DIFFICULTY.HARD, BasicFunctionLibrary.extractTaskDifficultyFromText("HARD"));
+        assertEquals(Task.E_TASK_DIFFICULTY.EXTREME, BasicFunctionLibrary.extractTaskDifficultyFromText("EXTREME"));
     }
 }
