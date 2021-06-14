@@ -13,17 +13,18 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 
 /**
- * Last updated by Alexander Hiermann on 06/01/2021
- * @author Alexander Hiermann
- * @author Maximilian burger
- * @since 2021
+ * Class for a library with common used methods
+ * <p>
+ * Created and modified by Burger Maximilian and Hiermann Alexander.
+ * Please consider correct usage of the LICENSE.
  */
 public class BasicFunctionLibrary {
 
     /**
      * Returns a value associated with a key in the ST request arguments
+     *
      * @param forKey Key to search for
-     * @param args Arguments
+     * @param args   Arguments
      * @return Value
      */
     public static String findValueFromArgs(String forKey, String[] args) {
