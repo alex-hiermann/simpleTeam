@@ -20,6 +20,12 @@ import java.util.LinkedList;
  */
 public class BasicFunctionLibrary {
 
+    /**
+     * Returns a value associated with a key in the ST request arguments
+     * @param forKey Key to search for
+     * @param args Arguments
+     * @return Value
+     */
     public static String findValueFromArgs(String forKey, String[] args) {
         for (String entry : args) {
             if (entry.split("=")[0].equals(forKey)) {
