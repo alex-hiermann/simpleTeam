@@ -7,6 +7,7 @@ import Client.User;
 import Utils.BasicFunctionLibrary;
 import Utils.Configuration;
 import Utils.SQLite.SQLiteHandler;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -22,6 +23,9 @@ import static Utils.BasicFunctionLibrary.*;
 
 /**
  * Listener class handles all incoming requests
+ * <p>
+ * Created and modified by Burger Maximilian and Hiermann Alexander.
+ * Please consider correct usage of the LICENSE.
  */
 public class Listener implements Runnable {
 
@@ -244,6 +248,7 @@ public class Listener implements Runnable {
 
     /**
      * Returns Inet address adn port
+     *
      * @return Human readable string
      */
     @Override
@@ -253,6 +258,7 @@ public class Listener implements Runnable {
 
     /**
      * Default construct
+     *
      * @param s Socket
      */
     public Listener(Socket s) {
@@ -261,6 +267,7 @@ public class Listener implements Runnable {
 
     /**
      * Send a request to the socket client
+     *
      * @param message Request
      */
     public void sendSTRequestToClient(String message) {
