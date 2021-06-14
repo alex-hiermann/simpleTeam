@@ -7,12 +7,8 @@ import Client.User;
 import Server.Server;
 import Utils.BasicFunctionLibrary;
 import Utils.Configuration;
-import java.sql.DatabaseMetaData;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.sql.*;
 import java.time.ZoneId;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +17,9 @@ import java.util.stream.Collectors;
 
 
 /**
- * Last updated by Alexander Hiermann on 06/01/2021
+ * Created and modified by Burger Maximilian and Hiermann Alexander.
+ * Please consider correct usage of the LICENSE.
+ * <p>
  * different templates used from sqlitetutorial.net
  */
 public class SQLiteHandler {
@@ -122,6 +120,7 @@ public class SQLiteHandler {
 
     /**
      * Retrieve the highest User Id
+     *
      * @return unique User Id
      */
     public static int retrieveUserID() {
@@ -141,6 +140,7 @@ public class SQLiteHandler {
 
     /**
      * Retrieve the highest Team Id
+     *
      * @return unique team id
      */
     public static int retrieveTeamId() {
@@ -160,6 +160,7 @@ public class SQLiteHandler {
 
     /**
      * Retrieve highest Task Id
+     *
      * @return unique task id
      */
     public static int retrieveTaskId() {
@@ -191,6 +192,7 @@ public class SQLiteHandler {
 
     /**
      * Adding a new User to the database
+     *
      * @param user New User
      */
     public static void addNewUserToDatabase(User user) {
@@ -344,6 +346,7 @@ public class SQLiteHandler {
 
     /**
      * Adding a new team to the database
+     *
      * @param team New Team
      */
     public static void addNewTeamToDatabase(Team team) {
@@ -443,8 +446,9 @@ public class SQLiteHandler {
 
     /**
      * Adds a new message to the given team
+     *
      * @param message Message
-     * @param teamId Team Id
+     * @param teamId  Team Id
      */
     public static void addNewMessageToDatabase(Message message, int teamId) {
         Connection.connectIfAbsent();
@@ -495,6 +499,7 @@ public class SQLiteHandler {
 
     /**
      * Adds a new task to the database
+     *
      * @param task New Task
      */
     public static void addNewTaskToDatabase(Task task) {
@@ -566,7 +571,8 @@ public class SQLiteHandler {
 
     /**
      * Updates the state from the given task to the new state
-     * @param taskId Task Id
+     *
+     * @param taskId   Task Id
      * @param newState New State
      */
     public static void updateTaskState(int taskId, Task.E_TASK_STATE newState) {
