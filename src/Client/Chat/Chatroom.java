@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * Chatroom class, used to identify the chatroom, used in the database and UI for each team
+ * Chatroom class, used to identify the Chatroom, used in the database and UI for each Team
  */
 public class Chatroom {
 
