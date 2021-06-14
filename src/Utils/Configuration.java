@@ -3,6 +3,12 @@ package Utils;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * Class with global configurations used by multiple other classes
+ * <p>
+ * Created and modified by Burger Maximilian and Hiermann Alexander.
+ * Please consider correct usage of the LICENSE.
+ */
 public class Configuration {
 
     /**
@@ -15,6 +21,9 @@ public class Configuration {
      */
     public static final String CHECK_EMAIL_REGEX = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 
+    /**
+     * This regex is used to collect only relevant input for a valid ip and port
+     */
     public static final String CHECK_IP_AND_PORT_REGEX = "((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):\\d+)|(localhost:\\d+)";
 
     /*
@@ -48,7 +57,6 @@ public class Configuration {
      */
     public static int teamId = 1;
 
-
     /**
      * Uniqze task id counter
      */
@@ -57,7 +65,6 @@ public class Configuration {
     /*
      * Variables used for colorful outputs following
      */
-
     /**
      * Color-code used to reset the color of the output
      */
