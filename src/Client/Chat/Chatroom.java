@@ -7,6 +7,9 @@ import java.util.LinkedList;
 
 /**
  * Chatroom class, used to identify the Chatroom, used in the database and UI for each Team
+ *
+ * Created and modified by Burger Maximilian and Hiermann Alexander.
+ * Please consider correct usage of the LICENSE.
  */
 public class Chatroom {
 
