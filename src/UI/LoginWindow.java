@@ -6,9 +6,11 @@ import Client.User;
 import Utils.BasicFunctionLibrary;
 import Utils.Configuration;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -19,35 +21,76 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
+/**
+ * Class used to create the login window which lets the user create or login into a user profile
+ *
+ * Created and modified by Burger Maximilian and Hiermann Alexander.
+ * Please consider correct usage of the LICENSE.
+ */
 public class LoginWindow {
+    /**
+     * TextField for the email
+     */
     public TextField email;
+
+    /**
+     * PasswordField for the password
+     */
     public PasswordField password;
+
+    /**
+     * TextField for the server
+     */
     public TextField server;
+
+    /**
+     * Button for the button
+     */
     public Button button;
+
+    /**
+     * VBox for the vbox
+     */
     public VBox vbox;
-    public ProgressBar progressBar;
+
+    /**
+     * AnchorPane for the pane
+     */
     public AnchorPane pane;
+
+    /**
+     * Button for the register
+     */
     public Button register;
 
+    /**
+     * initialize method called to create the needed textfield-keylistener
+     */
     public void initialize() {
         password.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ENTER) {
-                loginAction(new ActionEvent());
+                loginAction();
             }
         });
 
         server.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ENTER) {
-                loginAction(new ActionEvent());
+                loginAction();
             }
         });
     }
 
+    /**
+     * needed to call the extracted method
+     */
     @FXML
-    public void loginAction(ActionEvent actionEvent) {
+    public void loginAction() {
         extracted();
     }
 
+    /**
+     * used to login the user
+     */
     public void extracted() {
         Matcher matcher = Pattern.compile(Configuration.CHECK_IP_AND_PORT_REGEX).matcher(server.getText());
         Matcher emailMatcher = Pattern.compile(Configuration.CHECK_EMAIL_REGEX).matcher(email.getText());
@@ -77,7 +120,10 @@ public class LoginWindow {
         Client.sendSTRequest("login:email=ꠦ" + email.getText() + "ꠦ,password=ꠦ" + BasicFunctionLibrary.hashPassword(password.getText()) + "ꠦ");
     }
 
-    public void registerAction(ActionEvent actionEvent) {
+    /**
+     * used to register a user
+     */
+    public void registerAction() {
         ClientMain.currentStage.close();
         try {
             new ClientMain().showRegisterWindow();
