@@ -1,7 +1,6 @@
 package Client;
 
 import Client.Chat.Message;
-import Server.Server;
 import UI.TaskUI;
 import Utils.BasicFunctionLibrary;
 import Utils.Configuration;
@@ -14,13 +13,15 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.LinkedList;
 
 import static Utils.BasicFunctionLibrary.*;
 
 /**
  * Client class which receives and handles STRequest sent from the server
+ *
+ * Created and modified by Burger Maximilian and Hiermann Alexander.
+ * Please consider correct usage of the LICENSE.
  */
 public class Client implements Runnable {
 
@@ -28,11 +29,11 @@ public class Client implements Runnable {
      * Socket connected to the listener
      */
     static Socket socket;
+
     /**
      * User object
      */
     public static User user;
-
 
     /**
      * @param socket Socket
@@ -168,11 +169,9 @@ public class Client implements Runnable {
                         }
                     }
                     //Fetches a single User
-                    case "fetchedUser" -> {
-                        user.myTeams.get(user.myTeams.indexOf(
-                                new Team(Integer.parseInt(findValueFromArgs("teamId", args)))))
-                                .members.add(extractUserFromArgs(args));
-                    }
+                    case "fetchedUser" -> user.myTeams.get(user.myTeams.indexOf(
+                            new Team(Integer.parseInt(findValueFromArgs("teamId", args)))))
+                            .members.add(extractUserFromArgs(args));
                     //Alerts the user about a successful task creation and sets the server parameters
                     case "taskAddSuccess" -> {
                         int teamId = Integer.parseInt(BasicFunctionLibrary.findValueFromArgs("teamId", args));
@@ -192,18 +191,15 @@ public class Client implements Runnable {
                                 }
                         );
                     }
-
-                    case "newTaskAssigned" -> {
-                        Platform.runLater(() -> {
-                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                    alert.setTitle("Alert");
-                                    alert.setHeaderText("A new task has been assigned to you!");
-                                    alert.setContentText("Check your teams and see what your new tasks are!");
-                                    alert.showAndWait();
-                                }
-                        );
-                    }
-
+                    //Alerts the user that a new task has been assigned
+                    case "newTaskAssigned" -> Platform.runLater(() -> {
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setTitle("Alert");
+                                alert.setHeaderText("A new task has been assigned to you!");
+                                alert.setContentText("Check your teams and see what your new tasks are!");
+                                alert.showAndWait();
+                            }
+                    );
                     //Alerts the user that the task creation failed
                     case "taskAddFail" -> Platform.runLater(() -> {
                                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -213,7 +209,7 @@ public class Client implements Runnable {
                                 alert.showAndWait();
                             }
                     );
-
+                    //Fetches the tasks
                     case "fetchTask" -> {
                         Task tempTask = new Task(findValueFromArgs("taskName", args),
                                 findValueFromArgs("taskDescription", args),
@@ -239,10 +235,6 @@ public class Client implements Runnable {
                                     }
                                 }
                         );
-                    }
-
-                    case "" -> {
-
                     }
                 }
             }
