@@ -14,23 +14,45 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+/**
+ * SimpleTeam server class
+ */
 public class Server implements Runnable {
 
+    /**
+     * Server port. Can be set through the -port parameter
+     */
     public static int port;
 
+    /**
+     * Clients
+     */
     public static LinkedList<Socket> clients = new LinkedList<>();
 
+    /**
+     * Actual users
+     */
     public static LinkedList<User> users = new LinkedList<>();
 
+    /**
+     * Listener HashMap in Order to properly send information to the appropriate users
+     */
     public static HashMap<User, Listener> listeners = new HashMap<>();
 
+    /**
+     * Simple Team Teams List
+     */
     public static LinkedList<Team> teams = new LinkedList<>();
 
 
+    /**
+     * @param args arguments. [-port %PORTNUMBER%] [-path %PATH TO DB%]
+     */
     public static void main(String[] args) {
         try {
             if (args[0].equalsIgnoreCase("-port")) {
@@ -62,23 +84,27 @@ public class Server implements Runnable {
         }
         System.out.println(Configuration.ANSI_RED + "Starting Server" + Configuration.ANSI_RESET);
 
-        //Create simpleTeam Server file structure
-        BasicFunctionLibrary.createServerFolderStructure();
+        try {
+            //Create simpleTeam Server file structure
+            BasicFunctionLibrary.createServerFolderStructure();
 
-        //Create and connect to a database
-        SQLiteHandler.createNewDatabase();
+            //Create and connect to a database
+            SQLiteHandler.createNewDatabase();
 
-        //Create Default Tables IF NOT EXIST
-        SQLiteHandler.createDefaultTables();
+            //Create Default Tables IF NOT EXIST
+            SQLiteHandler.createDefaultTables();
 
-        //SQLite establish connection
-        Connection.connect();
+            //SQLite establish connection
+            Connection.connect();
 
-        //Retrieve data
-        SQLiteHandler.getAllUsers();
-        SQLiteHandler.getAllTeams();
-        SQLiteHandler.getAllMessages();
-        SQLiteHandler.getAllTasks();
+            //Retrieve data
+            SQLiteHandler.getAllUsers();
+            SQLiteHandler.getAllTeams();
+            SQLiteHandler.getAllMessages();
+            SQLiteHandler.getAllTasks();
+        } catch (Exception e) {
+            System.err.println(Configuration.ANSI_RED + "--------------SQLite failure. Not using SQLite!--------------");
+        }
 
         Thread thread = new Thread(new Server());
         thread.start();
@@ -96,6 +122,9 @@ public class Server implements Runnable {
         }
     }
 
+    /**
+     * Server command line
+     */
     @Override
     public void run() {
         while (true) {

@@ -20,10 +20,6 @@ public class TaskUI {
     public Text taskNote;
 
     public void initialize() {
-        type.setText(task.getType().toString() + ": " + task.getName() + "     -     " + task.getState());
-        taskNote.setText(task.getNote());
-        prio.setText(task.getDifficulty().toString());
-        dueDate.setText("Due to: " + task.getTill().toString());
 
         if (task.getState().toString().equalsIgnoreCase("started")) {
             started.setSelected(true);
@@ -37,6 +33,21 @@ public class TaskUI {
             started.setDisable(true);
         }
 
+        updateValues();
+
+        switch (task.getDifficulty().toString().toUpperCase()) {
+            case "EASY" -> prioImg.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/difficulty/easy.png"))));
+            case "MEDIUM" -> prioImg.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/difficulty/medium.png"))));
+            case "HARD" -> prioImg.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/difficulty/hard.png"))));
+            case "EXTREME" -> prioImg.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/difficulty/extreme.png"))));
+        }
+    }
+
+    private void updateValues() {
+        type.setText(task.getType().toString() + ": " + task.getName() + "     -     " + task.getState());
+        taskNote.setText(task.getNote());
+        prio.setText(task.getDifficulty().toString());
+        dueDate.setText("Due to: " + task.getTill().toString());
 
         if (!task.getUser().equals(Client.user)) {
             started.setDisable(true);
@@ -47,22 +58,15 @@ public class TaskUI {
             task.setState(Task.E_TASK_STATE.STARTED);
             finished.setDisable(!finished.isDisabled());
             Client.sendSTRequest("changeTaskState:newTaskState=ꠦSTARTEDꠦ,taskId=ꠦ" + task.getTaskId() + "ꠦ,teamId=ꠦ" + task.getTeam_id() + "ꠦ");
-            initialize();
+            updateValues();
         });
 
         finished.setOnAction(actionEvent -> {
             task.setState(Task.E_TASK_STATE.FINISHED);
             started.setDisable(!started.isDisabled());
             Client.sendSTRequest("changeTaskState:newTaskState=ꠦFINISHEDꠦ,taskId=ꠦ" + task.getTaskId() + "ꠦ,teamId=ꠦ" + task.getTeam_id() + "ꠦ");
-            initialize();
+            updateValues();
         });
-
-        switch (task.getDifficulty().toString().toUpperCase()) {
-            case "EASY" -> prioImg.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/difficulty/easy.png"))));
-            case "MEDIUM" -> prioImg.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/difficulty/medium.png"))));
-            case "HARD" -> prioImg.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/difficulty/hard.png"))));
-            case "EXTREME" -> prioImg.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/difficulty/extreme.png"))));
-        }
     }
 
     public TaskUI(Task task) {

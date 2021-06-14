@@ -164,6 +164,7 @@ public class Client implements Runnable {
                             }
 
                         } catch (NullPointerException ignored) {
+                            System.out.println("Chat not loaded yet!");
                         }
                     }
                     //Fetches a single User
@@ -181,19 +182,6 @@ public class Client implements Runnable {
                         BasicFunctionLibrary.getEntryFromLinkedList(getEntryFromLinkedList(user.myTeams,
                                 new Team(teamId)).tasks, tempTask).setTaskId(newTaskId);
                         tempTask.setTaskId(newTaskId);
-
-//                        Platform.runLater(() -> {
-//                                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/TaskUI.fxml"));
-//                                    fxmlLoader.setControllerFactory(l -> new TaskUI(BasicFunctionLibrary.
-//                                            getEntryFromLinkedList(getEntryFromLinkedList(user.myTeams,
-//                                                    new Team(teamId)).tasks, tempTask)));
-//                                    try {
-//                                        ClientMain.mainWindow.controller.tasks.getChildren().add(fxmlLoader.load());
-//                                    } catch (IOException ioException) {
-//                                        ioException.printStackTrace();
-//                                    }
-//                                }
-//                        );
 
                         Platform.runLater(() -> {
                                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -247,6 +235,7 @@ public class Client implements Runnable {
                                     try {
                                         ClientMain.mainWindow.controller.tasks.getChildren().add(fxmlLoader.load());
                                     } catch (Exception ignored) {
+                                        System.out.println("Tasks not loaded yet");
                                     }
                                 }
                         );
