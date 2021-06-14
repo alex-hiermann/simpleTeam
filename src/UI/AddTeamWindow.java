@@ -17,12 +17,12 @@ import javafx.scene.layout.AnchorPane;
 public class AddTeamWindow {
 
     /**
-     * Textfield for the teamname
+     * TextField for the teamname
      */
     public TextField teamname;
 
     /**
-     * Textarea for the teamdesc
+     * TextArea for the teamdesc
      */
     public TextArea teamdesc;
 

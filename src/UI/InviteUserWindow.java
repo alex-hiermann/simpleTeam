@@ -14,12 +14,12 @@ import java.util.regex.Pattern;
 
 public class InviteUserWindow {
     /**
-     * Anchorpane for the pane
+     * AnchorPane for the pane
      */
     public AnchorPane pane;
 
     /**
-     * Textfiel for the email
+     * TextField for the email
      */
     public TextField email;
 

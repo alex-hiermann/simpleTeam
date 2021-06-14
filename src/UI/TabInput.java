@@ -2,15 +2,9 @@ package UI;
 
 
 import Client.Chat.Chatroom;
-import Client.User;
 import Client.Chat.Message;
-import Client.Client;
-import Client.ClientMain;
-import Client.Task;
-import Client.Team;
-import Utils.BasicFunctionLibrary;
+import Client.*;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -23,21 +17,55 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
-import java.util.List;
 
 import static Utils.BasicFunctionLibrary.getEntryFromLinkedList;
 
+/**
+ * Class for the FXML of each tab used in the main window
+ *
+ * Created and modified by Burger Maximilian and Hiermann Alexander.
+ * Please consider correct usage of the LICENSE.
+ */
 public class TabInput {
 
+    /**
+     * Button for the addTaskButton
+     */
     public Button addTaskButton;
+
+    /**
+     * Button for the inviteButton
+     */
     public Button inviteButton;
 
+    /**
+     * Team for the tabInput to be loaded
+     */
     public Team selectedTeam;
+
+    /**
+     * Text for the teamName
+     */
     public Text teamName;
+
+    /**
+     * TextField for the messageField
+     */
     public TextField messageField;
+
+    /**
+     * VBox for the chat
+     */
     public VBox chat;
+
+    /**
+     * VBox for the tasks
+     */
     public VBox tasks;
 
+    /**
+     * initialize method called to print and load everything needed and also create a textfield-keylistener
+     */
     public void initialize() {
         printMessages(selectedTeam.getChatroom());
         loadTasks();
@@ -55,17 +83,25 @@ public class TabInput {
 
         messageField.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ENTER) {
-                sendMessage(new ActionEvent());
+                sendMessage();
             }
         });
     }
 
+    /**
+     * constructor used to create a new tabinput with the selected team
+     *
+     * @param selectedTeam the selected team
+     */
     public TabInput(Team selectedTeam) {
         this.selectedTeam = selectedTeam;
     }
 
+    /**
+     * method used to open the invite user window
+     */
     @FXML
-    public void createTeamDialog(ActionEvent actionEvent) {
+    public void createTeamDialog() {
         if (selectedTeam.getAdmin().equals(Client.user)) {
             inviteButton.setDisable(false);
             inviteButton.setOnAction(l -> {
@@ -81,8 +117,11 @@ public class TabInput {
         Client.sendSTRequest("requestUsers:teamId=ꠦ" + selectedTeam.getId() + "ꠦ");
     }
 
+    /**
+     * used to send a message using a STRequest
+     */
     @FXML
-    public void sendMessage(ActionEvent actionEvent) {
+    public void sendMessage() {
         if (selectedTeam == null) return;
         Message message = new Message(Client.user, messageField.getText(), new Date());
         messageField.clear();
@@ -92,6 +131,11 @@ public class TabInput {
         Client.sendSTRequest(request);
     }
 
+    /**
+     * used to print the messages from the provided chatroom
+     *
+     * @param chatroom chatroom of the team with the needed massages
+     */
     @FXML
     public void printMessages(Chatroom chatroom) {
         Platform.runLater(() -> {
@@ -108,6 +152,12 @@ public class TabInput {
         });
     }
 
+    /**
+     * change the name of the tabinput to a shorted version of the teams name
+     *
+     * @param text text to change
+     * @param team team to get the correct team-name
+     */
     public void changeTeamText(Text text, Team team) {
         switch (text.getText().length()) {
             case 2 -> text.setText(team.getName().substring(0, 2).toUpperCase());
@@ -116,6 +166,9 @@ public class TabInput {
         }
     }
 
+    /**
+     * used to load all tasks into the UI
+     */
     public void loadTasks() {
         Platform.runLater(() -> {
             try {
