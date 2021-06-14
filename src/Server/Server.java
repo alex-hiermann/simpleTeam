@@ -133,6 +133,8 @@ public class Server implements Runnable {
                 switch (command.toLowerCase()) {
                     case "shutdown" -> {
                         System.out.println(Configuration.ANSI_RED + "Server shutdowning in 5 seconds!" + Configuration.ANSI_RESET);
+                        System.out.println(Configuration.ANSI_BLUE + "Shutting down the SQLite connection!");
+                        SQLiteHandler.closeConnection();
                         try {
                             Thread.sleep(5000);
                             System.exit(2);

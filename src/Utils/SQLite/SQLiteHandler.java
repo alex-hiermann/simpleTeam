@@ -126,6 +126,10 @@ public class SQLiteHandler {
         }
     }
 
+    /**
+     * Retrieve the highest User Id
+     * @return unique User Id
+     */
     public static int retrieveUserID() {
         Connection.connectIfAbsent();
         String sql = "SELECT MAX(pk_user_id) AS 'USERID' FROM User";
@@ -141,6 +145,10 @@ public class SQLiteHandler {
         return 0;
     }
 
+    /**
+     * Retrieve the highest Team Id
+     * @return unique team id
+     */
     public static int retrieveTeamId() {
         Connection.connectIfAbsent();
         String sql = "SELECT MAX(pk_team_id) AS 'TEAMID' FROM Team";
@@ -156,6 +164,10 @@ public class SQLiteHandler {
         return 0;
     }
 
+    /**
+     * Retrieve highest Task Id
+     * @return unique task id
+     */
     public static int retrieveTaskId() {
         Connection.connectIfAbsent();
         String sql = "SELECT MAX(pk_task_id) AS 'TASKID' FROM Task";
@@ -172,6 +184,9 @@ public class SQLiteHandler {
     }
 
 
+    /**
+     * Close the active connection
+     */
     public static void closeConnection() {
         try {
             Connection.connection.close();
@@ -180,6 +195,10 @@ public class SQLiteHandler {
         }
     }
 
+    /**
+     * Adding a new User to the database
+     * @param user New User
+     */
     public static void addNewUserToDatabase(User user) {
         Connection.connectIfAbsent();
         String sql = "INSERT INTO User(pk_user_id, username, name, lastname, email, birth, password) VALUES (?,?,?,?,?,?,?)";
@@ -199,6 +218,10 @@ public class SQLiteHandler {
         }
     }
 
+    /**
+     * @param email User Email
+     * @return User with that email
+     */
     public static User retrieveUser(String email) {
         String sql = "SELECT * FROM User WHERE email LIKE ?";
         try {
@@ -220,6 +243,10 @@ public class SQLiteHandler {
         return null;
     }
 
+    /**
+     * @param userId User Id
+     * @return User with that id
+     */
     public static User retrieveUser(int userId) {
         Connection.connectIfAbsent();
         String sql = "SELECT * FROM User WHERE pk_user_id = " + userId;
@@ -241,6 +268,9 @@ public class SQLiteHandler {
     }
 
 
+    /**
+     * Write all the users into the server
+     */
     public static void getAllUsers() {
         Connection.connectIfAbsent();
         String sql = "SELECT * FROM User";
@@ -272,6 +302,10 @@ public class SQLiteHandler {
         }
     }
 
+    /**
+     * @param userId UserId
+     * @return All the teams the user is present in
+     */
     public static LinkedList<Integer> retrieveTeamsForUser(int userId) {
         Connection.connectIfAbsent();
         String sql = "SELECT fk_pk_team_id FROM Team_User WHERE fk_pk_user_id = ?";
@@ -291,6 +325,10 @@ public class SQLiteHandler {
         return null;
     }
 
+    /**
+     * @param teamId Team Id
+     * @return The team with that id
+     */
     public static Team retrieveTeam(int teamId) {
         Connection.connectIfAbsent();
         String sql = "SELECT * FROM Team WHERE pk_team_id = ?";
@@ -310,6 +348,10 @@ public class SQLiteHandler {
         return null;
     }
 
+    /**
+     * Adding a new team to the database
+     * @param team New Team
+     */
     public static void addNewTeamToDatabase(Team team) {
         Connection.connectIfAbsent();
         String sql = "INSERT INTO Team(pk_team_id, name, description, fk_admin_id) VALUES (?,?,?,?)";
@@ -326,6 +368,10 @@ public class SQLiteHandler {
         }
     }
 
+    /**
+     * @param user User to add
+     * @param team The team the user will be added to
+     */
     public static void addUserToTeam(User user, Team team) {
         Connection.connectIfAbsent();
         String sql = "INSERT INTO Team_User(fk_pk_team_id, fk_pk_user_id) VALUES (?,?)";
@@ -341,6 +387,9 @@ public class SQLiteHandler {
     }
 
 
+    /**
+     * Write the teams into the server
+     */
     public static void getAllTeams() {
         Connection.connectIfAbsent();
         String sql = "SELECT * FROM Team";
@@ -374,6 +423,10 @@ public class SQLiteHandler {
         }
     }
 
+    /**
+     * @param teamId Team id
+     * @return Get the ids of the team members
+     */
     public static LinkedList<Integer> retrieveUsersForTeam(int teamId) {
         Connection.connectIfAbsent();
         String sql = "SELECT fk_pk_user_id FROM Team_User WHERE fk_pk_team_id = ?";
@@ -394,6 +447,11 @@ public class SQLiteHandler {
     }
 
 
+    /**
+     * Adds a new message to the given team
+     * @param message Message
+     * @param teamId Team Id
+     */
     public static void addNewMessageToDatabase(Message message, int teamId) {
         Connection.connectIfAbsent();
         String sql = "INSERT INTO Message(text, date, fk_pk_user_id, fk_pk_team) VALUES (?,?,?,?)";
@@ -410,6 +468,9 @@ public class SQLiteHandler {
         }
     }
 
+    /**
+     * Write all the Messages into the server
+     */
     public static void getAllMessages() {
         String sql = "SELECT * FROM Message";
 
@@ -438,6 +499,10 @@ public class SQLiteHandler {
         }
     }
 
+    /**
+     * Adds a new task to the database
+     * @param task New Task
+     */
     public static void addNewTaskToDatabase(Task task) {
         Connection.connectIfAbsent();
         String sql = "INSERT INTO Task(pk_task_id, " +
@@ -468,6 +533,9 @@ public class SQLiteHandler {
         }
     }
 
+    /**
+     * Write all the tasks into the server
+     */
     public static void getAllTasks() {
         Connection.connectIfAbsent();
         String sql = "SELECT * FROM Task";
@@ -502,6 +570,11 @@ public class SQLiteHandler {
         }
     }
 
+    /**
+     * Updates the state from the given task to the new state
+     * @param taskId Task Id
+     * @param newState New State
+     */
     public static void updateTaskState(int taskId, Task.E_TASK_STATE newState) {
         Connection.connectIfAbsent();
         String sql = "UPDATE Task SET state = ? WHERE pk_task_id = ?";
