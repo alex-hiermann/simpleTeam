@@ -4,7 +4,6 @@ import Client.Client;
 import Client.Team;
 import Client.User;
 import Utils.Configuration;
-import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -14,21 +13,41 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InviteUserWindow {
+    /**
+     * Anchorpane for the pane
+     */
     public AnchorPane pane;
+
+    /**
+     * Textfiel for the email
+     */
     public TextField email;
+
+    /**
+     * Text for the infoText
+     */
     public Text infoText;
 
+    /**
+     * Team where the user should be invited to
+     */
     public static Team selectedTeam;
 
+    /**
+     * initialize method called to create a textfield-keylistener
+     */
     public void initialize() {
         email.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ENTER) {
-                inviteUserAction(new ActionEvent());
+                inviteUserAction();
             }
         });
     }
 
-    public void inviteUserAction(ActionEvent actionEvent) {
+    /**
+     * method used to invite a new user with sending a STRequest
+     */
+    public void inviteUserAction() {
         Pattern pattern = Pattern.compile(Configuration.CHECK_EMAIL_REGEX);
 
         Matcher matcher = pattern.matcher(email.getText());
