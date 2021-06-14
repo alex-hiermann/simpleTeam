@@ -7,7 +7,6 @@ import Client.User;
 import Utils.BasicFunctionLibrary;
 import Utils.Configuration;
 import Utils.SQLite.SQLiteHandler;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -16,20 +15,24 @@ import java.net.SocketException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Map;
 
-import static Utils.BasicFunctionLibrary.extractTaskDifficultyFromText;
-import static Utils.BasicFunctionLibrary.extractTaskTypeFromText;
-import static Utils.BasicFunctionLibrary.extractUserFromArgs;
-import static Utils.BasicFunctionLibrary.findValueFromArgs;
-import static Utils.BasicFunctionLibrary.getEntryFromLinkedList;
+import static Utils.BasicFunctionLibrary.*;
 
+/**
+ * Listener class handles all incoming requests
+ */
 public class Listener implements Runnable {
 
+    /**
+     * Connection to the client
+     */
     Socket socket;
 
+    /**
+     * Listens to incoming requests
+     */
     @Override
     public void run() {
         try {
@@ -239,15 +242,27 @@ public class Listener implements Runnable {
 
     }
 
+    /**
+     * Returns Inet address adn port
+     * @return Human readable string
+     */
     @Override
     public String toString() {
         return socket.getInetAddress().toString() + ":" + socket.getPort();
     }
 
+    /**
+     * Default construct
+     * @param s Socket
+     */
     public Listener(Socket s) {
         socket = s;
     }
 
+    /**
+     * Send a request to the socket client
+     * @param message Request
+     */
     public void sendSTRequestToClient(String message) {
         try {
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
