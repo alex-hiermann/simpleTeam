@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * Class for Messages, which are sent in each Chatroom of the Teams
- *
+ * <p>
  * Created and modified by Burger Maximilian and Hiermann Alexander.
  * Please consider correct usage of the LICENSE.
  */
@@ -35,6 +35,7 @@ public class Message {
 
     /**
      * constructor to create a message with text and a date
+     *
      * @param text text of the message
      * @param date date when message was created
      */
@@ -45,6 +46,7 @@ public class Message {
 
     /**
      * constructor to create a message with user, text and a date
+     *
      * @param user user who created the message
      * @param text text of the message
      * @param date date when message was created
@@ -69,6 +71,7 @@ public class Message {
 
     /**
      * set the user
+     *
      * @param user for the message
      */
     public void setUser(User user) {
@@ -84,6 +87,7 @@ public class Message {
 
     /**
      * set the text
+     *
      * @param text text of the message
      */
     public void setText(String text) {
@@ -106,6 +110,7 @@ public class Message {
 
     /**
      * set the date
+     *
      * @param date of the message
      */
     public void setDate(Date date) {
@@ -121,6 +126,7 @@ public class Message {
 
     /**
      * sets the format
+     *
      * @param dateFormat format used to convert the dates
      */
     public void setDateFormat(SimpleDateFormat dateFormat) {

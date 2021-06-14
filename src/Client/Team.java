@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 /**
  * Class for a Team where users and tasks can be assigned to
- *
+ * <p>
  * Created and modified by Burger Maximilian and Hiermann Alexander.
  * Please consider correct usage of the LICENSE.
  */
@@ -50,7 +50,8 @@ public class Team {
 
     /**
      * constructor used to create a team with a name and description
-     * @param name name of the team
+     *
+     * @param name        name of the team
      * @param description description of the team
      */
     public Team(String name, String description) {
@@ -60,9 +61,10 @@ public class Team {
 
     /**
      * constructor used to create a team with a name and description
-     * @param name name of the team
+     *
+     * @param name        name of the team
      * @param description description of the team
-     * @param id unique id of the team
+     * @param id          unique id of the team
      */
     public Team(String name, String description, int id) {
         this.name = name;
@@ -72,9 +74,10 @@ public class Team {
 
     /**
      * constructor used to create a team with a name and description
-     * @param name name of the team
+     *
+     * @param name        name of the team
      * @param description description of the team
-     * @param admin admin of the team
+     * @param admin       admin of the team
      */
     public Team(String name, String description, User admin) {
         this.name = name;
@@ -84,10 +87,11 @@ public class Team {
 
     /**
      * constructor used to create a team with a name and description
-     * @param name name of the team
+     *
+     * @param name        name of the team
      * @param description description of the team
-     * @param id unique id of the team
-     * @param admin admin of the team
+     * @param id          unique id of the team
+     * @param admin       admin of the team
      */
     public Team(String name, String description, int id, User admin) {
         this.name = name;
@@ -98,6 +102,7 @@ public class Team {
 
     /**
      * sets the id
+     *
      * @param id unique id of the team
      */
     public void setId(int id) {
@@ -146,6 +151,7 @@ public class Team {
 
     /**
      * sets admin of the team
+     *
      * @param newAdmin admin of the team
      */
     public void setAdmin(User newAdmin) {
@@ -168,6 +174,7 @@ public class Team {
 
     /**
      * sets the name
+     *
      * @param name name of the team
      */
     public void setName(String name) {
@@ -176,6 +183,7 @@ public class Team {
 
     /**
      * sets the description
+     *
      * @param description description of the team
      */
     public void setDescription(String description) {
@@ -198,6 +206,7 @@ public class Team {
 
     /**
      * sets the chatroom
+     *
      * @param chatroom chatroom of the team
      */
     public void setChatroom(Chatroom chatroom) {

@@ -19,7 +19,7 @@ import static Utils.BasicFunctionLibrary.*;
 
 /**
  * Client class which receives and handles STRequest sent from the server
- *
+ * <p>
  * Created and modified by Burger Maximilian and Hiermann Alexander.
  * Please consider correct usage of the LICENSE.
  */

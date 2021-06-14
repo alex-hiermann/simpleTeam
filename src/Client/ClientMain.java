@@ -17,7 +17,7 @@ import java.util.Objects;
 
 /**
  * Class to create and start all used FXML files for the graphical user interface
- *
+ * <p>
  * Created and modified by Burger Maximilian and Hiermann Alexander.
  * Please consider correct usage of the LICENSE.
  */
@@ -40,6 +40,7 @@ public class ClientMain extends Application {
 
     /**
      * main method to start the first window
+     *
      * @param args args for javafx and FXML launches
      */
     public static void main(String[] args) {
@@ -49,6 +50,7 @@ public class ClientMain extends Application {
 
     /**
      * used to connect the client to the server using the IP Address
+     *
      * @param ip string of ip address
      * @return socket used to connect to the server
      */
@@ -66,6 +68,7 @@ public class ClientMain extends Application {
     /**
      * starts after first window has been initialized
      * login window used to login
+     *
      * @param stage where your scene should be build in
      * @throws Exception exception thrown when FXML errors appear
      */
@@ -83,6 +86,7 @@ public class ClientMain extends Application {
 
     /**
      * login window used to login
+     *
      * @throws Exception exception thrown when FXML errors appear
      */
     public void showLoginWindow() throws Exception {
@@ -99,6 +103,7 @@ public class ClientMain extends Application {
 
     /**
      * register window to register a new user profile
+     *
      * @throws IOException exception thrown when FXML errors appear
      */
     public void showRegisterWindow() throws IOException {
@@ -113,6 +118,7 @@ public class ClientMain extends Application {
 
     /**
      * main window where most of the things are displayed
+     *
      * @throws IOException exception thrown when FXML errors appear
      */
     public void showMainWindow() throws IOException {
@@ -129,6 +135,7 @@ public class ClientMain extends Application {
 
     /**
      * create team window used to create a new team
+     *
      * @throws IOException exception thrown when FXML errors appear
      */
     public void showAddTeamWindow() throws IOException {
@@ -144,6 +151,7 @@ public class ClientMain extends Application {
 
     /**
      * invite user window used to invite a user to a team
+     *
      * @param team team where the user should be invited to
      * @throws IOException exception thrown when FXML errors appear
      */
@@ -161,7 +169,8 @@ public class ClientMain extends Application {
 
     /**
      * new task window to create a new task
-     * @param team the team where this task should be assigned to
+     *
+     * @param team  the team where this task should be assigned to
      * @param admin if this client.user is the admin or not
      * @throws IOException exception thrown when FXML errors appear
      */

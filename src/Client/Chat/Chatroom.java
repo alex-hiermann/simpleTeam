@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 /**
  * Chatroom class, used to identify the Chatroom, used in the database and UI for each Team
- *
+ * <p>
  * Created and modified by Burger Maximilian and Hiermann Alexander.
  * Please consider correct usage of the LICENSE.
  */
@@ -25,6 +25,7 @@ public class Chatroom {
 
     /**
      * used to get all messages for a STRequest with specific output
+     *
      * @return formatted list of messages for STRequests
      */
     public ArrayList<String> generateMessages() {
@@ -39,6 +40,7 @@ public class Chatroom {
 
     /**
      * constructor used to initialize a new chatroom with a team
+     *
      * @param team reference to where the chatroom belongs to
      */
     public Chatroom(Team team) {
@@ -54,6 +56,7 @@ public class Chatroom {
 
     /**
      * adds a new message to the message list
+     *
      * @param message message that will be added
      */
     public void addMessage(Message message) {
@@ -76,6 +79,7 @@ public class Chatroom {
 
     /**
      * set the team, where this chatroom is paired with
+     *
      * @param team team to be changed
      */
     public void setTeam(Team team) {

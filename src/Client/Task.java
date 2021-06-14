@@ -7,7 +7,7 @@ import java.util.Objects;
 
 /**
  * Task class, which contains data about the given task for a specific user in a team
- *
+ * <p>
  * Created and modified by Burger Maximilian and Hiermann Alexander.
  * Please consider correct usage of the LICENSE.
  */

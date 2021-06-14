@@ -6,7 +6,7 @@ import java.util.Objects;
 
 /**
  * Class for the User
- *
+ * <p>
  * Created and modified by Burger Maximilian and Hiermann Alexander.
  * Please consider correct usage of the LICENSE.
  */
