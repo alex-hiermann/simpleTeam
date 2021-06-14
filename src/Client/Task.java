@@ -7,6 +7,9 @@ import java.util.Objects;
 
 /**
  * Task class, which contains data about the given task for a specific user in a team
+ *
+ * Created and modified by Burger Maximilian and Hiermann Alexander.
+ * Please consider correct usage of the LICENSE.
  */
 public class Task {
 
@@ -40,30 +43,37 @@ public class Task {
      * Task name
      */
     private String name;
+
     /**
      * Task note (Further task instructions)
      */
     private String description;
+
     /**
      * When the task is due
      */
     private LocalDate till;
+
     /**
      * Task type
      */
     private E_TASK_TYPE type;
+
     /**
      * Task state
      */
     private E_TASK_STATE state = E_TASK_STATE.OPEN;
+
     /**
      * Task difficulty
      */
     private E_TASK_DIFFICULTY difficulty;
+
     /**
      * Team the task is in
      */
     private int team_id;
+
     /**
      * Assigned User
      */
