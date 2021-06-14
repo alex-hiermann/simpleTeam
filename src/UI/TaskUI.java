@@ -9,18 +9,58 @@ import javafx.scene.text.Text;
 import Client.Client;
 import java.util.Objects;
 
+/**
+ * Class for the taskUI which  is used to display the tasks of a team and user
+ * <p>
+ * Created and modified by Burger Maximilian and Hiermann Alexander.
+ * Please consider correct usage of the LICENSE.
+ */
 public class TaskUI {
+
+    /**
+     * ImageView for the prioImg
+     */
     public ImageView prioImg;
+
+    /**
+     * TitledPane for the type
+     */
     public TitledPane type;
+
+    /**
+     * Text for the prio
+     */
     public Text prio;
+
+    /**
+     * Task for the task
+     */
     public Task task;
+
+    /**
+     * RadioButton for the started
+     */
     public RadioButton started;
+
+    /**
+     * RadioButton for the finished
+     */
     public RadioButton finished;
+
+    /**
+     * Text for the dueDate
+     */
     public Text dueDate;
+
+    /**
+     * Text for the taskNote
+     */
     public Text taskNote;
 
+    /**
+     * initialize method called to create a textfield-keylistener and get the buttons for the enums
+     */
     public void initialize() {
-
         if (task.getState().toString().equalsIgnoreCase("started")) {
             started.setSelected(true);
             finished.setDisable(true);
@@ -32,7 +72,6 @@ public class TaskUI {
             finished.setDisable(false);
             started.setDisable(true);
         }
-
         updateValues();
 
         switch (task.getDifficulty().toString().toUpperCase()) {
@@ -43,6 +82,9 @@ public class TaskUI {
         }
     }
 
+    /**
+     * updates the values from the taskUI for the task
+     */
     private void updateValues() {
         type.setText(task.getType().toString() + ": " + task.getName() + "     -     " + task.getState());
         taskNote.setText(task.getNote());
@@ -69,6 +111,11 @@ public class TaskUI {
         });
     }
 
+    /**
+     * constructor to create a new taskUI using a task
+     *
+     * @param task new task for the taskUI
+     */
     public TaskUI(Task task) {
         this.task = task;
     }
