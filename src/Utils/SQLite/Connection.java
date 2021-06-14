@@ -32,7 +32,8 @@ public class Connection {
        }
     }
 
-    public static void close() {
+    public static void close() throws SQLException {
+        connection.close();
         connection = null;
         System.err.println(Configuration.ANSI_BLUE + "Connection to SQLite has been closed." + Configuration.ANSI_RESET);
     }

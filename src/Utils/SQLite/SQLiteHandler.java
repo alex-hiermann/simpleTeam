@@ -108,12 +108,6 @@ public class SQLiteHandler {
                 );
                 """;
 
-//        TODO Add table "Serverconfig" to the database structure, template:
-//        CREATE TABLE IF NOT EXISTS Serverconfig (
-//            unique_user_id    UNSIGNED INT,
-//            unique_team_id    UNSIGNED INT
-//        );
-
         for (String statement : sql.split(";")) {
             try {
                 java.sql.Connection conn = DriverManager.getConnection(Configuration.DATABASE_URL);
@@ -189,7 +183,7 @@ public class SQLiteHandler {
      */
     public static void closeConnection() {
         try {
-            Connection.connection.close();
+            Connection.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
